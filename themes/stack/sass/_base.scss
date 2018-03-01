@@ -1,0 +1,146 @@
+// IMG PATH: /img/<nomefile>
+// Inizio SASS
+// Inizio Importazioni
+@import 'compass/css3';
+@import 'compass/typography/links/link-colors';
+
+// Dichiarazione Variabili
+// Colori
+// Fonts
+// Fonts - Dimensioni
+$font-size-desktop: 14px;
+$font-size-mobile: 12px;
+$font-size-rem: 62.5%;
+// Risoluzioni
+$desktop: 992px;
+$desktop-hd: 1200px;
+$tablet: 768px;
+$smartphone: 576px;
+// Media Queries
+$media-desktop: "min-width: #{$desktop}";
+$media-desktop-hd: "min-width: #{$desktop-hd}";
+$media-tablet: "min-width: #{$tablet}";
+$media-smartphone: "min-width: #{$smartphone}";
+
+// Classi
+%cover,
+%sfondo,
+%sprites {
+
+  @extend %background;
+}
+
+%background {
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+}
+
+%centro {
+  text-align: center;
+}
+
+%cover {
+  background-position: center;
+  background-size: cover;
+}
+
+%immagine {
+	height: auto;
+	width: 100%;
+}
+
+%maiuscolo {
+  text-transform: uppercase;
+}
+
+%sfondo {
+  background-position: 0 0;
+  background-size: 100%;
+}
+
+// Generale
+// Links
+a {
+  text-decoration: none !important;
+}
+
+a:active
+a:focus {
+
+}
+
+// Outline
+a:focus,
+input:focus,
+.btn:focus {
+  outline: none !important;
+}
+
+// Layout
+.bloccato {
+	overflow: hidden !important;
+}
+
+.clear {
+  clear: both;
+}
+
+// Interazione
+.disabilita {
+  user-select: none;
+}
+
+.disattiva {
+  pointer-events: none;
+}
+
+// SEO
+mark {
+	background-color: transparent !important;
+	padding: 0 !important;
+}
+
+// Visibilità
+.nascondi {
+  display: none !important;
+}
+
+// Container
+.no-padding {
+  padding: 0;
+}
+
+// Visibilità
+.occulta {
+	opacity: 0 !important;
+}
+
+// HTML
+html {
+  font-size: $font-size-rem;
+
+  // Body
+  body {
+    font-size: $font-size-mobile;
+
+    @media ($media-tablet) {
+      font-size: $font-size-desktop;
+    }
+
+    // Container
+    .container {
+      @include display-flex;
+      min-height: 100vh;
+      @include flex-direction(column);
+
+      &#{__wrapper} {
+        @include flex(1);
+      }
+    }
+
+    h6 {
+      display: none;
+    }
+  }
+}
+// Fine SCSS

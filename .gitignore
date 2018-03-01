@@ -1,0 +1,15 @@
+/silverstripe-cache/
+/.env
+/vendor/
+/themes/simple/
+/resources/
+/config/
+/log/
+composer.lock
+node_modules/
+/.editorconfig
+/Gemfile.lock
+gulpfile.js
+package-lock.json
+.DS_Store
+._*

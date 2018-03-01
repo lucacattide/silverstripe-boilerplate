@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^it/?$ index.php [L]
+
+# Content Security Policy
+Header set Content-Security-Policy-Report-Only "default-src 'none'; script-src 'self' code.jquery.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' www.googletagmanager.com 'unsafe-inline'; font-src 'self'; form-action 'self'; report-uri /csp_report;"
