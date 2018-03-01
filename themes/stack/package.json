@@ -60,7 +60,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch-index": "NODE_ENV=development webpack --watch --colors --progress --config webpack.index.js",
     "watch-home": "NODE_ENV=development webpack --watch --colors --progress --config webpack.home.js",
-    "build": "NODE_ENV=production webpack --config webpack.production.js"
+    "build-main": "NODE_ENV=production webpack --config webpack.production-main.js",
+    "build-home": "NODE_ENV=production webpack --config webpack.production-home.js"
   },
   "repository": {
     "type": "git",

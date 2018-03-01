@@ -17,10 +17,10 @@ $desktop-hd: 1200px;
 $tablet: 768px;
 $smartphone: 576px;
 // Media Queries
-$media-desktop: "min-width: #{$desktop}";
-$media-desktop-hd: "min-width: #{$desktop-hd}";
-$media-tablet: "min-width: #{$tablet}";
-$media-smartphone: "min-width: #{$smartphone}";
+$media-desktop: 'min-width: #{$desktop}';
+$media-desktop-hd: 'min-width: #{$desktop-hd}';
+$media-tablet: 'min-width: #{$tablet}';
+$media-smartphone: 'min-width: #{$smartphone}';
 
 // Classi
 %cover,
@@ -127,16 +127,34 @@ html {
       font-size: $font-size-desktop;
     }
 
+    /* &::-webkit-scrollbar,
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-track-piece,
+    &::-webkit-scrollbar-corner,
+    &::-webkit-resizer {
+      background-color: $bianco;
+    }
+
+    &::-webkit-scrollbar-button,
+    &::-webkit-scrollbar-thumb {
+      background-color: $blu;
+    } */
+
     // Container
     .container {
-      @include display-flex;
-      min-height: 100vh;
-      @include flex-direction(column);
 
-      &#{__wrapper} {
-        @include flex(1);
+        @include display-flex;
+        @include flex-direction(column);
+
+        height: auto;
+        min-height: 100vh;
+
+        &#{__wrapper} {
+          -webkit-box-flex: 1 0 0;
+          -ms-flex: 1 0 0;
+          flex: 1 0 0;
+        }
       }
-    }
 
     h6 {
       display: none;

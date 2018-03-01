@@ -22,13 +22,6 @@ module.exports = {
           },
         }],
       },
-      {
-        // JS
-        test: /\.js$/,
-        include: path.resolve(__dirname, './'),
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-      },
     ],
   },
   plugins: [
@@ -43,8 +36,8 @@ module.exports = {
     // Proxy
     new BrowserSyncPlugin({
       browser: 'google chrome',
-      host: 'dev.lc.it',
-      proxy: 'dev.lc.it',
+      host: 'dev.test.it',
+      proxy: 'dev.test.it',
       files: [{
         match: [
           '**/*.css',

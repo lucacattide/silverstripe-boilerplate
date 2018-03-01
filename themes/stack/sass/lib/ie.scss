@@ -3,3 +3,20 @@
  * <!--[if IE]>
  *   <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
  * <![endif]--> */
+/* Inizio Browser Hacks */
+/* Internet Explorer */
+@media all and (-ms-high-contrast: none) {
+    /* IE11 */
+    /* Footer */
+    *::-ms-backdrop,
+    .footer {
+      flex-shrink: 0;
+    }
+
+    /* IE10 */
+    /* Footer */
+    .footer {
+      flex-shrink: 0;
+    }
+  }
+  /* Fine Browser Hacks */

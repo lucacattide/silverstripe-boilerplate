@@ -1,8 +1,8 @@
 # config valid only for current version of Capistrano
 lock "3.10"
 
-set :application, "milanowhiskyfestival"
-set :repo_url, "git@gitlab.greylab.it:MWF/whiskyfestival.git"
+set :application, ""
+set :repo_url, ""
 set :git
 # Evita il clone ad ogni deploy (sostituisce con pull)
 set :deploy_via, :remote_cache

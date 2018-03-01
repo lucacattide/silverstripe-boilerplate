@@ -11,6 +11,7 @@ const size = require('gulp-size');
 // HTML
 gulp.task('html', () => gulp.src('./html/dist/**/*.html')
   .pipe(htmlmin({
+    removeComments: true,
     collapseWhitespace: true,
   }))
   .pipe(size())
@@ -22,6 +23,7 @@ gulp.task('php', () => gulp.src('./php/dist/**/*.php', {
   })
   .pipe(phpMinify())
   .pipe(htmlmin({
+    removeComments: true,
     collapseWhitespace: true,
   }))
   .pipe(size())
@@ -30,6 +32,7 @@ gulp.task('php', () => gulp.src('./php/dist/**/*.php', {
 // Index
 gulp.task('index', () => gulp.src(['./*.html', './*.php'])
   .pipe(htmlmin({
+    removeComments: true,
     collapseWhitespace: true,
   }))
   .pipe(size())

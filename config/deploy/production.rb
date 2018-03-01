@@ -74,8 +74,8 @@ namespace :deploy do
 
 		  within current_path do
 			  execute :rm, "-rf", "assets", "&&", :ln, "-s", "../../shared/assets assets"
-			  execute :find, ". -type d -exec chmod 755 {} \;"
-			  execute :find, ". -type f -exec chmod 644 {} \;"
+			  execute :find, ". -type d -exec chmod 755 '{}' ';'"
+			  execute :find, ". -type f -exec chmod 644 '{}' ';'"
 		  end
 		end
 	  end

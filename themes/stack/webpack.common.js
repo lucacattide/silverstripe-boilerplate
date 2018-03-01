@@ -65,6 +65,13 @@ module.exports = {
           },
         }],
       },
+      {
+        // JS
+        test: /\.js$/,
+        include: path.resolve(__dirname, './'),
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
       // Modernizr
       {
         test: /\.modernizrrc.js$/,

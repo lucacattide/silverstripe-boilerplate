@@ -32,7 +32,7 @@
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :branch, 'master'
+set :branch, 'staging'
 set :deploy_to, "/capistrano"
 set :tmp_dir, "/tmp/capistrano"
 # Document Root Link
@@ -74,8 +74,8 @@ namespace :deploy do
 
 		  within current_path do
 			  execute :rm, "-rf", "assets", "&&", :ln, "-s", "../../shared/assets assets"
-			  execute :find, ". -type d -exec chmod 755 {} \;"
-			  execute :find, ". -type f -exec chmod 644 {} \;"
+			  execute :find, ". -type d -exec chmod 755 '{}' ';'"
+			  execute :find, ". -type f -exec chmod 644 '{}' ';'"
 		  end
 		end
 	  end
