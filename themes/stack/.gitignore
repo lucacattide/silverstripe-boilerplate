@@ -1,6 +1,5 @@
 # Repository - Configurazione
 
-/log/
 /node_modules/
 /.editorconfig
 /Gemfile.lock
