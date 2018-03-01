@@ -1,12 +1,7 @@
 # Repository - Configurazione
 
-/config/
-/dist/
-/html/dist/
 /log/
 /node_modules/
-/php/dist/
 /.editorconfig
 /Gemfile.lock
-/gulpfile.js
 /package-lock.json
