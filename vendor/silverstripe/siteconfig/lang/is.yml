@@ -1,0 +1,4 @@
+is:
+  SilverStripe\SiteConfig\SiteConfig:
+    SITENAMEDEFAULT: 'Nafn síðunnar'
+    SITETITLE: 'Titill síðunnar'

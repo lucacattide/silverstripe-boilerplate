@@ -1,0 +1,4 @@
+he_IL:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'תצורות האתר'
+    SINGULARNAME: 'תצורת האתר'

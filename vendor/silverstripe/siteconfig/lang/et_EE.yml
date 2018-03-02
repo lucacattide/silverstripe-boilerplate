@@ -1,0 +1,4 @@
+et_EE:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'Saidi konfiguratsioonid'
+    SINGULARNAME: 'Saidi konfiguratsioon'

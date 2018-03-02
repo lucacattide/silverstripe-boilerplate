@@ -1,0 +1,7 @@
+id:
+  SilverStripe\SiteConfig\SiteConfig:
+    SITENAMEDEFAULT: 'Nama Situs'
+    SITETAGLINE: 'Slogan Situs'
+    SITETITLE: 'Judul Situs'
+    TABMAIN: 'Tab Utama'
+    TAGLINEDEFAULT: 'slogan situsmu disini'

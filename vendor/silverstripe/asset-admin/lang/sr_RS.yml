@@ -1,0 +1,11 @@
+sr_RS:
+  SilverStripe\AssetAdmin\Controller\AssetAdmin:
+    SIZE: Величина
+    TYPE: Тип
+    URL: URL
+  SilverStripe\AssetAdmin\Forms\UploadField:
+    Dimensions: Димензије
+    EDIT: Измени
+    EDITINFO: 'Измени ову датотеку'
+    FIELDNOTSET: 'Информације о датотеци нису пронађене'
+    REMOVE: Уклони

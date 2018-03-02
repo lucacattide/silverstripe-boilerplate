@@ -1,0 +1,12 @@
+id_ID:
+  SilverStripe\AssetAdmin\Controller\AssetAdmin:
+    SIZE: 'Ukuran berkas'
+    TYPE: 'Jenis berkas'
+    URL: URL
+    WIDTH: Lebar
+  SilverStripe\AssetAdmin\Forms\UploadField:
+    Dimensions: Dimensi
+    EDIT: Edit
+    EDITINFO: 'Edit berkas ini'
+    FIELDNOTSET: 'Informasi berkas tidak ada'
+    REMOVE: Buang

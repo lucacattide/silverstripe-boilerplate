@@ -1,0 +1,10 @@
+sv:
+  SilverStripe\ErrorPage\ErrorPage:
+    CODE: Felkod
+    DEFAULTERRORPAGECONTENT: '<p>Det verkar som om du försökter komma åt en sida som inte finns.</p><p>Var god kontrollera stavningen på adressen som du försökte nå och försök igen.'
+    DEFAULTERRORPAGETITLE: 'Sidan hittades inte'
+    DEFAULTSERVERERRORPAGECONTENT: '<p>Ursäkta, ett fel uppstod vid hanteringen av din förfrågan.</p>'
+    DEFAULTSERVERERRORPAGETITLE: Serverfel
+    DESCRIPTION: 'Anpassat innehåll för olika felärenden (t.ex. "Sidan kan inte hittas")'
+    PLURALNAME: Felsidor
+    SINGULARNAME: Felsida

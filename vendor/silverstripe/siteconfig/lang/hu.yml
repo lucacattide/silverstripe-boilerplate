@@ -1,0 +1,4 @@
+hu:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'Oldal konfigurációk'
+    SINGULARNAME: 'Oldal konfiguráció'

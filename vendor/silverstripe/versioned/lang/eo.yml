@@ -1,0 +1,44 @@
+eo:
+  SilverStripe\Versioned\ChangeSet:
+    EMPTY: Vaka
+    ITEMS_CHANGES:
+      one: '{total} ({count} ŝanĝo)'
+      other: '{total} ({count} ŝanĝoj)'
+    ITEMS_TOTAL:
+      one: '{count} totalo'
+      other: '{count} totaloj'
+    NAME: Nomo
+    PLURALNAME: Kampanjoj
+    PLURALS:
+      one: 'Unu kampanjo'
+      other: '{count} kampanjoj'
+    PUBLISHED_DATE_BY: '{date} laŭ {name}'
+    PUBLISHED_TODAY: 'Hodiaŭ {time}'
+    PUBLISHED_TODAY_BY: 'Hodiaŭ {time} laŭ {name}'
+    PUBLISHER_NAME: 'Publikigita de '
+    PUBLISH_DATE: 'Dato de publikigo'
+    SINGULARNAME: Kampanjo
+    STATE: Ŝtato
+    STATE_OPEN: Aktiva
+    STATE_PUBLISHED: Publikigita
+    STATE_REVERTED: Malfarita
+  SilverStripe\Versioned\ChangeSetItem:
+    PLURALNAME: 'Ŝangi agordojn'
+    PLURALS:
+      one: 'Unu ŝanĝara ero'
+      other: '{count} ŝanĝaraj eroj'
+    SINGULARNAME: 'Ŝangi agordon'
+  SilverStripe\Versioned\Versioned:
+    INFERRED_TITLE: 'Generita pro publikigo de ''{title}'' je {created}'
+    has_many_Versions: Versioj
+  SilverStripe\Versioned\VersionedGridFieldItemRequest:
+    ARCHIVE: Enarkivigi
+    Archived: 'Enarkivigita {name} {titolo}'
+    BUTTONARCHIVEDESC: 'Malpublikigi kaj enarkivigi'
+    BUTTONPUBLISH: Publikigi
+    BUTTONUNPUBLISH: Malpublikigi
+    BUTTONUNPUBLISHDESC: 'Forigi ĉi tiun rikordon el la publika retejo'
+    Published: 'Pubikigita {name} {link}'
+    Unpublished: 'Nepublikigita {name} {title}'
+  SilverStripe\Versioned\VersionedHTTPMiddleware:
+    DRAFT_SITE_ACCESS_RESTRICTION: 'Por vidigi la malneton aŭ enarkivigitan enhavon, necesas ke vi ensalutu per via CMS-pasvorto. <a href="{link}">Alklaku ĉi tie por reiri al la publika retejo.</a>'

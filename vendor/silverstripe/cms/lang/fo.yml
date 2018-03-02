@@ -1,0 +1,41 @@
+fo:
+  SilverStripe\CMS\Controllers\CMSMain:
+    PAGENOTEXISTS: 'Hendan síðan finst ikki.'
+    PUBALLCONFIRM: 'Vinarliga almenna kunngerð allar síðurnar á heimasíðuni,  avrita innihaldsstøðið til beinleiðis'
+    PUBALLFUN: '"Ger alt alment" funka'
+    REMOVEDPAGEFROMDRAFT: 'Strikaði ''{title}'' frá kladdu heimasíðuni'
+  SilverStripe\CMS\Model\RedirectorPage:
+    REDIRECTTO: 'Víðarisend til'
+    REDIRECTTOEXTERNAL: 'Onnur heimasíðu'
+    REDIRECTTOPAGE: 'Ein síða á tínari heimasíðu'
+    YOURPAGE: 'Síða á tínari heimasíðu'
+  SilverStripe\CMS\Model\SiteTree:
+    ACCESSANYONE: Øll
+    ACCESSHEADER: 'Hvør skal kunna síggja hesa síðuna?'
+    ACCESSLOGGEDIN: 'Innritaðir brúkarar'
+    ACCESSONLYTHESE: 'Bert hesi fólkini (vel fra yvirliti)'
+    BUTTONCANCELDRAFT: 'Avlýs kladdu broytingarnar'
+    BUTTONCANCELDRAFTDESC: 'Strika tína kladdu, og far aftur til tí nuverandi almennu síðuna'
+    BUTTONUNPUBLISH: 'Óalmenna kunngerð'
+    BUTTONUNPUBLISHDESC: 'Strika hesa síðuna frá tí almennu heimasíðuni'
+    Comments: Viðmerkingar
+    Content: Innihald
+    DEFAULTABOUTTITLE: 'Um okkum'
+    DEFAULTCONTACTTITLE: 'Samband við okkum'
+    DEFAULTHOMETITLE: Heim
+    EDITHEADER: 'Hvør kann broyta hesa síðuna?'
+    HASBROKENLINKS: 'Hendan síðan inniheldur brotnar leinkur.'
+    HTMLEDITORTITLE: Innihald
+    METADESC: Frágreiðing
+    METAEXTRA: 'Serlig meta frámerki'
+    PAGETITLE: 'Navn á síðuni'
+    PAGETYPE: 'Slag av síðu'
+    SHOWINMENUS: 'Vís á vælmyndum?'
+    SHOWINSEARCH: 'Vís í leiting?'
+    TABBEHAVIOUR: Virkisháttur
+    TABCONTENT: Innihald
+    TOPLEVEL: 'Heimasíðu innihald (Fyrsta støði)'
+    has_one_Parent: Yvirsíða
+  SilverStripe\CMS\Search\SearchForm:
+    GO: Víðari
+    SEARCH: Leita

@@ -1,0 +1,12 @@
+{
+    "CampaignAdmin.ADDCAMPAIGN": "Campagne toevoegen",
+    "CampaignAdmin.DELETECAMPAIGN": "Weet u zeker dat u dit record wilt verwijderen?",
+    "CampaignAdmin.DRAFT": "Concept",
+    "CampaignAdmin.ITEM_SUMMARY_PLURAL": "%s items",
+    "CampaignAdmin.ITEM_SUMMARY_SINGULAR": "%s item",
+    "CampaignAdmin.MODIFIED": "Gewijzigd",
+    "CampaignAdmin.NO_CHANGES": "Geen wijzigingen",
+    "CampaignAdmin.PUBLISHCAMPAIGN": "Campagne publiceren",
+    "CampaignAdmin.REMOVED": "Verwijderd",
+    "CampaignAdmin.REVERTCAMPAIGN": "Terugdraaien"
+}

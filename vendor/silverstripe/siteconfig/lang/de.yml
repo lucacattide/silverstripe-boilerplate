@@ -1,0 +1,6 @@
+de:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: Seitenkonfigurationen
+    SINGULARNAME: Seitenkonfiguration
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
+    MENUTITLE: Einstellungen

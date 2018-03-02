@@ -1,0 +1,13 @@
+ru:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'Конфигурации сайта'
+    PLURALS:
+      one: 'Конфигурация сайта'
+      few: '{count} конфигурации сайта'
+      many: '{count} конфигураций сайта'
+      other: '{count} конфигураций сайта'
+    SINGULARNAME: 'Конфигурация сайта'
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
+    MENUTITLE: Настройки
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain_SilverStripeNavigator:
+    EDIT: Изменить

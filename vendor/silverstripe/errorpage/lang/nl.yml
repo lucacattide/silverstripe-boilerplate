@@ -1,0 +1,8 @@
+nl:
+  SilverStripe\ErrorPage\ErrorPage:
+    CODE: Foutcode
+    DEFAULTERRORPAGECONTENT: '<p>Helaas, de pagina die u zocht lijkt niet (meer) te bestaan.</p><p>Controleer of de juiste URL is gebruikt en probeer het opnieuw.</p>'
+    DEFAULTERRORPAGETITLE: 'Pagina niet gevonden'
+    DEFAULTSERVERERRORPAGECONTENT: '<p>Helaas, er was een probleem bij het verwerken van je verzoek.</p>'
+    DEFAULTSERVERERRORPAGETITLE: 'Probleem met de server'
+    SINGULARNAME: Foutpagina

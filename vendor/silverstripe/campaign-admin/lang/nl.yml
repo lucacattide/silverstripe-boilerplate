@@ -1,0 +1,19 @@
+nl:
+  SilverStripe\CampaignAdmin\AddToCampaignHandler:
+    AddToCampaignAddAction: Toevoegen
+    AddToCampaignAvailableLabel: 'Beschikbare campagnes'
+    AddToCampaignFormFieldLabel: 'Selecteer een campagne'
+    AddToCampaignInChangsetLabel: 'Let op, dit item is al opgenomen in de campagne(s):'
+    ErrorCampaignPermissionDenied: 'U heeft waarschijnlijk niet de juiste rechten om {ObjectTitle} aan {CampaignTitle} toe te voegen'
+    ErrorGeneral: 'Onze excuses: er is iets fout gegaan'
+    ErrorItemPermissionDenied: 'U heeft waarschijnlijk niet de juiste rechten om {ObjectTitle} aan een campagne toe te voegen'
+    ErrorNotFound: '{Type} is niet gevonden'
+    Success: '<strong>{ObjectTitle}</strong> is aan <strong>{CampaignTitle}</strong> toegevoegd'
+  SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction:
+    ADDTOCAMPAIGN: 'Aan een campagne toevoegen'
+  SilverStripe\CampaignAdmin\CampaignAdmin:
+    ACCESS_HELP: 'Sta het bekijken van de sectie voor het publiceren van campagnes toe'
+    CANCEL: Annuleren
+    ERROR_DUPLICATE_NAME: 'De naam "{Name}" bestaat al'
+    MENUTITLE: Campagnes
+    SAVEDUP: Opgeslagen.

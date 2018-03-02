@@ -1,0 +1,250 @@
+es:
+  SilverStripe\CMS\BatchActions\CMSBatchAction_Archive:
+    RESULT: 'Eliminadas %d páginas desde el borrador y publicadas, y enviadas al archivo'
+    TITLE: 'Despublicar y archivar'
+  SilverStripe\CMS\Controllers\CMSMain:
+    ACCESS: 'Acceso a la sección ''{title}'''
+    ACCESS_HELP: 'Permitir la visualización de la sección que contiene el árbol de la página y el contenido. Ver y editar permisos puede ser gestionado a través de menús desplegables específicos de las páginas, así como los "permisos de contenido" separados.'
+    APPLY_FILTER: Buscar
+    ARCHIVE: Archivar
+    ARCHIVEDPAGE: '''{title}'' páginas archivadas'
+    AddPageRestriction: 'Agregar restricción a la página'
+    CLEAR_FILTER: Limpiar
+    Cancel: Cancelar
+    ChoosePageParentMode: 'Elegir donde crear esta página'
+    ChoosePageType: 'Elegir tipo de página'
+    Create: Crear
+    DUPLICATED: Duplicado
+    DUPLICATEDWITHCHILDREN: 'Duplicado con hijos'
+    NEWPAGE: 'Nuevo {pagetype}'
+    PAGENOTEXISTS: 'Esta página no existe'
+    PAGES: 'Estado de página'
+    PAGETYPEANYOPT: Cualquiera
+    PAGETYPEOPT: 'Tipo de página'
+    PUBALLCONFIRM: 'Por favor publica todas las páginas del sitio, copiando el contenido del borrador al sitio público'
+    PUBALLFUN: 'Función "Publicar Todo"'
+    PUBALLFUN2: 'Presionando este botón haremos el equivalente a ir a cada página y pulsar "publicar". Está destinado a ser utilizado después de haber habido ediciones masivas del contenido, como cuando el sitio fue construido por primera vez.'
+    PUBLISHED: '''{title}'' publicado satisfactoriamente.'
+    PUBPAGES: 'Hecho: Publicadas {count} páginas'
+    PageAdded: 'Página creada correctamente'
+    REMOVEDPAGE: 'Eliminado ''{title}'' del sitio publicado'
+    REMOVEDPAGEFROMDRAFT: 'Borrado ''{title}'' desde el sitio no publicado'
+    RESTORE: 'Restaurar borrador'
+    RESTORED: 'Restablecido ''{title}'' correctamente'
+    RESTORE_DESC: 'Recuperar la versión archivada del borrador'
+    RESTORE_TO_ROOT: 'Recuperar borrador al nivel superior'
+    RESTORE_TO_ROOT_DESC: 'Recuperar la versión archivada del borrador como de nivel superior'
+    ROLLEDBACKPUBv2: Restaurado
+    ROLLEDBACKVERSIONv2: 'Versión #{version} restaurada'
+    SAVED: '''{title}'' guardado satisfactoriamente.'
+    SAVEDRAFT: 'Guardar borrador'
+    UNPUBLISH_AND_ARCHIVE: 'Despublicar y archivar'
+  SilverStripe\CMS\Controllers\CMSPageAddController:
+    MENUTITLE: 'Añadir página'
+    ParentMode_child: 'Debajo de otra página'
+    ParentMode_top: 'Nivel superior'
+  SilverStripe\CMS\Controllers\CMSPageEditController:
+    MENUTITLE: 'Editar página'
+  SilverStripe\CMS\Controllers\CMSPageHistoryController:
+    COMPAREMODE: 'Modo comparación (seleccionar dos)'
+    MENUTITLE: Historial
+    REVERTTOTHISVERSION: 'Volver a esta versión'
+    SHOWUNPUBLISHED: 'Mostrar versiones no publicadas'
+    VIEW: vista
+    VIEWINGLATEST: 'Viendo la última versión'
+    VIEWINGVERSION: 'Actualmente viendo la versión {version}.'
+  SilverStripe\CMS\Controllers\CMSPageSettingsController:
+    MENUTITLE: 'Editar página'
+  SilverStripe\CMS\Controllers\CMSPagesController:
+    MENUTITLE: Páginas
+  SilverStripe\CMS\Controllers\CMSSIteTreeFilter_PublishedPages:
+    Title: 'Páginas publicadas'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_ChangedPages:
+    Title: 'Páginas modificadas'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_DeletedPages:
+    Title: 'Todas las páginas, incluidas las archivadas'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_Search:
+    Title: 'Todas las paginas'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_StatusDeletedPages:
+    Title: 'Páginas archivadas'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_StatusDraftPages:
+    Title: 'Páginas en borrador'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_StatusRemovedFromDraftPages:
+    Title: 'Publicada, pero eliminada de los borradores'
+  SilverStripe\CMS\Controllers\ContentController:
+    ARCHIVEDSITE: 'Vista previa de la versión'
+    ARCHIVEDSITEFROM: 'Sitio archivado desde'
+    CMS: CMS
+    DRAFT: Borrador
+    DRAFTSITE: 'Sitio en Borrador'
+    INSTALL_SUCCESS: '¡Instalación Correcta!'
+    LOGGEDINAS: 'Conectado como'
+    LOGIN: 'Iniciar sesión'
+    LOGOUT: Desconectar
+    NOTEWONTBESHOWN: 'Nota: este mensaje no se mostrará a tus visitantes'
+    NOTLOGGEDIN: 'No conectado'
+    PUBLISHED: Publicado
+    PUBLISHEDSITE: 'Sitio Publicado'
+    VIEWPAGEIN: 'Ver página en:'
+  SilverStripe\CMS\Controllers\SilverStripeNavigator:
+    ARCHIVED: Archivado
+  SilverStripe\CMS\Forms\SiteTreeURLSegmentField:
+    EMPTY: Vacío
+    HelpChars: 'Los caracteres especiales son automáticamente convertidos o eliminados.'
+  SilverStripe\CMS\Model\RedirectorPage:
+    DESCRIPTION: 'Redirecciona a una página interna o a una URL externa'
+    HEADER: 'Esta página redireccionará a los usuarios a otra página'
+    OTHERURL: 'Otra dirección URL de un sitio web'
+    PLURALNAME: 'Páginas de redirección'
+    PLURALS:
+      one: 'Una Página de redirección'
+      other: '{count} Páginas de redirección'
+    REDIRECTTO: 'Redireccionar a'
+    REDIRECTTOEXTERNAL: 'Otro sitio web'
+    REDIRECTTOPAGE: 'Una página en su sitio web'
+    SINGULARNAME: 'Página de redirección'
+    YOURPAGE: 'Página en su sitio web'
+  SilverStripe\CMS\Model\SiteTree:
+    ACCESSANYONE: Cualquiera
+    ACCESSHEADER: '¿Quién puede ver esta página?'
+    ACCESSLOGGEDIN: 'Usuarios autentificados'
+    ACCESSONLYTHESE: 'Solo estas personas (elija de la lista)'
+    ADDEDTODRAFTHELP: 'La página aún no ha sido publicada'
+    ADDEDTODRAFTSHORT: Borrador
+    APPEARSVIRTUALPAGES: 'Este contenido también aparece en las páginas virtuales en las secciones {title}.'
+    ARCHIVEDPAGEHELP: 'Esta página ha sido removida de los borradores y del sitio en vivo'
+    ARCHIVEDPAGESHORT: Archivada
+    BUTTONCANCELDRAFT: 'Cancelar los cambios en el borrador'
+    BUTTONCANCELDRAFTDESC: 'Elimine el borrador y regrese a la página que se encuentra publicada actualmente'
+    BUTTONDELETEDESC: 'Eliminar desde el borrador/publicadas y enviar al archivo'
+    BUTTONPUBLISHED: Publicado
+    BUTTONSAVED: Guardado
+    BUTTONSAVEPUBLISH: 'Guardar y publicar'
+    BUTTONUNPUBLISH: 'Sin Publicar'
+    BUTTONUNPUBLISHDESC: 'Elimine esta página del sitio publicado'
+    Comments: Comentarios
+    Content: Contenido
+    DEFAULTABOUTTITLE: 'Sobre nosotros'
+    DEFAULTCONTACTTITLE: 'Contacta con nosotros'
+    DEFAULTHOMECONTENT: '<p>¡Bienvenido a SilverStripe! Esta es la página de inicio por defecto. Tú puedes editar esta página abriendo <a href="admin/">el CMS</a>.</p><p>También puedes acceder a la  <a href="http://docs.silverstripe.org">documentación de desarrollo</a>, o comenzar con las<a href="http://www.silverstripe.org/learn/lessons">Lecciones de SilverStripe</a>.</p>'
+    DEFAULTHOMETITLE: Inicio
+    DEPENDENT_NOTE: 'Las siguientes páginas dependen de esta página. Esto incluye páginas virtuales, páginas de redireccionamiento, y las páginas con enlaces de contenido.'
+    DESCRIPTION: 'Página de contenido genérico'
+    DependtPageColumnLinkType: 'Tipo de enlace'
+    DependtPageColumnURL: 'Depende de'
+    EDITHEADER: '¿Quién puede editar esta página?'
+    EDITORGROUPS: 'Grupos de Editor'
+    EDIT_ALL_DESCRIPTION: 'Editar cualquier página'
+    EDIT_ALL_HELP: 'Posibilidad de editar cualquier página en el sitio, independientemente de la configuración de la pestaña de Acceso. Requiere permiso "Acceso a la sección ''Páginas''"'
+    Editors: 'Grupo de Editores'
+    HASBROKENLINKS: 'Esta página contiene enlaces rotos.'
+    HTMLEDITORTITLE: Contenido
+    INHERIT: 'Heredar de página padre'
+    LASTUPDATED: 'Última actualización'
+    LINKCHANGENOTE: 'Cambio el enlace de esta página también afectará a los enlaces de todas las páginas hijas.'
+    LINKSALREADYUNIQUE: '{url} ya es único'
+    LINKSCHANGEDTO: ' cambiado {url1} -> {url2}'
+    MENUTITLE: 'Etiqueta de Navegación'
+    METADESC: Descripción
+    METADESCHELP: 'Los motores de búsqueda usan este contenido para mostrar resultados de búsqueda (aunque no influirá en su ranking).'
+    METAEXTRA: 'Meta Tags Personalizadas'
+    METAEXTRAHELP: 'Etiquetas HTML para meta información adicional. Por ejemplo &lt;meta name="nombrePersonalizado" content="tu contenido personalizado aquí" /&gt;'
+    MODIFIEDONDRAFTHELP: 'La página tiene cambios sin publicar'
+    MODIFIEDONDRAFTSHORT: Modificado
+    MetadataToggle: Metadata
+    MoreOptions: 'Más opciones'
+    OBSOLETECLASS: 'Clase obsoleta'
+    ONLIVEONLYSHORT: 'Solo en vivo'
+    ONLIVEONLYSHORTHELP: 'La página está publicada, pero ha sido eliminada de borrador'
+    PAGELOCATION: 'Localización de la página'
+    PAGETITLE: 'Nombre de la página'
+    PAGETYPE: 'Tipo de Página'
+    PARENTID: 'Página padre'
+    PARENTTYPE: 'Localización de la página'
+    PARENTTYPE_ROOT: 'Página de nivel superior'
+    PARENTTYPE_SUBPAGE: 'Sub-página por debajo de una página padre'
+    PERMISSION_GRANTACCESS_DESCRIPTION: 'Controlar qué grupos pueden acceder o editar determinadas páginas'
+    PERMISSION_GRANTACCESS_HELP: 'Permitir la creación de restricciones de acceso específicas a la página en la sección "Páginas".'
+    PLURALNAME: Páginas
+    PLURALS:
+      one: 'Una Página'
+      other: '{count} Páginas'
+    PageTypNotAllowedOnRoot: 'La página tipo "{type}" no está permitida en el nivel raiz'
+    PageTypeNotAllowed: 'El tipo de página "{type}" no está permitido como hijo de esta página padre'
+    REMOVE_INSTALL_WARNING: 'Aviso: Deberías eliminar install.php de esta instalación de SilverStripe por motivos de seguridad.'
+    REORGANISE_DESCRIPTION: 'Cambiar la estructura del sitio'
+    REORGANISE_HELP: 'Reorganizar las páginas en el árbol del sitio a través de drag&drop.'
+    SHOWINMENUS: '¿Mostrar en menús?'
+    SHOWINSEARCH: '¿Mostrar en la búsqueda?'
+    SINGULARNAME: Página
+    TABBEHAVIOUR: Comportamiento
+    TABCONTENT: Contenido
+    TABDEPENDENT: 'Páginas dependientes'
+    TOPLEVEL: 'Contenido del Sitio (Top Level)'
+    URLSegment: 'Segmento de URL'
+    VIEWERGROUPS: 'Visor de Grupos'
+    VIEW_ALL_DESCRIPTION: 'Ver cualquier página'
+    VIEW_ALL_HELP: 'Ver toda la ayuda'
+    VIEW_DRAFT_CONTENT: 'Ver contenido en borrador'
+    VIEW_DRAFT_CONTENT_HELP: 'Se aplica a la visualización de las páginas fuera del CMS en modo borrador. Útil para los colaboradores externos que no tienen acceso al CMS.'
+    VIRTUALPAGEDRAFTWARNING: 'Esta página es un borrador de página virtual'
+    VIRTUALPAGEWARNING: 'Esta es una página virtual'
+    VIRTUALPAGEWARNINGSETTINGS: 'Configuración de página virtual'
+    Viewers: 'Grupos de Observadores'
+    Visibility: Visibilidad
+    has_one_Parent: 'Página padre'
+    many_many_BackLinkTracking: 'Rastreo de Backlinks'
+    many_many_ImageTracking: 'Rastreo de Imágenes'
+    many_many_LinkTracking: 'Rastreo de Enlaces'
+  SilverStripe\CMS\Model\VirtualPage:
+    CHOOSE: Seleccionar
+    DESCRIPTION: 'Muestra el contenido de otra página'
+    EditLink: Editar
+    HEADER: 'Esta es una página virtual'
+    HEADERWITHLINK: 'Título con link'
+    PLURALNAME: 'Páginas virtuales'
+    PLURALS:
+      one: 'Una Página Virtuales'
+      other: '{count} Páginas Virtuales'
+    PageTypNotAllowedOnRoot: 'Tipo de página original "{type}" no se permite en el nivel raíz para esta página virtual'
+    SINGULARNAME: 'Página Virtual'
+  SilverStripe\CMS\Reports\BrokenLinksReport:
+    Any: Cualquiera
+    BROKENLINKS: 'Informe de enlaces rotos'
+    CheckSite: 'Compobar sitio'
+    CheckSiteDropdownDraft: 'Sitio en Borrador'
+    CheckSiteDropdownPublished: 'Sitio Publicado'
+    ColumnDateLastModified: 'Fecha de última modificación'
+    ColumnDateLastPublished: 'Fecha de última publicación'
+    ColumnProblemType: 'Tipo de problema'
+    ColumnURL: URL
+    HasBrokenFile: 'tiene un archivo roto'
+    HasBrokenLink: 'tiene un enlace roto'
+    HasBrokenLinkAndFile: 'tiene un enlace y archivo roto'
+    HoverTitleEditPage: 'Editar página'
+    PageName: 'Nombre de la página'
+    ReasonDropdown: 'Problema a comprobar'
+    ReasonDropdownBROKENFILE: 'Archivo roto'
+    ReasonDropdownBROKENLINK: 'Enlace roto'
+    ReasonDropdownRPBROKENLINK: 'Página de redirección apuntando a una página que no existe'
+    ReasonDropdownVPBROKENLINK: 'Página virtual apuntando a una página que no existe'
+    RedirectorNonExistent: 'página de redirección apuntando a una página que no existe'
+    VirtualPageNonExistent: 'página virtual apuntando a una página que no existe'
+  SilverStripe\CMS\Search\SearchForm:
+    FILTERDATEFROM: De
+    FILTERDATETO: Hasta
+    FILTERLABELTEXT: Buscar
+    GO: IR
+    PAGEFILTERDATEHEADING: 'Última actualización'
+    SEARCH: Buscar
+    SearchResults: 'Resultados de la búsqueda'
+  SilverStripe\CMS\Tasks\RemoveOrphanedPagesTask:
+    BUTTONRUN: Ejecutar
+    CHOOSEOPERATION: 'Elegir operación:'
+    DELETEWARNING: 'Advertencia: Estas operaciones no son reversibles. Por favor, manejese con precaución.'
+    HEADER: 'Tarea de eliminar todas las páginas huérfanas'
+    NONEFOUND: 'No se han encontrado huérfanos'
+    NONEREMOVED: 'Ninguno eliminado'
+    OPERATION_REMOVE: 'Eliminar seleccionado de todas los escenarios (ADVERTENCIA: Destruirá todas las páginas seleccionadas de ambos escenarios y en vivo)'
+    SELECTALL: 'seleccionar todo'
+    UNSELECTALL: 'deselecciona todo'

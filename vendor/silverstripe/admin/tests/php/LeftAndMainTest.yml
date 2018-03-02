@@ -1,0 +1,38 @@
+SilverStripe\Security\Group:
+  admin:
+    Title: Administrators
+  empty:
+    Title: Empty Group
+  securityonly:
+    Title: securityonly
+  allcmssections:
+    Title: allcmssections
+  rooteditusers:
+    Title: rooteditusers
+SilverStripe\Security\Member:
+  admin:
+    Email: admin@example.com
+    Password: ZXXlkwecxz2390232233
+    Groups: =>SilverStripe\Security\Group.admin
+  securityonlyuser:
+    Email: securityonlyuser@test.com
+    Groups: =>SilverStripe\Security\Group.securityonly
+  allcmssectionsuser:
+    Email: allcmssectionsuser@test.com
+    Groups: =>SilverStripe\Security\Group.allcmssections
+  rootedituser:
+    Email: rootedituser@test.com
+    Groups: =>SilverStripe\Security\Group.rooteditusers
+SilverStripe\Security\Permission:
+  admin:
+    Code: ADMIN
+    GroupID: =>SilverStripe\Security\Group.admin
+  securityonly:
+    Code: CMS_ACCESS_SecurityAdmin
+    GroupID: =>SilverStripe\Security\Group.securityonly
+  allcmssections:
+    Code: CMS_ACCESS_LeftAndMain
+    GroupID: =>SilverStripe\Security\Group.allcmssections
+  allcmssections2:
+    Code: CMS_ACCESS_LeftAndMain
+    GroupID: =>SilverStripe\Security\Group.rooteditusers

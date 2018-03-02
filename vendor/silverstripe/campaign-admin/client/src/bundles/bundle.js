@@ -1,0 +1,1 @@
+require('../boot/index.js');

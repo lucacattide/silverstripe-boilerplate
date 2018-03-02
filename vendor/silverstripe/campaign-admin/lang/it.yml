@@ -1,0 +1,37 @@
+it:
+  CampaignAdmin:
+    php.SilverStripe\CampaignAdmin\CampaignAdminSAVE: Salva
+    php.SilverStripe\CampaignAdmin\CampaignAdminSAVED: Salvato
+  SilverStripe\CampaignAdmin\AddToCampaignHandler:
+    ADD_TO_A_NEW_CAMPAIGN: 'Aggiungi a nuova campagna'
+    AddToCampaignAddAction: Aggiungi
+    AddToCampaignAvailableLabel: 'Campagne disponibili'
+    AddToCampaignFormFieldLabel: 'Selezionare una Campagna'
+    AddToCampaignInChangsetLabel: 'Attenzione, questo elemento è già presente in una campagna:'
+    AddToCampaignInChangsetLabelAll: 'Attenzione, questo elemento è già presente in TUTTE le campagne:'
+    CREATE_DENIED: 'Non hai i privilegi per creare campagne'
+    CREATE_NEW: 'Creare una nuova campagna'
+    CREATE_NEW_PLACEHOLDER: 'Inserire il nome della campagna'
+    ErrorCampaignPermissionDenied: 'Sembra tu non disponga dei privilegi necessari per aggiungere {ObjectTitle} a {CampaignTitle}'
+    ErrorGeneral: 'Spiacenti, ma c''è stato un errore'
+    ErrorItemPermissionDenied: 'Sembra tu non disponga dei privilegi necessari per aggiungere {ObjectTitle} ad una campagna'
+    ErrorNotFound: '{Type} potrebbe non essere trovato'
+    MISSING_TITLE: 'Nome campagna richiesto'
+    NONE_SELECTED: 'Nessuna campagna selezionata'
+    NO_CAMPAIGNS: 'Attualmente non ci sono campagne. Puoi modificare i dettagli della campagna dopo nella sezione Campagne.'
+    NO_CREATE: 'Oh no! Attualmente non hai careato campagne. Le tue credenziali attuali non hanno i privilegi necessari per creare una campagna. Le campagne possono essere create solo da utenti con privilegio Campagne.'
+    Success: '<strong>{ObjectTitle}</strong> è stato aggiunto con successo a <strong>{CampaignTitle}</strong>'
+  SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction:
+    ADDTOCAMPAIGN: 'Aggiungi alla Campagna'
+  SilverStripe\CampaignAdmin\AddToCampaignValidator:
+    NEW_TITLE_EMPTY: 'Inserire un titolo per la nuova campagna'
+    SELECT_CAMPAIGN_EMPTY: 'Selezionare una campagna'
+  SilverStripe\CampaignAdmin\CampaignAdmin:
+    ACCESS_HELP: 'Consentire la visione della sezione di pubblicazione campagna.'
+    CANCEL: Annulla
+    CREATE: Creare
+    ERROR_DUPLICATE_NAME: 'Il nome "{Name}" esiste già'
+    MENUTITLE: Campagne
+    NOITEMSTEXT: 'Aggiungere elementi dalla sezione {section}'
+    SAVEDERROR: Errore.
+    SAVEDUP: Salvato.

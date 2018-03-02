@@ -1,0 +1,14 @@
+sr_RS@latin:
+  SilverStripe\AssetAdmin\Controller\AssetAdmin:
+    MENUTITLE: Datoteke
+    BACKLINKCOUNT: 'Koristi se na:'
+    PAGES: stranici(a)
+    SIZE: Veličina
+    TYPE: Tip
+    URL: URL
+  SilverStripe\AssetAdmin\Forms\UploadField:
+    Dimensions: Dimenzije
+    EDIT: Izmeni
+    EDITINFO: 'Izmeni ovu datoteku'
+    FIELDNOTSET: 'Informacije o datoteci nisu pronađene'
+    REMOVE: Ukloni

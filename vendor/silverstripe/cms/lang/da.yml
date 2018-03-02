@@ -1,0 +1,143 @@
+da:
+  SilverStripe\CMS\Controllers\CMSMain:
+    ACCESS: 'Adgang til ''{title}'' sektionen'
+    ACCESS_HELP: 'Tillad visning af den sektion, som indeholder sidetræet og indhold. Visnings- og redigeringstilladelser kan håndteres gennem sidespecifikke rullemenuer, såvel som de enkelte "Inholdstilladelser".'
+    ARCHIVE: Arkiv
+    ChoosePageParentMode: 'Vælg hvor denne side skal oprettes'
+    ChoosePageType: 'Vælg sidetype'
+    Create: Opret
+    NEWPAGE: 'Ny {pagetype}'
+    PAGENOTEXISTS: 'Denne side eksisterer ikke'
+    PAGETYPEANYOPT: Enhver
+    PUBALLCONFIRM: 'Udgiv alle sider på sitet. Kopierer indhold fra kladde til offentlig'
+    PUBALLFUN: '"Udgiv alle" funktionalitet'
+    PUBPAGES: 'Færdig: Udgav {count} sider'
+    PageAdded: 'Siden blev oprettet med succes'
+    REMOVEDPAGE: 'Fjernede ''{title}'' fra den udgivne side'
+    REMOVEDPAGEFROMDRAFT: '''{title}''  fjernet fra udkast-sitet'
+    RESTORED: 'Genskabte ''{title}'' korrekt'
+  SilverStripe\CMS\Controllers\CMSPageAddController:
+    ParentMode_child: 'Under en anden side'
+    ParentMode_top: 'Højeste niveau'
+  SilverStripe\CMS\Controllers\CMSPageHistoryController:
+    COMPAREMODE: 'Sammenligningstilstand (vælg to)'
+    REVERTTOTHISVERSION: 'Genskab denne version'
+    SHOWUNPUBLISHED: 'Vis versioner der ikke er udgivne'
+    VIEW: Visning
+    VIEWINGVERSION: 'Lige nu vises version {version}.'
+  SilverStripe\CMS\Controllers\CMSPagesController:
+    MENUTITLE: Sider
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_Search:
+    Title: 'Alle sider'
+  SilverStripe\CMS\Controllers\ContentController:
+    ARCHIVEDSITEFROM: 'Arkiveret side fra'
+    DRAFTSITE: Kladdeside
+    LOGGEDINAS: 'Logget på som'
+    LOGIN: 'Log ind'
+    LOGOUT: 'Log ud'
+    NOTEWONTBESHOWN: 'Bemærk: denne besked bliver ikke vist til dine besøgende '
+    NOTLOGGEDIN: 'Ikke logget ind'
+    PUBLISHED: Udgivet
+    PUBLISHEDSITE: 'Udgivet side'
+    VIEWPAGEIN: 'Vis side i:'
+  SilverStripe\CMS\Forms\SiteTreeURLSegmentField:
+    HelpChars: 'Specialkarakterer bliver automatisk konverteret eller fjernet.'
+  SilverStripe\CMS\Model\RedirectorPage:
+    HEADER: 'Denne side omdirigerer besøgende til en anden side'
+    OTHERURL: 'Andet websteds URL'
+    REDIRECTTO: 'Omdiriger til'
+    REDIRECTTOEXTERNAL: 'Et andet websted'
+    REDIRECTTOPAGE: 'En side på dit websted'
+    YOURPAGE: 'Side på dit websted'
+  SilverStripe\CMS\Model\SiteTree:
+    ACCESSANYONE: Enhver
+    ACCESSHEADER: 'Hvem kan se denne side?'
+    ACCESSLOGGEDIN: 'Brugere der er logget ind'
+    ACCESSONLYTHESE: 'Kun disse personer (vælg fra liste)'
+    ADDEDTODRAFTHELP: 'Siden er ikke blevet udgivet endnu'
+    ADDEDTODRAFTSHORT: Kladde
+    APPEARSVIRTUALPAGES: 'Dette indhold er også på de virtuelle sider i {title}sektionerne'
+    BUTTONCANCELDRAFT: 'Annuller ændringer i kladden '
+    BUTTONCANCELDRAFTDESC: 'Slet kladden og benyt istedet den nuværende side'
+    BUTTONPUBLISHED: Udgivet
+    BUTTONSAVED: Gemt
+    BUTTONSAVEPUBLISH: 'Gem & udgiv'
+    BUTTONUNPUBLISH: 'Annuller udgivelse'
+    BUTTONUNPUBLISHDESC: 'Fjern denne side fra det udgivne websted'
+    Comments: Kommentarer
+    Content: Indhold
+    DEFAULTABOUTTITLE: 'Om os'
+    DEFAULTCONTACTTITLE: 'Kontakt os'
+    DEFAULTHOMETITLE: Forside
+    DependtPageColumnLinkType: Linktype
+    EDITHEADER: 'Hvem kan redigere denne side ?'
+    EDITORGROUPS: Redaktionsgrupper
+    EDIT_ALL_DESCRIPTION: 'Rediger enhver side'
+    HASBROKENLINKS: 'Denne side har links der ikke virker.'
+    HTMLEDITORTITLE: Indhold
+    INHERIT: 'Nedarv fra overliggende side'
+    LASTUPDATED: 'Sidst opdateret'
+    LINKCHANGENOTE: 'Ved at ændre denne sides link, ændrer du også linket til alle underliggende sider.'
+    MENUTITLE: Navigationsetiket
+    METADESC: Meta-beskrivelse
+    METAEXTRA: 'Brugerdefinerede Meta Tags'
+    MODIFIEDONDRAFTHELP: 'Siden har ikke-udgivne ændringer'
+    MODIFIEDONDRAFTSHORT: Ændret
+    PAGETITLE: Sidenavn
+    PAGETYPE: Sidetype
+    PARENTID: 'Overliggende side'
+    PARENTTYPE: Sideplacering
+    PARENTTYPE_ROOT: 'Side på højeste niveau'
+    PARENTTYPE_SUBPAGE: 'Underside fra en overliggende side'
+    PERMISSION_GRANTACCESS_DESCRIPTION: 'Administrer adgangsrettigheder for indhold'
+    PERMISSION_GRANTACCESS_HELP: 'Tillad indstilling af side-specifikke adgangsbegrænsninger i sektionen "Sider" .'
+    PageTypNotAllowedOnRoot: 'Sidetypen "{type}" er ikke tilladt på rodniveau'
+    PageTypeNotAllowed: 'Sidetypen {type} er ikke tilladt som underside til denne side'
+    REMOVE_INSTALL_WARNING: 'Advarsel: Du bør, af sikkerhedsmæssige årsager, slette install.php fra SilverStripe installationsmappen.'
+    REORGANISE_DESCRIPTION: 'Ændre webstedets struktur'
+    REORGANISE_HELP: 'Omarranger sider i sidetræet ved hjælp af træk&slip.'
+    SHOWINMENUS: 'Vis i menuer ?'
+    SHOWINSEARCH: 'Vis i søgninger?'
+    TABBEHAVIOUR: Opførsel
+    TABCONTENT: 'Primært indhold'
+    TABDEPENDENT: 'Afhængige sider'
+    TOPLEVEL: 'Sideindhold (Top niveau)'
+    VIEWERGROUPS: Visningsgrupper
+    VIEW_ALL_DESCRIPTION: 'Vis enhver side'
+    VIEW_DRAFT_CONTENT: 'Vis indhold af kladde'
+    Viewers: Visningsgrupper
+    Visibility: Synlighed
+    has_one_Parent: 'Overliggende side'
+    many_many_BackLinkTracking: 'Bagud rettet sporing '
+    many_many_ImageTracking: 'Sporing af billeder'
+    many_many_LinkTracking: 'Sporing af links'
+  SilverStripe\CMS\Model\VirtualPage:
+    HEADER: 'Dette er en virtuel side'
+    PageTypNotAllowedOnRoot: 'Original side type "{type}" er ikke tilladt på rodniveau for denne virtuelle side'
+  SilverStripe\CMS\Reports\BrokenLinksReport:
+    Any: Alle
+    BROKENLINKS: 'Rapport over brudte links'
+    CheckSite: 'Undersøg websted'
+    CheckSiteDropdownDraft: Kladdeside
+    CheckSiteDropdownPublished: 'Udgivet side'
+    ColumnDateLastModified: 'Dato for seneste ændring'
+    ColumnDateLastPublished: 'Dato for seneste udgivelse'
+    ColumnProblemType: Problemtype
+    HasBrokenFile: 'har en ødelagt fil'
+    HasBrokenLink: 'har et dårligt link'
+    HasBrokenLinkAndFile: 'har et dårligt link og en ødelagt fil'
+    HoverTitleEditPage: 'Rediger siden'
+    PageName: Sidenavn
+    ReasonDropdown: 'Problem der skal undersøges'
+    ReasonDropdownBROKENFILE: 'Ødelagt fil'
+    ReasonDropdownBROKENLINK: 'Dårligt link'
+    ReasonDropdownRPBROKENLINK: 'Viderestillende side der peger på en side der ikke findes'
+    ReasonDropdownVPBROKENLINK: 'Virtuel side der peger på en side der ikke findes'
+    RedirectorNonExistent: 'Viderestillende side der peger på en side der ikke findes'
+    VirtualPageNonExistent: 'Virtuel side der peger på en side der ikke findes'
+  SilverStripe\CMS\Search\SearchForm:
+    FILTERDATEFROM: Fra
+    FILTERDATETO: Til
+    GO: Send
+    SEARCH: Søg
+    SearchResults: Søgeresultater

@@ -1,14 +1,6 @@
 /log/
-/lib/
-/resources/
 /silverstripe-cache/
 /themes/simple/
 /themes/stack/package-lock.json
-/vendor/
-/.editorconfig
-/.env
 composer.lock
 /Gemfile.lock
-node_modules/
-.DS_Store
-._*

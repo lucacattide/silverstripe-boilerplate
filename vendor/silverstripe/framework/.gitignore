@@ -1,0 +1,13 @@
+.sass-cache
+.DS_Store
+npm-debug.log
+/.buildpath
+/.project
+/.settings
+node_modules/
+coverage/
+/**/*.js.map
+/**/*.css.map
+/vendor/
+composer.lock
+silverstripe-cache/

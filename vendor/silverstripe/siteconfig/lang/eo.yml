@@ -1,0 +1,11 @@
+eo:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'Retejaj agordaroj'
+    PLURALS:
+      one: 'Unu reteja agordo'
+      other: '{count} retejaj agordoj'
+    SINGULARNAME: 'Agordi retejon'
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
+    MENUTITLE: Agordoj
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain_SilverStripeNavigator:
+    EDIT: Redakti

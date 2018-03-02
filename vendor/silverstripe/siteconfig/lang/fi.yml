@@ -1,0 +1,11 @@
+fi:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'Sivuston asetuksia'
+    PLURALS:
+      one: 'Sivuston asetukset'
+      other: '{count} Sivuston asetukset'
+    SINGULARNAME: 'Sivuston asetukset'
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
+    MENUTITLE: Asetukset
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain_SilverStripeNavigator:
+    EDIT: Muokkaa

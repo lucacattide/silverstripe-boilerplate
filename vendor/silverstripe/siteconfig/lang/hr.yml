@@ -1,0 +1,6 @@
+hr:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'Konfiguracije projekta'
+    SINGULARNAME: 'Konfiguracija projekta'
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
+    MENUTITLE: Postavke

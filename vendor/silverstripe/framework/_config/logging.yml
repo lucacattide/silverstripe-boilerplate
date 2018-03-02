@@ -1,0 +1,61 @@
+---
+Name: logging
+---
+# Logging is built up of a chain containing:
+# - A top level \ErrorHandler which registers the error service
+# - A \Logger which acts as the error service
+# - A \HandlerInterface which handles errors for the logger
+# - One or more \FormatterInterface which format errors for the handler
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\Logging\ErrorHandler:
+    class: SilverStripe\Logging\MonologErrorHandler
+    properties:
+      Logger: '%$Psr\Log\LoggerInterface'
+  Psr\Log\LoggerInterface:
+    type: singleton
+    class: Monolog\Logger
+    constructor:
+      - "error-log"
+    calls:
+      pushDisplayErrorHandler: [ pushHandler, [ '%$Monolog\Handler\HandlerInterface' ] ]
+---
+Name: loggingformatters
+---
+SilverStripe\Core\Injector\Injector:
+  # Display detailed information on an error
+  Monolog\Formatter\FormatterInterface.detailed:
+    class: SilverStripe\Logging\DetailedErrorFormatter
+  # Display friendly error messages and suppresses possible disclosure of dev configuration
+  Monolog\Formatter\FormatterInterface.friendly:
+    class: SilverStripe\Logging\DebugViewFriendlyErrorFormatter
+    properties:
+      Title: "There has been an error"
+      Body: "The website server has not been able to respond to your request"
+---
+Name: dev-logging
+Only:
+  environment: dev
+---
+# Dev handler outputs detailed information including notices
+SilverStripe\Core\Injector\Injector:
+  Monolog\Handler\HandlerInterface:
+    class: SilverStripe\Logging\HTTPOutputHandler
+    constructor:
+      - "notice"
+    properties:
+      DefaultFormatter: '%$Monolog\Formatter\FormatterInterface.detailed'
+---
+Name: live-logging
+Except:
+  environment: dev
+---
+# Live handler outputs user-friendly error details, and ignores notices
+# CLI errors still show full details
+SilverStripe\Core\Injector\Injector:
+  Monolog\Handler\HandlerInterface:
+    class: SilverStripe\Logging\HTTPOutputHandler
+    constructor:
+      - "error"
+    properties:
+      DefaultFormatter: '%$Monolog\Formatter\FormatterInterface.friendly'
+      CLIFormatter: '%$Monolog\Formatter\FormatterInterface.detailed'

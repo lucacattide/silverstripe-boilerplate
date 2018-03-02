@@ -1,0 +1,9 @@
+sv:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'Sajt inställningar'
+    PLURALS:
+      one: 'En sajtinställning'
+      other: '{count} Sajtinställningar'
+    SINGULARNAME: 'Sajt inställning'
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
+    MENUTITLE: Inställningar

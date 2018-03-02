@@ -1,0 +1,24 @@
+---
+Name: corecache
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\Core\Cache\CacheFactory:
+    class: 'SilverStripe\Core\Cache\DefaultCacheFactory'
+    constructor:
+      args:
+        directory: '`TEMP_PATH`'
+        version: null
+      logger: '%$Psr\Log\LoggerInterface'
+  Psr\SimpleCache\CacheInterface.cacheblock:
+    factory: SilverStripe\Core\Cache\CacheFactory
+    constructor:
+      namespace: "cacheblock"
+      defaultLifetime: 600
+  Psr\SimpleCache\CacheInterface.VersionProvider_composerlock:
+      factory: SilverStripe\Core\Cache\CacheFactory
+      constructor:
+        namespace: "VersionProvider_composerlock"
+  Psr\SimpleCache\CacheInterface.RateLimiter:
+      factory: SilverStripe\Core\Cache\CacheFactory
+      constructor:
+        namespace: 'ratelimiter'
