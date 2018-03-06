@@ -8,5 +8,5 @@ SilverStripe\Core\Injector\Injector:
   FileLogger:
     class: Monolog\Handler\StreamHandler
     constructor:
-      - "../ss-errors.log"
+      - "../log/ss-errors.log"
       - "notice"
