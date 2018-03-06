@@ -1,0 +1,14 @@
+.cms-logo a {
+  background-image: url('') !important;
+}
+
+.ss-loading-screen .loading-logo {
+  background-image: url('') !important;
+  margin: 0 auto;
+  max-width: 461px;
+  position: relative;
+}
+
+.ss-loading-screen .loading-logo img {
+  display: none !important;
+}
