@@ -3,6 +3,6 @@ Name: mytheme
 ---
 SilverStripe\View\SSViewer:
   themes:
-    - '$default'
+    - stack
 SilverStripe\i18n\i18n:
   default_locale: 'it_IT'
