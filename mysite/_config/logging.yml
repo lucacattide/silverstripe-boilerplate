@@ -1,0 +1,12 @@
+---
+Name: lessons-all-logging
+---
+SilverStripe\Core\Injector\Injector:
+  Psr\Log\LoggerInterface:
+    calls:
+      FileLogger: [ pushHandler, [ %$FileLogger ] ]
+  FileLogger:
+    class: Monolog\Handler\StreamHandler
+    constructor:
+      - "../ss-errors.log"
+      - "notice"

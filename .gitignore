@@ -6,3 +6,4 @@
 /vendor/
 composer.lock
 /Gemfile.lock
+/errors.log
