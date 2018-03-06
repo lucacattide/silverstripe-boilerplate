@@ -1,0 +1,14 @@
+---
+Name: dev-email
+Only:
+  environment: dev
+---
+Email:
+  send_all_emails_to: 'l.cattide@email.it'
+---
+Name: live-email
+Except:
+  environment: dev
+---
+Email:
+  bcc_all_emails_to: 'l.cattide@email.it'
