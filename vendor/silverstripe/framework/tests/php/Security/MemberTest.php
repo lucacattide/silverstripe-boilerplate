@@ -3,6 +3,7 @@
 namespace SilverStripe\Security\Tests;
 
 use SilverStripe\Control\Cookie;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\FunctionalTest;
@@ -56,6 +57,22 @@ class MemberTest extends FunctionalTest
         Member::set_password_validator(null);
     }
 
+    public function testPasswordEncryptionUpdatedOnChangedPassword()
+    {
+        Config::modify()->set(Security::class, 'password_encryption_algorithm', 'none');
+        $member = Member::create();
+        $member->Password = 'password';
+        $member->write();
+        $this->assertEquals('password', $member->Password);
+        $this->assertEquals('none', $member->PasswordEncryption);
+        Config::modify()->set(Security::class, 'password_encryption_algorithm', 'blowfish');
+        $member->Password = 'newpassword';
+        $member->write();
+        $this->assertNotEquals('password', $member->Password);
+        $this->assertNotEquals('newpassword', $member->Password);
+        $this->assertEquals('blowfish', $member->PasswordEncryption);
+    }
+
     public function testWriteDoesntMergeNewRecordWithExistingMember()
     {
         $this->expectException(ValidationException::class);
@@ -91,8 +108,8 @@ class MemberTest extends FunctionalTest
         $memberWithPassword->Password = 'mypassword';
         $memberWithPassword->write();
         $this->assertEquals(
-            $memberWithPassword->PasswordEncryption,
             Security::config()->get('password_encryption_algorithm'),
+            $memberWithPassword->PasswordEncryption,
             'Password encryption is set for new member records on first write (with setting "Password")'
         );
 
@@ -102,27 +119,6 @@ class MemberTest extends FunctionalTest
             $memberNoPassword->PasswordEncryption,
             'Password encryption is not set for new member records on first write, when not setting a "Password")'
         );
-    }
-
-    public function testDefaultPasswordEncryptionDoesntChangeExistingMembers()
-    {
-        $member = new Member();
-        $member->Password = 'mypassword';
-        $member->PasswordEncryption = 'sha1_v2.4';
-        $member->write();
-
-        Security::config()->set('password_encryption_algorithm', 'none');
-
-        $member->Password = 'mynewpassword';
-        $member->write();
-
-        $this->assertEquals(
-            $member->PasswordEncryption,
-            'sha1_v2.4'
-        );
-        $auth = new MemberAuthenticator();
-        $result = $auth->checkPassword($member, 'mynewpassword');
-        $this->assertTrue($result->isValid());
     }
 
     public function testKeepsEncryptionOnEmptyPasswords()
@@ -136,8 +132,8 @@ class MemberTest extends FunctionalTest
         $member->write();
 
         $this->assertEquals(
-            $member->PasswordEncryption,
-            'sha1_v2.4'
+            Security::config()->get('password_encryption_algorithm'),
+            $member->PasswordEncryption
         );
         $auth = new MemberAuthenticator();
         $result = $auth->checkPassword($member, '');
@@ -250,7 +246,7 @@ class MemberTest extends FunctionalTest
             "testuser@example.com",
             null,
             'Your password reset link',
-            '/Security\/changepassword\?m='.$member->ID.'&amp;t=[^"]+/'
+            '/Security\/changepassword\?m=' . $member->ID . '&amp;t=[^"]+/'
         );
     }
 
@@ -809,11 +805,11 @@ class MemberTest extends FunctionalTest
 
         $this->assertTrue(
             in_array($admin->getTitle(), $members),
-            $admin->getTitle().' should be in the returned list.'
+            $admin->getTitle() . ' should be in the returned list.'
         );
         $this->assertTrue(
             in_array($otherAdmin->getTitle(), $members),
-            $otherAdmin->getTitle().' should be in the returned list.'
+            $otherAdmin->getTitle() . ' should be in the returned list.'
         );
         $this->assertEquals(2, count($members), 'There should be 2 members from the admin group');
     }
@@ -924,7 +920,7 @@ class MemberTest extends FunctionalTest
             $this->session(),
             null,
             array(
-                'alc_enc' => $m1->ID.':'.$token,
+                'alc_enc' => $m1->ID . ':' . $token,
                 'alc_device' => $firstHash->DeviceID
             )
         );
@@ -945,7 +941,7 @@ class MemberTest extends FunctionalTest
             $this->session(),
             null,
             array(
-                'alc_enc' => $m1->ID.':asdfasd'.str_rot13($token),
+                'alc_enc' => $m1->ID . ':asdfasd' . str_rot13($token),
                 'alc_device' => $firstHash->DeviceID
             )
         );
@@ -956,7 +952,7 @@ class MemberTest extends FunctionalTest
             $this->session(),
             null,
             array(
-                'alc_enc' => $m1->ID.':'.$token,
+                'alc_enc' => $m1->ID . ':' . $token,
                 'alc_device' => str_rot13($firstHash->DeviceID)
             )
         );
@@ -1004,7 +1000,7 @@ class MemberTest extends FunctionalTest
             $this->session(),
             null,
             array(
-                'alc_enc' => $m1->ID.':'.$token,
+                'alc_enc' => $m1->ID . ':' . $token,
                 'alc_device' => $firstHash->DeviceID
             )
         );
@@ -1032,7 +1028,7 @@ class MemberTest extends FunctionalTest
             $this->session(),
             null,
             array(
-                'alc_enc' => $m1->ID.':'.$token,
+                'alc_enc' => $m1->ID . ':' . $token,
                 'alc_device' => $firstHash->DeviceID
             )
         );
@@ -1080,7 +1076,7 @@ class MemberTest extends FunctionalTest
             $this->session(),
             null,
             array(
-                'alc_enc' => $m1->ID.':'.$firstToken,
+                'alc_enc' => $m1->ID . ':' . $firstToken,
                 'alc_device' => $firstHash->DeviceID
             )
         );
@@ -1105,7 +1101,7 @@ class MemberTest extends FunctionalTest
             $this->session(),
             null,
             array(
-                'alc_enc' => $m1->ID.':'.$secondToken,
+                'alc_enc' => $m1->ID . ':' . $secondToken,
                 'alc_device' => $secondHash->DeviceID
             )
         );
@@ -1118,7 +1114,7 @@ class MemberTest extends FunctionalTest
             $this->session(),
             null,
             array(
-                'alc_enc' => $m1->ID.':'.$secondToken,
+                'alc_enc' => $m1->ID . ':' . $secondToken,
                 'alc_device' => $secondHash->DeviceID
             )
         );

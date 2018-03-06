@@ -429,12 +429,13 @@ class AddToCampaignHandler
             $hasExistingName = Changeset::get()
                     ->filter('Name:nocase', $title)
                     ->count() > 0;
+
             if ($hasExistingName) {
                 throw $this->validationResult(
                     _t(
                         'SilverStripe\\CampaignAdmin\\CampaignAdmin.ERROR_DUPLICATE_NAME',
                         'Name "{Name}" already exists',
-                        ['Name' => $data['Name']]
+                        ['Name' => $title]
                     ),
                     'NewTitle'
                 );

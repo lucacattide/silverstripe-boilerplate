@@ -426,13 +426,13 @@ class Injector implements ContainerInterface
             // to ensure we get cached
             $spec['id'] = $id;
 
-//			We've removed this check because new functionality means that the 'class' field doesn't need to refer
-//			specifically to a class anymore - it could be a compound statement, ala SilverStripe's old Object::create
-//			functionality
+//          We've removed this check because new functionality means that the 'class' field doesn't need to refer
+//          specifically to a class anymore - it could be a compound statement, ala SilverStripe's old Object::create
+//          functionality
 //
-//			if (!class_exists($class)) {
-//				throw new Exception("Failed to load '$class' from $file");
-//			}
+//          if (!class_exists($class)) {
+//              throw new Exception("Failed to load '$class' from $file");
+//          }
 
             // store the specs for now - we lazy load on demand later on.
             $this->specs[$id] = $spec;
@@ -789,8 +789,8 @@ class Injector implements ContainerInterface
      */
     protected function setObjectProperty($object, $name, $value)
     {
-        if (ClassInfo::hasMethod($object, 'set'.$name)) {
-            $object->{'set'.$name}($value);
+        if (ClassInfo::hasMethod($object, 'set' . $name)) {
+            $object->{'set' . $name}($value);
         } else {
             $object->$name = $value;
         }

@@ -64,6 +64,7 @@ $.entwine('ss', function($) {
           form.removeClass('loading');
           if(successCallback) successCallback.apply(this, arguments);
           self.trigger('reload', self);
+          self.trigger('change');
         },
         error: function(e) {
           alert(i18n._t('Admin.ERRORINTRANSACTION'));
@@ -428,7 +429,7 @@ $.entwine('ss', function($) {
           });
         },
         select: function(event, ui) {
-          var hiddenField = $('<input type="hidden" name="relationID" class="action_gridfield_relationfind" />');
+          var hiddenField = $('<input type="hidden" name="relationID" class="action_gridfield_relationfind no-change-track" />');
             hiddenField.val(ui.item.id);
             $(this)
               .closest(".grid-field")

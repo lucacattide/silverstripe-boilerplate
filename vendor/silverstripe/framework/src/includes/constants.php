@@ -8,7 +8,6 @@ use SilverStripe\Core\TempFolder;
  * This file is the Framework constants bootstrap. It will prepare some basic common constants.
  *
  * It takes care of:
- *  - Normalisation of $_SERVER values
  *  - Initialisation of necessary constants (mostly paths)
  *
  * Initialized constants:
@@ -23,6 +22,8 @@ use SilverStripe\Core\TempFolder;
  * - THEMES_PATH: Absolute filepath, e.g. "/var/www/my-webroot/themes"
  * - FRAMEWORK_DIR: Path relative to webroot, e.g. "framework"
  * - FRAMEWORK_PATH:Absolute filepath, e.g. "/var/www/my-webroot/framework"
+ * - PUBLIC_DIR: Webroot path relative to project root, e.g. "public" or ""
+ * - PUBLIC_PATH: Absolute path to webroot, e.g. "/var/www/project/public"
  * - THIRDPARTY_DIR: Path relative to webroot, e.g. "framework/thirdparty"
  * - THIRDPARTY_PATH: Absolute filepath, e.g. "/var/www/my-webroot/framework/thirdparty"
  */
@@ -55,6 +56,14 @@ if (!defined('BASE_PATH')) {
         // This likely only happens on chrooted environemnts
         return $candidateBasePath ?: DIRECTORY_SEPARATOR;
     }));
+}
+
+// Set public webroot dir / path
+if (!defined('PUBLIC_DIR')) {
+    define('PUBLIC_DIR', '');
+}
+if (!defined('PUBLIC_PATH')) {
+    define('PUBLIC_PATH', BASE_PATH);
 }
 
 // Allow a first class env var to be set that disables .env file loading
@@ -135,7 +144,7 @@ if (!defined('ASSETS_PATH')) {
 
 // Custom include path - deprecated
 if (defined('CUSTOM_INCLUDE_PATH')) {
-    set_include_path(CUSTOM_INCLUDE_PATH . PATH_SEPARATOR   . get_include_path());
+    set_include_path(CUSTOM_INCLUDE_PATH . PATH_SEPARATOR . get_include_path());
 }
 
 // Define the temporary folder if it wasn't defined yet

@@ -167,7 +167,7 @@ class HTTP
      * @param string $separator Separator for http_build_query().
      * @return string
      */
-    public static function setGetVar($varname, $varvalue, $currentURL = null, $separator = '&amp;')
+    public static function setGetVar($varname, $varvalue, $currentURL = null, $separator = '&')
     {
         if (!isset($currentURL)) {
             $request = Controller::curr()->getRequest();
@@ -205,14 +205,14 @@ class HTTP
         }
 
         $host = (isset($parts['host'])) ? $parts['host'] : '';
-        $port = (isset($parts['port']) && $parts['port'] != '') ? ':'.$parts['port'] : '';
+        $port = (isset($parts['port']) && $parts['port'] != '') ? ':' . $parts['port'] : '';
         $path = (isset($parts['path']) && $parts['path'] != '') ? $parts['path'] : '';
 
         // handle URL params which are existing / new
         $params = ($params) ?  '?' . http_build_query($params, null, $separator) : '';
 
         // keep fragments (anchors) intact.
-        $fragment = (isset($parts['fragment']) && $parts['fragment'] != '') ?  '#'.$parts['fragment'] : '';
+        $fragment = (isset($parts['fragment']) && $parts['fragment'] != '') ?  '#' . $parts['fragment'] : '';
 
         // Recompile URI segments
         $newUri =  $scheme . '://' . $user . $host . $port . $path . $params . $fragment;
@@ -308,7 +308,7 @@ class HTTP
 
         // Fallback to use the list from the HTTP.yml configuration and rely on the file extension
         // to get the file mime-type
-        $ext = File::get_file_extension($filename);
+        $ext = strtolower(File::get_file_extension($filename));
         // Get the mime-types
         $mimeTypes = HTTP::config()->uninherited('MimeTypes');
 
@@ -465,7 +465,7 @@ class HTTP
             } elseif ((is_bool($value) && $value) || $value === "true") {
                 $cacheControlHeaders[$header] = $header;
             } else {
-                $cacheControlHeaders[$header] = $header."=".$value;
+                $cacheControlHeaders[$header] = $header . "=" . $value;
             }
         }
 

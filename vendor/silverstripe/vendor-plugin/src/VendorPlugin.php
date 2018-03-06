@@ -11,22 +11,29 @@ use Composer\Factory;
 use Composer\Installer\PackageEvent;
 use Composer\IO\IOInterface;
 use Composer\Package\PackageInterface;
+use Composer\Plugin\Capability\CommandProvider;
+use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
+use Composer\Script\Event;
 use Composer\Util\Filesystem;
-use SilverStripe\VendorPlugin\Methods\CopyMethod;
-use SilverStripe\VendorPlugin\Methods\ExposeMethod;
-use SilverStripe\VendorPlugin\Methods\ChainedMethod;
-use SilverStripe\VendorPlugin\Methods\SymlinkMethod;
+use SilverStripe\VendorPlugin\Console\VendorCommandProvider;
 
 /**
  * Provides public webroot rewrite functionality for vendor modules
  */
-class VendorPlugin implements PluginInterface, EventSubscriberInterface
+class VendorPlugin implements PluginInterface, EventSubscriberInterface, Capable
 {
     /**
-     * Module type to match
+     * Default module type
+     *
+     * @deprecated 1.3..2.0 Use MODULE_FILTER instead
      */
     const MODULE_TYPE = 'silverstripe-vendormodule';
+
+    /**
+     * Filter for matching library types to expose
+     */
+    const MODULE_FILTER = '/^silverstripe\-(\w+)$/';
 
     /**
      * Method env var to query
@@ -44,6 +51,26 @@ class VendorPlugin implements PluginInterface, EventSubscriberInterface
     const METHOD_AUTO = 'auto';
 
     /**
+     * File name to use for linking method storage
+     */
+    const METHOD_FILE = '.method';
+
+    /**
+     * Define default as 'auto'
+     */
+    const METHOD_DEFAULT = self::METHOD_AUTO;
+
+    /**
+     * @var Filesystem
+     */
+    protected $filesystem = null;
+
+    public function __construct()
+    {
+        $this->filesystem = new Filesystem();
+    }
+
+    /**
      * Apply vendor plugin
      *
      * @param Composer $composer
@@ -59,29 +86,43 @@ class VendorPlugin implements PluginInterface, EventSubscriberInterface
             'post-package-update' => 'installPackage',
             'post-package-install' => 'installPackage',
             'pre-package-uninstall' => 'uninstallPackage',
+            'post-install-cmd' => 'installRootPackage',
+            'post-update-cmd' => 'installRootPackage',
         ];
     }
 
     /**
      * Get vendor module instance for this event
      *
+     * @deprecated 1.3..2.0
      * @param PackageEvent $event
-     * @return VendorModule
+     * @return Library|null
      */
     protected function getVendorModule(PackageEvent $event)
     {
+        return $this->getLibrary($event);
+    }
+
+    /**
+     * Gets library being installed
+     *
+     * @param PackageEvent $event
+     * @return Library|null
+     */
+    public function getLibrary(PackageEvent $event)
+    {
         // Ensure package is the valid type
         $package = $this->getOperationPackage($event);
-        if (!$package || $package->getType() !== self::MODULE_TYPE) {
+        if (!$package || !preg_match(self::MODULE_FILTER, $package->getType())) {
             return null;
         }
 
-        // Find project path
-        $projectPath = dirname(realpath(Factory::getComposerFile()));
-        $name = $package->getName();
+        // Get appropriate installer and query install path
+        $installer = $event->getComposer()->getInstallationManager()->getInstaller($package->getType());
+        $path = $installer->getInstallPath($package);
 
         // Build module
-        return new VendorModule($projectPath, $name);
+        return new Library($this->getProjectPath(), $path);
     }
 
     /**
@@ -91,28 +132,39 @@ class VendorPlugin implements PluginInterface, EventSubscriberInterface
      */
     public function installPackage(PackageEvent $event)
     {
-        // Check and log all folders being exposed
-        $module = $this->getVendorModule($event);
-        if (!$module) {
+        // Ensure module exists and requires exposure
+        $library = $this->getLibrary($event);
+        if (!$library) {
             return;
         }
 
-        // Skip if module has no public resources
-        $folders = $module->getExposedFolders();
-        if (empty($folders)) {
-            return;
-        }
+        // Install found library
+        $this->installLibrary($event->getIO(), $library);
+    }
 
-        // Log details
-        $name = $module->getName();
-        $event->getIO()->write("Exposing web directories for module <info>{$name}</info>:");
-        foreach ($folders as $folder) {
-            $event->getIO()->write("  - <info>$folder</info>");
-        }
+    /**
+     * Install resources from the root package
+     *
+     * @param Event $event
+     */
+    public function installRootPackage(Event $event)
+    {
+        // Build library in base path
+        $basePath = $this->getProjectPath();
+        $library = new Library($basePath, $basePath);
 
-        // Expose web dirs with given method
-        $method = $this->getMethod();
-        $module->exposePaths($method);
+        // Pass to library installer
+        $this->installLibrary($event->getIO(), $library);
+    }
+
+    /**
+     * Get base path to project
+     *
+     * @return string
+     */
+    protected function getProjectPath()
+    {
+        return dirname(realpath(Factory::getComposerFile()));
     }
 
     /**
@@ -122,49 +174,27 @@ class VendorPlugin implements PluginInterface, EventSubscriberInterface
      */
     public function uninstallPackage(PackageEvent $event)
     {
-        // Ensure package is the valid type
-        $module = $this->getVendorModule($event);
-        if (!$module) {
+        // Check if library exists and exposes any directories
+        $library = $this->getLibrary($event);
+        if (!$library || !$library->requiresExpose()) {
             return;
         }
 
         // Check path to remove
-        $target = $module->getModulePath(VendorModule::DEFAULT_TARGET);
-        $filesystem = new Filesystem();
+        $target = $library->getPublicPath();
         if (!is_dir($target)) {
             return;
         }
 
         // Remove directory
-        $name = $module->getName();
+        $name = $library->getName();
         $event->getIO()->write("Removing web directories for module <info>{$name}</info>:");
-        $filesystem->removeDirectory($target);
+        $this->filesystem->removeDirectory($target);
 
         // Cleanup empty vendor dir if this is the last module
-        $vendorTarget = dirname($target);
-        if ($filesystem->isDirEmpty($vendorTarget)) {
-            $filesystem->removeDirectory($vendorTarget);
-        }
-    }
-
-    /**
-     * @return ExposeMethod
-     */
-    protected function getMethod()
-    {
-        // Switch based on SS_VENDOR_METHOD arg
-        switch (getenv(self::METHOD_ENV)) {
-            case CopyMethod::NAME:
-                return new CopyMethod();
-            case SymlinkMethod::NAME:
-                return new SymlinkMethod();
-            case self::METHOD_NONE:
-                // 'none' is forced to an empty chain
-                return new ChainedMethod([]);
-            case self::METHOD_AUTO:
-            default:
-                // Default to safe-failover method
-                return new ChainedMethod(new SymlinkMethod(), new CopyMethod());
+        $targetParent = dirname($target);
+        if ($this->filesystem->isDirEmpty($targetParent)) {
+            $this->filesystem->removeDirectory($targetParent);
         }
     }
 
@@ -187,5 +217,33 @@ class VendorPlugin implements PluginInterface, EventSubscriberInterface
             return $operation->getPackage();
         }
         return null;
+    }
+
+    public function getCapabilities()
+    {
+        return [
+            CommandProvider::class => VendorCommandProvider::class
+        ];
+    }
+
+    /**
+     * Expose the given Library object
+     *
+     * @param IOInterface $IO
+     * @param Library $library
+     */
+    protected function installLibrary(IOInterface $IO, Library $library)
+    {
+        if (!$library || !$library->requiresExpose()) {
+            return;
+        }
+
+        // Create exposure task
+        $task = new VendorExposeTask(
+            $this->getProjectPath(),
+            $this->filesystem,
+            $library->getBasePublicPath()
+        );
+        $task->process($IO, [$library]);
     }
 }

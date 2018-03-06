@@ -3,7 +3,6 @@
 namespace SilverStripe\Security\Tests;
 
 use Page;
-use PageController;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
@@ -405,7 +404,7 @@ class SecurityTest extends FunctionalTest
         $expiredResponse = $this->doTestLoginForm('expired@silverstripe.com', '1nitialPassword');
         $this->assertEquals(302, $expiredResponse->getStatusCode());
         $this->assertEquals(
-            Director::absoluteURL('Security/changepassword').'?BackURL=test%2Flink',
+            Director::absoluteURL('Security/changepassword') . '?BackURL=test%2Flink',
             Director::absoluteURL($expiredResponse->getHeader('Location'))
         );
         $this->assertEquals(
@@ -472,7 +471,7 @@ class SecurityTest extends FunctionalTest
         $token = $admin->generateAutologinTokenAndStoreHash();
 
         // Check.
-        $response = $this->get('Security/changepassword/?m='.$admin->ID.'&t=' . $token);
+        $response = $this->get('Security/changepassword/?m=' . $admin->ID . '&t=' . $token);
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertEquals(
             Director::absoluteURL('Security/changepassword'),
@@ -534,8 +533,7 @@ class SecurityTest extends FunctionalTest
         }
         $msg = _t(
             'SilverStripe\\Security\\Member.ERRORLOCKEDOUT2',
-            'Your account has been temporarily disabled because of too many failed attempts at ' .
-            'logging in. Please try again in {count} minutes.',
+            'Your account has been temporarily disabled because of too many failed attempts at ' . 'logging in. Please try again in {count} minutes.',
             null,
             array('count' => 15)
         );
@@ -615,34 +613,21 @@ class SecurityTest extends FunctionalTest
         /* UNSUCCESSFUL ATTEMPTS WITH WRONG PASSWORD FOR EXISTING USER ARE LOGGED */
         $this->doTestLoginForm('testuser@example.com', 'wrongpassword');
         /** @var LoginAttempt $attempt */
-        $attempt = DataObject::get_one(
-            LoginAttempt::class,
-            array(
-            '"LoginAttempt"."Email"' => 'testuser@example.com'
-            )
-        );
+        $attempt = LoginAttempt::getByEmail('testuser@example.com')->first();
         $this->assertInstanceOf(LoginAttempt::class, $attempt);
-        $member = DataObject::get_one(
-            Member::class,
-            array(
-            '"Member"."Email"' => 'testuser@example.com'
-            )
-        );
+        $member = Member::get()->filter('Email', 'testuser@example.com')->first();
         $this->assertEquals($attempt->Status, 'Failure');
-        $this->assertEquals($attempt->Email, 'testuser@example.com');
+        $this->assertEmpty($attempt->Email); // Doesn't store potentially sensitive data
+        $this->assertEquals($attempt->EmailHashed, sha1('testuser@example.com'));
         $this->assertEquals($attempt->Member()->toMap(), $member->toMap());
 
         /* UNSUCCESSFUL ATTEMPTS WITH NONEXISTING USER ARE LOGGED */
         $this->doTestLoginForm('wronguser@silverstripe.com', 'wrongpassword');
-        $attempt = DataObject::get_one(
-            LoginAttempt::class,
-            array(
-            '"LoginAttempt"."Email"' => 'wronguser@silverstripe.com'
-            )
-        );
-        $this->assertTrue(is_object($attempt));
+        $attempt = LoginAttempt::getByEmail('wronguser@silverstripe.com')->first();
+        $this->assertInstanceOf(LoginAttempt::class, $attempt);
         $this->assertEquals($attempt->Status, 'Failure');
-        $this->assertEquals($attempt->Email, 'wronguser@silverstripe.com');
+        $this->assertEmpty($attempt->Email); // Doesn't store potentially sensitive data
+        $this->assertEquals($attempt->EmailHashed, sha1('wronguser@silverstripe.com'));
         $this->assertNotEmpty($this->getValidationResult()->getMessages(), 'An invalid email returns a message.');
     }
 
@@ -653,22 +638,12 @@ class SecurityTest extends FunctionalTest
         /* SUCCESSFUL ATTEMPTS ARE LOGGED */
         $this->doTestLoginForm('testuser@example.com', '1nitialPassword');
         /** @var LoginAttempt $attempt */
-        $attempt = DataObject::get_one(
-            LoginAttempt::class,
-            array(
-            '"LoginAttempt"."Email"' => 'testuser@example.com'
-            )
-        );
-        /** @var Member $member */
-        $member = DataObject::get_one(
-            Member::class,
-            array(
-            '"Member"."Email"' => 'testuser@example.com'
-            )
-        );
-        $this->assertTrue(is_object($attempt));
+        $attempt = LoginAttempt::getByEmail('testuser@example.com')->first();
+        $member = Member::get()->filter('Email', 'testuser@example.com')->first();
+        $this->assertInstanceOf(LoginAttempt::class, $attempt);
         $this->assertEquals($attempt->Status, 'Success');
-        $this->assertEquals($attempt->Email, 'testuser@example.com');
+        $this->assertEmpty($attempt->Email); // Doesn't store potentially sensitive data
+        $this->assertEquals($attempt->EmailHashed, sha1('testuser@example.com'));
         $this->assertEquals($attempt->Member()->toMap(), $member->toMap());
     }
 
@@ -725,6 +700,7 @@ class SecurityTest extends FunctionalTest
 
         // Ensure page shares the same controller as security
         $securityClass = Config::inst()->get(Security::class, 'page_class');
+        /** @var Page $securityPage */
         $securityPage = new $securityClass();
         $this->assertInstanceOf($securityPage->getControllerName(), $result);
         $this->assertEquals($request, $result->getRequest());

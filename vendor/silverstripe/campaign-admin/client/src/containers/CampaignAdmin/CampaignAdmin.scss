@@ -189,3 +189,21 @@
     }
   }
 }
+
+.campaign-status {
+  $diameter: 10px;
+
+  display: inline-block;
+  width: $diameter;
+  height: $diameter;
+  border-radius: $diameter;
+  margin-right: .5em;
+
+  &--open {
+    background-color: $brand-primary;
+  }
+
+  &--published {
+    background-color: $brand-success;
+  }
+}

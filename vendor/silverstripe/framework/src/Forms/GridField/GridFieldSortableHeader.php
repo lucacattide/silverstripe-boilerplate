@@ -171,7 +171,7 @@ class GridFieldSortableHeader implements GridField_HTMLProvider, GridField_DataM
 
                 $field = GridField_FormAction::create(
                     $gridField,
-                    'SetOrder'.$fieldName,
+                    'SetOrder' . $fieldName,
                     $title,
                     "sort$dir",
                     array('SortColumn' => $columnField)
@@ -196,7 +196,7 @@ class GridFieldSortableHeader implements GridField_HTMLProvider, GridField_DataM
                             '<button type="button" name="showFilter" title="Open search and filter" class="btn btn-secondary font-icon-search btn--no-text btn--icon-large grid-field__filter-open"></button>'
                         );
                     } else {
-                        $field = new LiteralField($fieldName, '<span class="non-sortable"></span>');
+                        $field = new LiteralField($fieldName, '<span class="non-sortable">' . $title . '</span>');
                     }
                 } else {
                     $field = new LiteralField($fieldName, '<span class="non-sortable">' . $title . '</span>');

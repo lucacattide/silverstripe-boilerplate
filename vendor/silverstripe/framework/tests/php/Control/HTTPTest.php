@@ -154,13 +154,13 @@ class HTTPTest extends FunctionalTest
         );
 
         $this->assertEquals(
-            'relative/url?baz=buz&amp;foo=bar',
+            'relative/url?baz=buz&foo=bar',
             HTTP::setGetVar('foo', 'bar', '/relative/url?baz=buz'),
             'Relative URL with existing query params, and new added key'
         );
 
         $this->assertEquals(
-            'http://test.com/?foo=new&amp;buz=baz',
+            'http://test.com/?foo=new&buz=baz',
             HTTP::setGetVar('foo', 'new', 'http://test.com/?foo=old&buz=baz'),
             'Absolute URL without path and multipe existing query params, overwriting an existing parameter'
         );
@@ -172,7 +172,7 @@ class HTTPTest extends FunctionalTest
         );
         // http_build_query() escapes angular brackets, they should be correctly urldecoded by the browser client
         $this->assertEquals(
-            'http://test.com/?foo%5Btest%5D=one&amp;foo%5Btest%5D=two',
+            'http://test.com/?foo%5Btest%5D=one&foo%5Btest%5D=two',
             HTTP::setGetVar('foo[test]', 'two', 'http://test.com/?foo[test]=one'),
             'Absolute URL and PHP array query string notation'
         );
@@ -189,7 +189,7 @@ class HTTPTest extends FunctionalTest
 
         foreach ($urls as $testURL) {
             $this->assertEquals(
-                $testURL .'?foo=bar',
+                $testURL . '?foo=bar',
                 HTTP::setGetVar('foo', 'bar', $testURL),
                 'Absolute URL and Port Number'
             );
@@ -205,6 +205,7 @@ class HTTPTest extends FunctionalTest
         $this->assertEquals('image/gif', HTTP::get_mime_type('file.gif'));
         $this->assertEquals('text/html', HTTP::get_mime_type('file.html'));
         $this->assertEquals('image/jpeg', HTTP::get_mime_type('file.jpg'));
+        $this->assertEquals('image/jpeg', HTTP::get_mime_type('upperfile.JPG'));
         $this->assertEquals('image/png', HTTP::get_mime_type('file.png'));
         $this->assertEquals(
             'image/vnd.adobe.photoshop',
@@ -225,8 +226,7 @@ class HTTPTest extends FunctionalTest
                 // background-image
                 // Note that using /./ in urls is absolutely acceptable
                 $this->assertEquals(
-                    '<div style="background-image: url(\'http://www.silverstripe.org/./images/mybackground.gif\');">'.
-                    'Content</div>',
+                    '<div style="background-image: url(\'http://www.silverstripe.org/./images/mybackground.gif\');">' . 'Content</div>',
                     HTTP::absoluteURLs('<div style="background-image: url(\'./images/mybackground.gif\');">Content</div>')
                 );
 
@@ -289,8 +289,7 @@ class HTTPTest extends FunctionalTest
                 // background
                 // Note that using /./ in urls is absolutely acceptable
                 $this->assertEquals(
-                    '<div background="http://www.silverstripe.org/./themes/silverstripe/images/nav-bg-repeat-2.png">'.
-                    'SS Blog</div>',
+                    '<div background="http://www.silverstripe.org/./themes/silverstripe/images/nav-bg-repeat-2.png">' . 'SS Blog</div>',
                     HTTP::absoluteURLs('<div background="./themes/silverstripe/images/nav-bg-repeat-2.png">SS Blog</div>')
                 );
 
@@ -341,11 +340,9 @@ class HTTPTest extends FunctionalTest
 
                 // data uri
                 $this->assertEquals(
-                    '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38'.
-                    'GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />',
+                    '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38' . 'GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />',
                     HTTP::absoluteURLs(
-                        '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH'.
-                        'ElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />'
+                        '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH' . 'ElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />'
                     ),
                     'Data URI links are not rewritten'
                 );

@@ -127,7 +127,7 @@ class DevelopmentAdmin extends Controller
             return $controllerClass::create();
         }
 
-        $msg = 'Error: no controller registered in '.__CLASS__.' for: '.$request->param('Action');
+        $msg = 'Error: no controller registered in ' . __CLASS__ . ' for: ' . $request->param('Action');
         if (Director::is_cli()) {
             // in CLI we cant use httpError because of a bug with stuff being in the output already, see DevAdminControllerTest
             throw new Exception($msg);
@@ -140,8 +140,8 @@ class DevelopmentAdmin extends Controller
 
 
     /*
-	 * Internal methods
-	 */
+     * Internal methods
+     */
 
     /**
      * @return array of url => description
@@ -175,8 +175,8 @@ class DevelopmentAdmin extends Controller
 
 
     /*
-	 * Unregistered (hidden) actions
-	 */
+     * Unregistered (hidden) actions
+     */
 
     /**
      * Build the default data, calling requireDefaultRecords on all

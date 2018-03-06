@@ -28,7 +28,6 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Injector\Injector;
-use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormFactory;
 use SilverStripe\ORM\ArrayList;
@@ -36,6 +35,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Security\Member;
+use SilverStripe\Security\Permission;
 use SilverStripe\Security\PermissionProvider;
 use SilverStripe\Security\Security;
 use SilverStripe\Security\SecurityToken;
@@ -1111,9 +1111,9 @@ class AssetAdmin extends LeftAndMain implements PermissionProvider
     public function getObjectFromData(File $file, $thumbnailLinks = true)
     {
         $object = array(
-            'id' => $file->ID,
+            'id' => (int) $file->ID,
             // Slightly more accurate than graphql bulk-usage lookup, but more expensive
-            'inUseCount' => $file->findOwners()->count(),
+            'inUseCount' => ($file->hasMethod('findOwners')) ? $file->findOwners()->count() : 0,
             'created' => $file->Created,
             'lastUpdated' => $file->LastEdited,
             'owner' => null,
@@ -1127,11 +1127,11 @@ class AssetAdmin extends LeftAndMain implements PermissionProvider
             'extension' => $file->Extension,
             'size' => $file->AbsoluteSize,
             'url' => $file->AbsoluteURL,
-            'published' => $file->isPublished(),
-            'modified' => $file->isModifiedOnDraft(),
-            'draft' => $file->isOnDraftOnly(),
+            'published' => ($file->hasMethod('isPublished')) ? $file->isPublished() : true,
+            'modified' => ($file->hasMethod('isModifiedOnDraft')) ? $file->isModifiedOnDraft() : false,
+            'draft' => ($file->hasMethod('isOnDraftOnly')) ? $file->isOnDraftOnly() : false,
             'canEdit' => $file->canEdit(),
-            'canDelete' => $file->canArchive(),
+            'canDelete' => ($file->hasMethod('canArchive')) ? $file->canArchive() : $file->canDelete(),
         );
 
         /** @var Member $owner */
@@ -1393,5 +1393,19 @@ class AssetAdmin extends LeftAndMain implements PermissionProvider
     {
         $this->thumbnailGenerator = $generator;
         return $this;
+    }
+
+    public function canView($member = null)
+    {
+        // Since admin/assets is used as the endpoint for various other CMS modals,
+        // we need to permit most admin/assets actions
+        $asAjax = $this->getRequest()->isAjax()
+            || in_array('application/json', $this->getRequest()->getAcceptMimetypes(false));
+        if ($asAjax && Permission::checkMember($member, 'CMS_ACCESS')) {
+            return true;
+        }
+
+        // Default permissions
+        return parent::canView($member);
     }
 }

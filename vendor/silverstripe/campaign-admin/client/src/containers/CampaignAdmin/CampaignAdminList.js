@@ -1,3 +1,4 @@
+/* global window */
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -230,11 +231,17 @@ class CampaignAdminList extends Component {
 
   handlePublish(e) {
     e.preventDefault();
-    this.props.campaignActions.publishCampaign(
-      this.props.publishApi,
-      this.props.treeClass,
-      this.props.campaignId
-    );
+
+    const msg = i18n._t('CampaignAdmin.PUBLISH_CAMPAIGN_CONFIRM', 'Are you sure you want to publish this campaign?');
+
+    // eslint-disable-next-line no-alert
+    if (window.confirm(msg)) {
+      this.props.campaignActions.publishCampaign(
+        this.props.publishApi,
+        this.props.treeClass,
+        this.props.campaignId
+      );
+    }
   }
 
   renderButtonToolbar() {

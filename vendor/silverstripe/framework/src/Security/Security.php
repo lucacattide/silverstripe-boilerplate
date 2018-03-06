@@ -651,7 +651,7 @@ class Security extends Controller implements TemplateGlobalProvider
     {
         if ($request) {
             $this->setRequest($request);
-        } elseif ($request) {
+        } elseif ($this->getRequest()) {
             $request = $this->getRequest();
         } else {
             throw new HTTPResponse_Exception("No request available", 500);
@@ -675,7 +675,7 @@ class Security extends Controller implements TemplateGlobalProvider
 
         return $this->delegateToMultipleHandlers(
             $handlers,
-            _t(__CLASS__.'.LOGIN', 'Log in'),
+            _t(__CLASS__ . '.LOGIN', 'Log in'),
             $this->getTemplatesFor('login'),
             [$this, 'aggregateTabbedForms']
         );
@@ -712,7 +712,7 @@ class Security extends Controller implements TemplateGlobalProvider
 
         return $this->delegateToMultipleHandlers(
             $handlers,
-            _t(__CLASS__.'.LOGOUT', 'Log out'),
+            _t(__CLASS__ . '.LOGOUT', 'Log out'),
             $this->getTemplatesFor('logout'),
             [$this, 'aggregateAuthenticatorResponses']
         );
@@ -1161,6 +1161,7 @@ class Security extends Controller implements TemplateGlobalProvider
      * </code>
      * If the passed algorithm is invalid, FALSE will be returned.
      *
+     * @throws PasswordEncryptor_NotFoundException
      * @see encrypt_passwords()
      */
     public static function encrypt_password($password, $salt = null, $algorithm = null, $member = null)

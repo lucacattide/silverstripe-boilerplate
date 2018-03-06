@@ -930,6 +930,16 @@ class DataListTest extends SapphireTest
         $this->assertEquals(1, $list->count());
     }
 
+    public function testFilterAnyWithRelation()
+    {
+        $list = Player::get();
+        $list = $list->filterAny(array(
+            'Teams.Title:StartsWith' => 'Team',
+            'ID:GreaterThan' => 0,
+        ));
+        $this->assertCount(4, $list);
+    }
+
     public function testFilterAnyMultipleArray()
     {
         $list = TeamComment::get();
@@ -1653,7 +1663,7 @@ class DataListTest extends SapphireTest
         // with a complex sort expression, so keep using column() below
         $teamClass = Convert::raw2sql(SubTeam::class);
         $list = Team::get()->sort(
-            'CASE WHEN "DataObjectTest_Team"."ClassName" = \''.$teamClass.'\' THEN 0 ELSE 1 END, "Title" DESC'
+            'CASE WHEN "DataObjectTest_Team"."ClassName" = \'' . $teamClass . '\' THEN 0 ELSE 1 END, "Title" DESC'
         );
         $this->assertEquals(
             array(

@@ -20,6 +20,11 @@ use SilverStripe\Security\Security;
  */
 class Installer extends InstallRequirements
 {
+    /**
+     * value='' attribute placeholder for password fields
+     */
+    const PASSWORD_PLACEHOLDER = '********';
+
     protected function installHeader()
     {
         ?>
@@ -277,7 +282,7 @@ PHP;
         ];
         ksort($vars);
         foreach ($vars as $key => $value) {
-            $lines[] = $key.'="'.addcslashes($value, '"').'"';
+            $lines[] = $key . '="' . addcslashes($value, '"') . '"';
         }
 
         $this->writeToFile('.env', implode("\n", $lines));

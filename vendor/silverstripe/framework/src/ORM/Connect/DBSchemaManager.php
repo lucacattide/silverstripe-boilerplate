@@ -51,6 +51,20 @@ abstract class DBSchemaManager
     protected $supressOutput = false;
 
     /**
+     * @var array
+     */
+    protected static $table_name_warnings = [];
+
+    /**
+     * @param string
+     * @deprecated 4.0..5.0
+     */
+    public static function showTableNameWarning($table, $class)
+    {
+        static::$table_name_warnings[$table] = $class;
+    }
+
+    /**
      * Injector injection point for database controller
      *
      * @param Database $database
@@ -408,6 +422,27 @@ abstract class DBSchemaManager
             foreach ($indexSchema as $indexName => $indexSpec) {
                 $this->requireIndex($table, $indexName, $indexSpec);
             }
+        }
+
+        // Check and display notice about $table_name
+        static $table_name_info_sent = false;
+
+        if (isset(static::$table_name_warnings[$table])) {
+            if (!$table_name_info_sent) {
+                $this->alterationMessage(
+                    <<<'MESSAGE'
+<strong>Please note:</strong> It is strongly recommended to define a
+table_name for all namespaced models. Not defining a table_name may cause generated table
+names to be too long and may not be supported by your current database engine. The generated
+naming scheme will also change when upgrading to SilverStripe 5.0 and potentially break.
+MESSAGE
+                    ,
+                    'error'
+                );
+                $table_name_info_sent = true;
+            }
+
+            $this->alterationMessage('table_name not set for class ' . static::$table_name_warnings[$table], 'notice');
         }
     }
 
@@ -855,13 +890,13 @@ abstract class DBSchemaManager
 
 
     /*
-	 * This is a lookup table for data types.
-	 * For instance, Postgres uses 'INT', while MySQL uses 'UNSIGNED'
-	 * So this is a DB-specific list of equivilents.
-	 *
-	 * @param string $type
-	 * @return string
-	 */
+     * This is a lookup table for data types.
+     * For instance, Postgres uses 'INT', while MySQL uses 'UNSIGNED'
+     * So this is a DB-specific list of equivilents.
+     *
+     * @param string $type
+     * @return string
+     */
     abstract public function dbDataType($type);
 
     /**
@@ -899,8 +934,7 @@ abstract class DBSchemaManager
      *
      * @param string $tableName The name of the table.
      * @param string $indexName The name of the index.
-     * @param string $indexSpec The specification of the index, see {@link SS_Database::requireIndex()}
-     *                          for more details.
+     * @param array $indexSpec The specification of the index, see Database::requireIndex() for more details.
      * @todo Find out where this is called from - Is it even used? Aren't indexes always dropped and re-added?
      */
     abstract public function alterIndex($tableName, $indexName, $indexSpec);
@@ -1117,10 +1151,10 @@ abstract class DBSchemaManager
     abstract public function varchar($values);
 
     /*
-	 * Returns data type for 'year' column
-	 *
-	 * @param array $values Contains a tokenised list of info about this data type
-	 * @return string
-	 */
+     * Returns data type for 'year' column
+     *
+     * @param array $values Contains a tokenised list of info about this data type
+     * @return string
+     */
     abstract public function year($values);
 }

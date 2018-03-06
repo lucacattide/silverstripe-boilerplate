@@ -285,7 +285,7 @@ class CoreKernel implements Kernel
         $body =
             $dv->renderHeader() .
             $dv->renderInfo(
-                "Configuraton Error",
+                "Configuration Error",
                 Director::absoluteBaseURL()
             ) .
             $dv->renderParagraph(
@@ -308,7 +308,7 @@ class CoreKernel implements Kernel
         // Error if installer not available
         if (!file_exists($this->basePath . '/install.php')) {
             throw new HTTPResponse_Exception(
-                'SilverStripe Framework requires a $databaseConfig defined.',
+                'SilverStripe Framework requires a .env configuration file',
                 500
             );
         }
@@ -359,7 +359,7 @@ class CoreKernel implements Kernel
         }
 
         // Allow database adapters to handle their own configuration
-        DatabaseAdapterRegistry::autoconfigure();
+        DatabaseAdapterRegistry::autoconfigure($databaseConfig);
         return $databaseConfig;
     }
 

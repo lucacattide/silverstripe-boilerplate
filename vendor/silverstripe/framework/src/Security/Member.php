@@ -351,8 +351,7 @@ class Member extends DataObject
             $result->addError(
                 _t(
                     __CLASS__ . '.ERRORLOCKEDOUT2',
-                    'Your account has been temporarily disabled because of too many failed attempts at ' .
-                    'logging in. Please try again in {count} minutes.',
+                    'Your account has been temporarily disabled because of too many failed attempts at ' . 'logging in. Please try again in {count} minutes.',
                     null,
                     array('count' => static::config()->get('lock_out_delay_mins'))
                 )
@@ -384,8 +383,7 @@ class Member extends DataObject
         }
 
         $idField = static::config()->get('unique_identifier_field');
-        $attempts = LoginAttempt::get()
-            ->filter('Email', $this->{$idField})
+        $attempts = LoginAttempt::getByEmail($this->{$idField})
             ->sort('Created', 'DESC')
             ->limit($maxAttempts);
 
@@ -1717,7 +1715,7 @@ class Member extends DataObject
         $encryption_details = Security::encrypt_password(
             $this->Password,
             $this->Salt,
-            $this->PasswordEncryption ?: Security::config()->get('password_encryption_algorithm'),
+            $this->isChanged('PasswordEncryption') ? $this->PasswordEncryption : null,
             $this
         );
 

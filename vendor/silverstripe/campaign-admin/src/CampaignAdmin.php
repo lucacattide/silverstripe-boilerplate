@@ -265,6 +265,12 @@ class CampaignAdmin extends LeftAndMain implements PermissionProvider
      */
     protected function getChangeSetResource(ChangeSet $changeSet, $sync = false)
     {
+        $stateLabel = sprintf(
+            '<span class="campaign-status campaign-status--%s"></span>%s',
+            $changeSet->State,
+            $changeSet->getStateLabel()
+        );
+
         $hal = [
             '_links' => [
                 'self' => [
@@ -276,7 +282,7 @@ class CampaignAdmin extends LeftAndMain implements PermissionProvider
             'Created' => $changeSet->Created,
             'LastEdited' => $changeSet->LastEdited,
             'State' => $changeSet->State,
-            'StateLabel' => $changeSet->getStateLabel(),
+            'StateLabel' => [ 'html' => $stateLabel ],
             'IsInferred' => $changeSet->IsInferred,
             'canEdit' => $changeSet->canEdit(),
             'canPublish' => false,

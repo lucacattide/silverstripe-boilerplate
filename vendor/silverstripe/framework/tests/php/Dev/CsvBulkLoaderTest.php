@@ -50,7 +50,7 @@ class CsvBulkLoaderTest extends SapphireTest
         $results = $loader->load($filepath);
 
         // Test that right amount of columns was imported
-        $this->assertEquals(4, $results->Count(), 'Test correct count of imported data');
+        $this->assertEquals(5, $results->Count(), 'Test correct count of imported data');
 
         // Test that columns were correctly imported
         $obj = DataObject::get_one(
@@ -76,7 +76,7 @@ class CsvBulkLoaderTest extends SapphireTest
         $filepath = $this->csvPath . 'PlayersWithHeader.csv';
         $loader->deleteExistingRecords = true;
         $results1 = $loader->load($filepath);
-        $this->assertEquals(4, $results1->Count(), 'Test correct count of imported data on first load');
+        $this->assertEquals(5, $results1->Count(), 'Test correct count of imported data on first load');
 
         //delete existing data before doing second CSV import
         $results2 = $loader->load($filepath);
@@ -84,7 +84,7 @@ class CsvBulkLoaderTest extends SapphireTest
         $resultDataObject = DataObject::get(Player::class);
 
         $this->assertEquals(
-            4,
+            5,
             $resultDataObject->count(),
             'Test if existing data is deleted before new data is added'
         );
@@ -230,7 +230,7 @@ class CsvBulkLoaderTest extends SapphireTest
 
         // null values are valid imported
         // $this->assertEquals($player->Biography, 'He\'s a good guy',
-        //	'Test retaining of previous information on duplicate when overwriting with blank field');
+        //  'Test retaining of previous information on duplicate when overwriting with blank field');
     }
 
     public function testLoadWithCustomImportMethods()

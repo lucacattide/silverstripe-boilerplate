@@ -2,5 +2,4 @@
 
 /node_modules/
 /.editorconfig
-/Gemfile.lock
 /package-lock.json

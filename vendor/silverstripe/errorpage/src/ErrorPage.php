@@ -226,9 +226,9 @@ class ErrorPage extends Page
                 new DropdownField(
                     'ErrorCode',
                     $this->fieldLabel('ErrorCode'),
-                    $this->getCodes(),
-                    'Content'
-                )
+                    $this->getCodes()
+                ),
+                'Content'
             );
         });
 

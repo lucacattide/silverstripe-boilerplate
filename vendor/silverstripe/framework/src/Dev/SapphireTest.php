@@ -218,6 +218,13 @@ class SapphireTest extends PHPUnit_Framework_TestCase implements TestOnly
      */
     protected function setUp()
     {
+        if (!defined('FRAMEWORK_PATH')) {
+            trigger_error(
+                'Missing constants, did you remember to include the test bootstrap in your phpunit.xml file?',
+                E_USER_WARNING
+            );
+        }
+
         // Call state helpers
         static::$state->setUp($this);
 
@@ -343,11 +350,17 @@ class SapphireTest extends PHPUnit_Framework_TestCase implements TestOnly
      *  - Custom state helpers
      *
      * User code should call parent::setUpBeforeClass() before custom setup code
+     *
+     * @throws Exception
      */
     public static function setUpBeforeClass()
     {
         // Start tests
         static::start();
+
+        if (!static::$state) {
+            throw new Exception('SapphireTest failed to bootstrap!');
+        }
 
         // Call state helpers
         static::$state->setUpOnce(static::class);
@@ -1101,7 +1114,7 @@ class SapphireTest extends PHPUnit_Framework_TestCase implements TestOnly
             $themeBaseDir = substr($themeBaseDir, strlen(BASE_PATH));
         }
         SSViewer::config()->update('theme_enabled', true);
-        SSViewer::set_themes([$themeBaseDir.'/themes/'.$theme, '$default']);
+        SSViewer::set_themes([$themeBaseDir . '/themes/' . $theme, '$default']);
 
         try {
             $callback();

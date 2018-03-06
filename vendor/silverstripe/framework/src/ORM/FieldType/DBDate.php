@@ -67,6 +67,9 @@ class DBDate extends DBField
         } else {
             // Convert US date -> iso, fix y2k, etc
             $value = $this->fixInputDate($value);
+            if (is_null($value)) {
+                return null;
+            }
             $source = strtotime($value); // convert string to timestamp
         }
         if ($value === false) {
@@ -319,19 +322,7 @@ class DBDate extends DBField
      */
     public function Rfc3339()
     {
-        $date = $this->Format('y-MM-dd\\THH:mm:ss');
-        if (!$date) {
-            return null;
-        }
-
-        $matches = array();
-        if (preg_match('/^([\-+])(\d{2})(\d{2})$/', date('O', $this->getTimestamp()), $matches)) {
-            $date .= $matches[1].$matches[2].':'.$matches[3];
-        } else {
-            $date .= 'Z';
-        }
-
-        return $date;
+        return date('c', $this->getTimestamp());
     }
 
     /**
@@ -416,7 +407,7 @@ class DBDate extends DBField
             case "seconds":
                 $span = $ago;
                 return _t(
-                    __CLASS__.'.SECONDS_SHORT_PLURALS',
+                    __CLASS__ . '.SECONDS_SHORT_PLURALS',
                     '{count} sec|{count} secs',
                     ['count' => $span]
                 );
@@ -424,7 +415,7 @@ class DBDate extends DBField
             case "minutes":
                 $span = round($ago/60);
                 return _t(
-                    __CLASS__.'.MINUTES_SHORT_PLURALS',
+                    __CLASS__ . '.MINUTES_SHORT_PLURALS',
                     '{count} min|{count} mins',
                     ['count' => $span]
                 );
@@ -432,7 +423,7 @@ class DBDate extends DBField
             case "hours":
                 $span = round($ago/3600);
                 return _t(
-                    __CLASS__.'.HOURS_SHORT_PLURALS',
+                    __CLASS__ . '.HOURS_SHORT_PLURALS',
                     '{count} hour|{count} hours',
                     ['count' => $span]
                 );
@@ -440,7 +431,7 @@ class DBDate extends DBField
             case "days":
                 $span = round($ago/86400);
                 return _t(
-                    __CLASS__.'.DAYS_SHORT_PLURALS',
+                    __CLASS__ . '.DAYS_SHORT_PLURALS',
                     '{count} day|{count} days',
                     ['count' => $span]
                 );
@@ -448,7 +439,7 @@ class DBDate extends DBField
             case "months":
                 $span = round($ago/86400/30);
                 return _t(
-                    __CLASS__.'.MONTHS_SHORT_PLURALS',
+                    __CLASS__ . '.MONTHS_SHORT_PLURALS',
                     '{count} month|{count} months',
                     ['count' => $span]
                 );
@@ -456,7 +447,7 @@ class DBDate extends DBField
             case "years":
                 $span = round($ago/86400/365);
                 return _t(
-                    __CLASS__.'.YEARS_SHORT_PLURALS',
+                    __CLASS__ . '.YEARS_SHORT_PLURALS',
                     '{count} year|{count} years',
                     ['count' => $span]
                 );
@@ -529,6 +520,9 @@ class DBDate extends DBField
         // split
         list($year, $month, $day, $time) = $this->explodeDateString($value);
 
+        if ((int)$year === 0 && (int)$month === 0 && (int)$day === 0) {
+            return null;
+        }
         // Validate date
         if (!checkdate($month, $day, $year)) {
             throw new InvalidArgumentException(
@@ -568,7 +562,7 @@ class DBDate extends DBField
         if ($parts[0] < 1000 && $parts[2] > 1000) {
             $parts = array_reverse($parts);
         }
-        if ($parts[0] < 1000) {
+        if ($parts[0] < 1000 && (int)$parts[0] !== 0) {
             throw new InvalidArgumentException(
                 "Invalid date: '$value'. Use " . self::ISO_DATE . " to prevent this error."
             );

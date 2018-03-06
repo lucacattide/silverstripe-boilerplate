@@ -218,6 +218,12 @@ class DBDateTest extends SapphireTest
 
         $date = DBField::create_field('Date', 0);
         $this->assertEquals('1970-01-01', $date->getValue(), 'Zero is UNIX epoch date');
+
+        $date = DBField::create_field('Date', '0000-00-00 00:00:00');
+        $this->assertNull($date->getValue(), '0000-00-00 00:00:00 is set as NULL');
+
+        $date = DBField::create_field('Date', '00/00/0000');
+        $this->assertNull($date->getValue(), '00/00/0000 is set as NULL');
     }
 
     public function testDayOfMonth()
@@ -323,5 +329,12 @@ class DBDateTest extends SapphireTest
         );
 
         DBDatetime::clear_mock_now();
+    }
+
+    public function testRfc3999()
+    {
+        // Dates should be formatted as: 2018-01-24T14:05:53+00:00
+        $date = DBDate::create_field('Date', '2010-12-31');
+        $this->assertEquals('2010-12-31T00:00:00+00:00', $date->Rfc3339());
     }
 }

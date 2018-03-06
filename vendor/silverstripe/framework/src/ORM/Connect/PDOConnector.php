@@ -163,7 +163,7 @@ class PDOConnector extends DBConnector
         $connCollation = Config::inst()->get('SilverStripe\ORM\Connect\MySQLDatabase', 'connection_collation');
 
         // Set charset if given and not null. Can explicitly set to empty string to omit
-        if ($parameters['driver'] !== 'sqlsrv') {
+        if (!in_array($parameters['driver'], ['sqlsrv', 'pgsql'])) {
             $charset = isset($parameters['charset'])
                     ? $parameters['charset']
                     : $connCharset;
@@ -199,7 +199,7 @@ class PDOConnector extends DBConnector
 
         // May throw a PDOException if fails
         $this->pdoConnection = new PDO(
-            $driver.implode(';', $dsn),
+            $driver . implode(';', $dsn),
             empty($parameters['username']) ? '' : $parameters['username'],
             empty($parameters['password']) ? '' : $parameters['password'],
             $options
