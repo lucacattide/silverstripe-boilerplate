@@ -1,6 +1,0 @@
-sk:
-  SilverStripe\SiteConfig\SiteConfig:
-    PLURALNAME: 'Konfigurácie webu'
-    SINGULARNAME: 'Konfigurácia webu'
-  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
-    MENUTITLE: Nastavenia

@@ -1,7 +1,0 @@
-bs:
-  SilverStripe\AssetAdmin\Controller\AssetAdmin:
-    MENUTITLE: Datoteke
-    BACKLINKCOUNT: 'Korišteno ovdje:'
-    PAGES: strana(ice)
-    SIZE: Veličina
-    TYPE: Tip

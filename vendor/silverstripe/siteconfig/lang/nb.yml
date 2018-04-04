@@ -1,4 +1,0 @@
-nb:
-  SilverStripe\SiteConfig\SiteConfig:
-    PLURALNAME: Nettstedskonfigurasjoner
-    SINGULARNAME: Nettstedskonfigurasjon

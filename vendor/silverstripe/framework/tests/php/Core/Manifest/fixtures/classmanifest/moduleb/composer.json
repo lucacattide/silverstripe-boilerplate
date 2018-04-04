@@ -1,8 +1,0 @@
-{
-  "name": "silverstripe/awesome-module",
-  "description": "dummy test module",
-  "require": {},
-  "extra": {
-    "installer-name": "moduleb"
-  }
-}

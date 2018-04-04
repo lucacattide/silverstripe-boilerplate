@@ -1,8 +1,0 @@
----
-Name: modules-assets
-After: modules-other
-Before: modules-framework
----
-SilverStripe\Core\Manifest\ModuleManifest:
-  module_priority:
-    - silverstripe/assets

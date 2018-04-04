@@ -1,6 +1,0 @@
-af:
-  SilverStripe\ErrorPage\ErrorPage:
-    - '501 - Nie Geimplementeer'
-    - '502 - Slegte Deurgang'
-    - '503 - Diens Nie Beskikbaar'
-    - '505 - HTTP Weergawe Nie Ondersteun'

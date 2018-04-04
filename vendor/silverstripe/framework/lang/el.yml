@@ -1,6 +1,0 @@
-el:
-  SilverStripe\ORM\FieldType\DBBoolean:
-    NOANSWER: Όχι
-    YESANSWER: Ναί
-  SilverStripe\Security\Permission:
-    CONTENT_CATEGORY: 'Δικαιώματα περιεχόμενου'

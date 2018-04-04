@@ -1,9 +1,0 @@
-da:
-  SilverStripe\Versioned\ChangeSet:
-    NAME: Navn
-    PLURALNAME: Kampagner
-    PLURALS:
-      one: 'En Kampagne'
-      other: '{count} Kampagner'
-    SINGULARNAME: Kampagne
-    STATE: Tilstand

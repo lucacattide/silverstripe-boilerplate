@@ -1,6 +1,0 @@
-az:
-  SilverStripe\Admin\SecurityAdmin:
-    GROUPNAME: 'Qrupun adı'
-    MEMBERS: Üzvlər
-    PERMISSIONS: Səlahiyyətlər
-    ROLES: Rollar

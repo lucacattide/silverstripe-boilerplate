@@ -1,6 +1,0 @@
----
-Name: versionedgridfield
----
-SilverStripe\Forms\GridField\GridFieldDetailForm:
-  extensions:
-    - SilverStripe\Versioned\VersionedGridFieldDetailForm

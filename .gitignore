@@ -1,12 +1,16 @@
+# Repository - Configurazione
+
 /config/
 /lib/
 /log/
 /silverstripe-cache/
 /themes/simple/
-/themes/stack/js/*
-!/themes/stack/js/*/
+!/themes/stack/js/dist/*
+!/themes/stack/js/lib/*
+/themes/stack/js/**/*
 /themes/stack/sass/
 /themes/stack/_.browserlistrc
+!/themes/stack/.gitignore
 /themes/stack/.*
 /themes/stack/config.rb
 /themes/stack/gulpfile.js
@@ -14,6 +18,7 @@
 /themes/stack/package-lock.json
 /themes/stack/postcss.config.js
 /themes/stack/webpack.*.js
+/vendor/
 /.editorconfig
 /Capfile
 /Gemfile
@@ -22,3 +27,5 @@ composer.lock
 node_modules/
 .DS_Store
 ._*
+!.gitignore
+.*

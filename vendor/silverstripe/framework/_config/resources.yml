@@ -1,8 +1,0 @@
----
-Name: coreresources
----
-SilverStripe\Core\Injector\Injector:
-  SilverStripe\Core\Manifest\ResourceURLGenerator:
-    class: SilverStripe\Control\SimpleResourceURLGenerator
-    properties:
-      NonceStyle: mtime
