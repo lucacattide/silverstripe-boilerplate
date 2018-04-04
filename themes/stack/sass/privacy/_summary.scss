@@ -1,0 +1,78 @@
+// Inizio SCSS
+.summary {
+  
+  @include display-flex;
+  @include flex-direction(column);
+
+  align-items: center;
+  padding: 4em 0;
+
+  &#{__container} {
+  
+    @extend %massimo;
+    @include flex(1);
+
+    margin: 0 auto;
+    width: 100%;
+
+    &#{__articolo} {
+      margin: 0 0 2em;
+
+      &:last-child {
+        margin: 0;
+      }
+
+      &#{__corpo},
+      &#{__voci},
+      &#{__titolo},
+      &#{__sottotitolo} {
+        color: $blu;
+        margin: 0 0 2em;
+      }
+
+      &#{__corpo},
+      &#{__voci} {
+
+        @extend %font-light;
+
+        font-size: $font-size-corpo-2;
+        line-height: $interlinea-corpo;
+
+        &#{__link},
+        &#{__elemento__link} {
+
+          @extend %font-bold;
+
+          color: $blu-1;
+          transition: all .3s ease-in-out;
+
+          &:hover {
+            opacity: .7;
+          }
+        }
+      }
+
+      &#{__titolo},
+      &#{__sottotitolo} {
+
+        @extend %font-bold;
+
+        font-size: $font-size-cta;
+      }
+
+      &#{__voci} {
+        padding: 0 0 0 32px;
+
+        &#{__elemento},
+        ul li {
+          list-style: square;
+        }
+
+        ul {
+          padding: 0 0 0 64px;
+        }
+      }
+    }
+  }
+}
+// Fine SCSS

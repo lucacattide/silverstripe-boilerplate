@@ -1,0 +1,363 @@
+// Inizio SCSS
+// Admin
+html {
+  
+  @extend %font;
+
+  .cms {
+
+    &#{-menu},
+    &#{-menu} .cms-panel-toggle,
+    #ActionMenus_MoreOptions,
+    .cms-content,
+    .cms-content-tools,
+    .editor,
+    .ss-loading-screen,
+    .toolbar--south {
+      background-color: $bianco;
+    }
+
+    &#{-menu__list},
+    &#{-menu__list} li a,
+    &#{-menu} .cms-panel-content,
+    &#{-menu} .cms-panel-toggle,
+    &#{-panel-content} {
+      box-shadow: inset -1px 0 0 $blu-1;
+    }
+  
+    &#{-login-status__logout-link},
+    &#{-login-status__profile-link},
+    &#{-sitename},
+    .grid-field__icon-action,
+    tbody tr {
+      
+      &:hover {
+        background-color: $blu-1 !important;
+      }
+    }
+
+    &#{-sitename__link},
+    .ss-loading-screen::before {
+
+      @extend %sfondo;
+
+      text-indent: -9999px;
+    }
+
+    .btn-primary,
+    .btn-outline-primary,
+    .btn-outline-secondary,
+    .btn-secondary,
+    .form__fieldgroup-item label,
+    .form__field-holder .chosen-container,
+    .grid-field__sort,
+    .grid-field__title,
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="text"],
+    .non-sortable,
+    .pagination-records-number,
+    .ss-loading-screen__text,
+    .switch-states .switch a.active,
+    select,
+    textarea,
+    tfoot,
+    th span {
+      font-size: $font-size-footer;
+    }
+
+    .btn-primary,
+    .btn-outline-primary,
+    .btn-outline-secondary,
+    .btn-secondary,
+    .chosen-single:focus,
+    .form__field-holder .chosen-container,
+    .grid-field__table button:focus,
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="text"],
+    select,
+    .page-view-link,
+    .switch-states .switch a.active,
+    textarea {
+      box-shadow: none;
+    }
+
+    .btn-primary,
+    .btn-outline-primary,
+    .btn-outline-secondary,
+    .cms-content-header,
+    .cms-content-header-info,
+    .page-view-link,
+    .switch-states .switch a.active,
+    tbody tr.active,
+    .toolbar--north,
+    &#{-menu__header} {
+      background-color: $blu;
+    }
+
+    #ActionMenus_MoreOptions,
+    .chosen-single::before,
+    .grid-field__icon-action::before,
+    .grid-field__sort,
+    .non-sortable,
+    .ss-loading-screen,
+    #tab-ActionMenus_MoreOptions
+    td,
+    td a,
+    td .griedfield-button-delete {
+      color: $blu;
+    }
+
+    .btn-primary,
+    .btn-outline-primary,
+    .btn-outline-secondary,
+    .btn-secondary,
+    .grid-field__sort,
+    .page-view-link,
+    .switch-states .switch a.active,
+    #tab-ActionMenus_MoreOptions {
+      
+      &:hover {
+        background-color: $grigio;
+      }
+    }
+
+    .chosen-results li.result-selected,
+    .cms-content-header .ui-state-default a:hover,
+    .jstree-leaf .jstree-clicked,
+    .jstree-leaf .jstree-hovered,
+    tbody tr:hover .grid-field__icon-action::before,
+    tbody tr:hover .item,
+    tbody tr:hover td,
+    tbody tr:hover td a,
+    tbody tr:hover td .griedfield-button-delete {
+      color: $bianco !important;
+    }
+
+    .btn-secondary:not(.page-view-link):hover,
+    .cms-content-header-info a:hover,
+    .grid-field__table button:hover::before,
+    .jstree-leaf a,
+    .switch-states .switch a:hover span,
+    td .item,
+    th span::after,
+    .toolbar--north a:hover {
+      color: $blu !important;
+    }
+
+    .btn-primary,
+    .btn-outline-primary,
+    .btn-outline-secondary,
+    .btn-secondary,
+    .page-view-link,
+    .switch-states .switch a.active,
+    .ui-accordion-header {
+      border: 0;
+    }
+
+    .btn-primary,
+    .btn-outline-primary,
+    .btn-outline-secondary,
+    .page-view-link,
+    .switch-states .switch a.active {
+      color: $bianco;
+      outline: none;
+
+      &:hover {
+        color: $blu;
+      }
+    }
+
+    .form__field-holder .chosen-container,
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="text"],
+    select
+    textarea {
+      border: 1px solid $blu;
+      margin: 1em 0;
+
+      &:focus {
+        border-color: $grigio;
+      }
+    }
+
+    .cms-sitetree-information,
+    .cms-content-header,
+    .cms-content-header-info,
+    .gallery__table .sort-ascending,
+    .gallery__table .sort-descending,
+    .toolbar--north,
+    &#{-sitename} {
+      border-bottom: 1px solid $blu-1;
+    }
+
+    .cms-content-header,
+    .cms-content-header-info,
+    .toolbar--north {
+      
+      &,
+      a,
+      button,
+      .section-label a {
+        color: $bianco;
+      }
+
+      button {
+       
+        &.active,
+        &:hover {
+          background-color: $bianco;
+          color: $blu;
+        }
+      }
+    }
+
+    .chosen-results li:hover,
+    .chosen-single:hover,
+    .grid-field__table button:hover,
+    input[readonly],
+    .ui-accordion-header {
+      background-color: $grigio !important;
+    }
+
+    #ActionMenus_MoreOptions,
+    .toolbar--south {
+      border: 1px solid $blu-1;
+    }
+
+    &#{-menu} {
+      
+      &#{__list} {
+
+        li {
+
+          &.opened {
+
+            a {
+              background-color: $blu-1;
+              color: $bianco;
+            }
+
+            a:hover .menu__icon {
+              color: $blu;
+            }
+
+            .menu__icon {
+              color: $bianco;
+            }
+          }
+
+          a {
+            background-color: $bianco;
+            color: $blu;
+            
+            &:hover {
+              background-color: $grigio;
+              color: $blu !important;
+            }
+
+            .menu__icon {
+              color: $blu;
+            }
+          }
+        }
+      }
+    }
+  
+    &#{-sitename} {
+  
+      &#{__link} {
+    
+        background-image: url('/themes/corporate/img/logo-admin.png') !important;
+        margin: .7em 16px 0;
+        min-width: 20px !important;
+      }
+    }
+
+    .chosen-results {
+      
+      li.result-selected {
+
+        &,
+        &::before {
+          background-color: $blu-1 !important;
+        }
+      }
+    }
+
+    .cms-content-fields {
+      border-right: 1px solid $blu;
+    }
+
+    .cms-content-header {
+
+      a {
+        color: $grigio !important;
+      }
+    
+      a.active {
+        border-bottom: 1px solid $bianco !important;
+      }
+    }
+
+    .cms-sitetree-information {
+      color: $grigio;
+    }
+
+    .jstree-leaf {
+
+      .jstree-clicked,
+      .jstree-hovered {
+        background-color: $blu-1;
+      }
+
+      .jstree-clicked {
+        text-shadow: none;
+      }
+    }
+
+    .switch-states {
+      
+      .switch {
+        
+        a {
+
+          &.active {
+            background-image: none;
+          }
+        }
+      }
+    }
+
+    tbody {
+
+      td {
+        border-bottom: 1px solid $grigio !important;
+        border-top: 1px solid $grigio !important;  
+      }
+
+      tr {
+
+        &.active {
+          border-top: 1px solid $blu-1;  
+        }
+      }
+    }
+
+    th {
+
+      &.extra {
+        background-color: $blu-1 !important;
+      }
+    }
+  }
+
+  .ss-loading-screen::before {
+    background-image: url('/themes/corporate/img/logo.svg');
+    height: auto;
+    width: 223px;
+  }
+}
+// Fine SCSS

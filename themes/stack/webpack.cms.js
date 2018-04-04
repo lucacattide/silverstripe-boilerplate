@@ -1,4 +1,4 @@
-// Webpack - Configurazione Home (Sviluppo)
+// Webpack - Configurazione cms (Sviluppo)
 'use strict';
 
 // Dichiarazione Costanti
@@ -8,7 +8,7 @@ const commonConfig = require('./webpack.common.js');
 const developmentConfig = require('./webpack.development.js');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
-  filename: 'css/dist/home.css',
+  filename: 'css/dist/cms.css',
 });
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
@@ -17,10 +17,10 @@ module.exports = merge(commonConfig, developmentConfig, {
   // Sorgenti
   entry: [
     './js/index.js',
-    './js/home.js',
+    './js/cms.js',
   ],
   output: {
-    filename: 'home.js',
+    filename: 'cms.js',
     path: path.resolve(__dirname, './'),
   },
   plugins: [
@@ -28,8 +28,8 @@ module.exports = merge(commonConfig, developmentConfig, {
     extractSass,
     // Pulizia
     new CleanWebpackPlugin([
-      './css/dist/home.css',
-      './home.js',
+      './css/dist/cms.css',
+      './cms.js',
     ]),
   ],
 });

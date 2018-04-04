@@ -60,8 +60,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch-index": "NODE_ENV=development webpack --watch --colors --progress --config webpack.index.js",
     "watch-home": "NODE_ENV=development webpack --watch --colors --progress --config webpack.home.js",
+    "watch-privacy": "NODE_ENV=development webpack --watch --colors --progress --config webpack.privacy.js",
+    "watch-cms": "NODE_ENV=development webpack --watch --colors --progress --config webpack.cms.js",
+    "watch-admin": "NODE_ENV=development webpack --watch --colors --progress --config webpack.admin.js",
     "build-main": "NODE_ENV=production webpack --config webpack.production-main.js",
-    "build-home": "NODE_ENV=production webpack --config webpack.production-home.js"
+    "build-home": "NODE_ENV=production webpack --config webpack.production-home.js",
+    "build-privacy": "NODE_ENV=production webpack --config webpack.production-privacy.js",
+    "build-cms": "NODE_ENV=production webpack --config webpack.production-cms.js",
+    "build-admin": "NODE_ENV=production webpack --config webpack.production-admin.js"
   },
   "repository": {
     "type": "git",
