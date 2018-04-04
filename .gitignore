@@ -1,3 +1,5 @@
+# Repository - Configurazione
+
 /log/
 /silverstripe-cache/
 /themes/simple/
@@ -6,3 +8,4 @@
 /vendor/
 composer.lock
 /Gemfile.lock
+.vscode

@@ -1,0 +1,49 @@
+// Inizio SCSS
+// Cookies
+.cookies {
+
+    @extend %centro;
+
+    //background-color: $blu-1;
+    left: 0;
+    padding: 1em 16px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+
+    &#{__chiudi},
+    &#{__corpo} {
+
+      //@extend %font-light;
+
+      display: inline-block;
+      //color: $bianco;
+    }
+
+    &#{__chiudi},
+    &#{__corpo__link} {
+     //color: $bianco;
+     transition: all .3s ease-in-out;
+
+      &:hover {
+        opacity: .7;
+      }
+    }
+
+    &#{__chiudi} {
+      //font-size: $font-size-menu;
+      float: right;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &#{__corpo} {
+      /* font-size: $font-size-footer;
+      line-height: $interlinea-footer; */
+      width: 88%;
+    }
+  }
+  // Fine SCSS

@@ -5,6 +5,7 @@ import '../sass/index.scss';
 // Importazione Librerie
 import $ from 'jquery';
 import Modernizr from 'modernizr';
+import inizializzaTornaSu from './torna-su.js';
 /**
  * if (!Modernizr.pointerevents && !Modernizr.touchevents) {
  *   // ...
@@ -12,5 +13,6 @@ import Modernizr from 'modernizr';
  */
 
 // Main
-$('document').ready(() => {
+$(document).ready(() => {
+  inizializzaTornaSu();
 })
