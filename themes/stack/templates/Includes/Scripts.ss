@@ -1,6 +1,6 @@
 <!-- respond.js per IE8 -->
 <!--[if lt IE 9]>
-  <script src="/themes//js/lib/respond.min.js"></script>
+  <script src="/themes/stack/js/lib/respond.min.js"></script>
 <![endif]-->
 <!--&#91;if lt IE 9&#93;>
   <script>
