@@ -1,4 +1,4 @@
-// Webpack - Configurazione privacy (Sviluppo)
+// Webpack - Configurazione privacy (Produzione)
 'use strict';
 
 // Dichiarazione Costanti

@@ -1,4 +1,4 @@
-// Webpack - Configurazione admin (Sviluppo)
+// Webpack - Configurazione admin (Produzione)
 'use strict';
 
 // Dichiarazione Costanti

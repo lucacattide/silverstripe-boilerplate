@@ -1,9 +1,8 @@
-// Webpack - Configurazione Home (Sviluppo)
+// Webpack - Configurazione Home (Produzione)
 'use strict';
 
 // Dichiarazione Costanti
 const path = require('path');
-const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
   filename: 'css/dist/home.css',

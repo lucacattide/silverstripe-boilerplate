@@ -1,4 +1,4 @@
-// Webpack - Configurazione cms (Sviluppo)
+// Webpack - Configurazione cms (Produzione)
 'use strict';
 
 // Dichiarazione Costanti
