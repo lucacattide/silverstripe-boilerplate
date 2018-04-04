@@ -51,6 +51,9 @@ ErrorDocument 500 /assets/error-500.html
     RewriteRule .* index.php
 </IfModule>
 ### SILVERSTRIPE END ###
+#SSL
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # Autorizzazione
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 # Content Security Policy
