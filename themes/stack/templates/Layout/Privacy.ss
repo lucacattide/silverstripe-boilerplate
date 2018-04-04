@@ -1,16 +1,27 @@
 <!--Inizio Privacy-->
-<% include Header %>
-<section class="livello-due">
-	<h6>Privacy</h6>
-	<article class="livello-due__articolo livello-due__articolo--intro col-sm-12 col-md-7 col-md-push-3">
-		<h1 class="livello-due__articolo__titolo">$Titolo</h1>
-	</article>
-	<article class="livello-due__articolo col-sm-12 col-md-7 col-md-push-3">
-		<h2 class="livello-due__articolo__titolo">$Sottotitolo</h2>
-		$Privacy
-		<h2 class="livello-due__articolo__titolo livello-due__articolo__titolo--secondo">$Titolo1</h2>
-		$Cookies
-	</article>
-	<div class="clear"></div>
+<section class="summary">
+  <h6>Sumary</h6>
+  <div class="summary__container">
+    <!--Inizio Informativa-->
+    <article class="summary__container__articolo">
+      <h1 class="summary__container__articolo__titolo">$Titolo1</h1>
+      <p class="summary__container__articolo__corpo">$Summary1</p>
+    </article>
+    <!--Fine Informativa-->
+    <!--Inizio Cookie Law-->
+    <article class="summary__container__articolo">
+      <h2 class="summary__container__articolo__sottotitolo">$Titolo2</h2>
+      <p class="summary__container__articolo__corpo">$Summary2</p>
+      <ul class="summary__container__articolo__voci">$Lista</ul>
+      <p class="summary__container__articolo__corpo">$Summary3</p>
+    </article>
+    <!--Fine Cookie Law-->
+    <!--Inizio Licenze-->
+    <article class="summary__container__articolo">
+      <h2 class="summary__container__articolo__sottotitolo">$Titolo3</h2>
+      <ul class="summary__container__articolo__voci">$Lista2</ul>
+    </article>
+    <!--Fine Licenze-->
+  </div>
 </section>
 <!--Fine Privacy-->

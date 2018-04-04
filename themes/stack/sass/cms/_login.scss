@@ -1,0 +1,169 @@
+// Inizio SCSS
+// Login
+.login-cms {
+
+  @include flex-direction(column);
+
+  background-color: $grigio;
+
+  &,
+  &#{__container} {
+
+    @include display-flex;
+    @include justify-content(center);
+
+    align-items: center;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  &#{__container} {
+  
+    @extend %massimo;
+
+    flex-flow: row wrap;
+    margin: 0 auto;
+    width: 100%;
+
+    &#{__articolo} {
+
+      @include flex(1);
+
+      #LostPasswordForm_lostPasswordForm_error,
+      #LostPasswordForm_lostPasswordForm input,
+      #LostPasswordForm_lostPasswordForm label,
+      #MemberLoginForm_LoginForm_error,
+      #MemberLoginForm_LoginForm label,
+      #MemberLoginForm_LoginForm #ForgotPassword,
+      #MemberLoginForm_LoginForm input,
+      p {
+
+        @extend %font-light;
+
+        font-size: $font-size-didascalia;
+      }
+
+      #LostPasswordForm_lostPasswordForm_error,
+      #LostPasswordForm_lostPasswordForm label,
+      #MemberLoginForm_LoginForm_error,
+      #MemberLoginForm_LoginForm #ForgotPassword a,
+      #MemberLoginForm_LoginForm label,
+      p,
+      &#{__titolo} {
+        color: $blu;
+      }
+
+      #LostPasswordForm_lostPasswordForm,
+      #MemberLoginForm_LoginForm,
+      p,
+      &#{__titolo} {
+       
+        @extend %centro;
+
+        margin: 0 0 2em;
+
+      }
+
+      #LostPasswordForm_lostPasswordForm,
+      #MemberLoginForm_LoginForm {
+        margin: 0 auto;
+        max-width: 72%;
+
+        #LostPasswordForm_lostPasswordForm_action_forgotPassword,
+        #MemberLoginForm_LoginForm_action_doLogin,
+        #MemberLoginForm_LoginForm_Remember_Holder label, 
+        #MemberLoginForm_LoginForm_Remember {
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        label,
+        #ForgotPassword,
+        input,
+        p {
+
+          @extend %font-light;
+
+          font-size: $font-size-didascalia;
+        }
+
+        #ForgotPassword,
+        input:not(#LostPasswordForm_lostPasswordForm_action_forgotPassword):not(#MemberLoginForm_LoginForm_action_doLogin) {
+          transition: all .3s ease-in-out;
+        }
+
+        #ForgotPassword {
+
+          &:hover {
+            opacity: .7;
+          }
+        }
+
+        #LostPasswordForm_lostPasswordForm_action_forgotPassword,
+        #MemberLoginForm_LoginForm_action_doLogin {
+
+          @extend %cta;
+
+          font-size: $font-size-menu;
+        }
+
+        input {
+          border: 0;
+          margin: 1em 0 2em;
+        }
+
+        input:not(#LostPasswordForm_lostPasswordForm_action_forgotPassword):not(#MemberLoginForm_LoginForm_action_doLogin) {
+          color: $grigio-2;
+          padding: 1em 32px;
+
+          &:hover {
+            box-shadow: 0 0 0 2px $blu;
+          }
+
+          &::-webkit-input-placeholder {
+            color: $grigio-2;
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+          }
+
+          &::-moz-placeholder {
+            color: $grigio-2;
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+          }
+
+          &:-ms-input-placeholder {
+            color: $grigio-2;
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+          }
+
+          &:-moz-placeholder {
+            color: $grigio-2;
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+          }
+        }
+
+        #MemberLoginForm_LoginForm_Remember_Holder {
+
+          #MemberLoginForm_LoginForm_Remember {
+            margin: 1em 16px 2em 0;
+          }
+        }
+      }
+
+      &#{__titolo} {
+
+        @extend %font-bold;
+        @extend %maiuscolo;
+  
+        font-size: $font-size-cta;
+      }
+    }
+  }
+}
+// Fine SCSS
+  

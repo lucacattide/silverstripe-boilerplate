@@ -15,4 +15,4 @@ SilverStripe\Admin\LeftAndMain:
   application_name: 'My Site'
   application_link: 'http://'
   extra_requirements_css:
-    - themes/stack/css/rebranding.css
+    - themes/stack/css/dist/admin.css

@@ -25,11 +25,21 @@ $MetaTags
 <link rel="preload" href="$ThemeDir/js/dist/cookies.js" as="script">
 <% if $URLSegment == "home" %>
   <link rel="preload" href="$ThemeDir/home.js" as="script">
+<% else_if $URLSegment == "privacy" %>
+  <link rel="preload" href="$ThemeDir/css/dist/privacy.css" as="style">
+  <link rel="preload" href="$ThemeDir/privacy.js" as="script">
+<% else_if $URLSegment == "Security" %>
+  <link rel="preload" href="$ThemeDir/css/dist/cms.css" as="style">
+  <link rel="preload" href="$ThemeDir/cms.js" as="script">
 <% end_if %>
 <!--Fine Preload-->
 <!--Inizio Importazione Stili-->
 <% if $URLSegment == "home" %>
   <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/dist/home.css">
+<% else_if $URLSegment == "privacy" %>
+  <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/dist/privacy.css">
+<% else_if $URLSegment == "Security" %>
+  <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/dist/cms.css">
 <% end_if %>
 <!--Fine Importazione Stili-->
 <link rel="icon dns-prefetch" type="image/png" href="/favicon.png" />
