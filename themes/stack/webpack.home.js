@@ -15,7 +15,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 // Esportazione modulo
 module.exports = merge(commonConfig, developmentConfig, {
   // Sorgenti
-  entry: './js/home.js',
+  entry: [
+    './js/index.js',
+    './js/home.js',
+  ],
   output: {
     filename: 'home.js',
     path: path.resolve(__dirname, './'),
