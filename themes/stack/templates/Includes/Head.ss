@@ -32,4 +32,4 @@ $MetaTags
   <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/dist/home.css">
 <% end_if %>
 <!--Fine Importazione Stili-->
-<link rel="icon dns-prefetch" type="image/png" href="$ThemeDir/favicon.png" />
+<link rel="icon dns-prefetch" type="image/png" href="/favicon.png" />
