@@ -5,9 +5,9 @@
 /log/
 /silverstripe-cache/
 /themes/simple/
-!/themes/stack/js/dist/*
-!/themes/stack/js/lib/*
 /themes/stack/js/**/*
+!/themes/stack/js/dist/
+!/themes/stack/js/lib/
 /themes/stack/sass/
 /themes/stack/_.browserlistrc
 !/themes/stack/.gitignore
