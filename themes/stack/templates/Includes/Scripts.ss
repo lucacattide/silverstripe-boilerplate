@@ -1,6 +1,6 @@
 <!-- respond.js per IE8 -->
 <!--[if lt IE 9]>
-  <script src="js/lib/respond.min.js"></script>
+  <script src="/themes//js/lib/respond.min.js"></script>
 <![endif]-->
 <!--&#91;if lt IE 9&#93;>
   <script>
@@ -9,9 +9,10 @@
 <!&#91;endif&#93;-->
 <script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-<script async defer src="{$ThemeDir}/bundle.js"></script>
-<script async defer src="{$ThemeDir}/home.js"></script>
 <script async defer src="{$ThemeDir}/js/dist/cookies.js"></script>
+<% if $URLSegment == "home" %>
+  <script async defer src="{$ThemeDir}/home.js"></script>
+<% end_if %>
 <!--Inizio Google Tag Manager-->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
