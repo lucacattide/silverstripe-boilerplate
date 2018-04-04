@@ -16,3 +16,8 @@ SilverStripe\Admin\LeftAndMain:
   application_link: 'http://'
   extra_requirements_css:
     - themes/stack/css/dist/admin.css
+# Immagini
+SilverStripe\Core\Injector\Injector:
+ SilverStripe\Assets\Image_Backend:
+   properties:
+     Quality: 75
