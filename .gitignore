@@ -27,5 +27,7 @@ composer.lock
 node_modules/
 .DS_Store
 ._*
+!.env
 !.gitignore
+!.htaccess
 .*
