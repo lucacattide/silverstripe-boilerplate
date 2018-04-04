@@ -14,7 +14,6 @@
         function init()
         {
             parent::init();
-            Requirements::css('themes/ss-ecommerce/css/template-cms.css');
             CMSMenu::remove_menu_item('Help');
         }
     }

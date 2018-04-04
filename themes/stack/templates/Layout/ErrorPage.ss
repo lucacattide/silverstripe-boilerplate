@@ -1,9 +1,11 @@
 <!--Inizio Errore-->
-<div class="errore">
-	<aside class="errore__container">
-		<h6>Logo</h6>
-		<img class="errore__container__logo" src="$ThemeDir/img/logo.svg" alt="$SiteConfig.Title.ATT | Errore" />
-	</aside>
-	$Content
-</div>
+<section class="errore">
+  <h6>Errore</h6>
+  <article class="errore__articolo">
+    <h6>Messaggio di Errore</h6>
+    <aside class="errore__articolo__logo">
+      <h6>Logo</h6>
+    </aside>
+    <p class="errore__articolo__corpo">$Content</p>
+</section>
 <!--Fine Errore-->

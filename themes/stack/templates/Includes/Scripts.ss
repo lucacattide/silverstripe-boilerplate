@@ -12,6 +12,10 @@
 <script async defer src="{$ThemeDir}/js/dist/cookies.js"></script>
 <% if $URLSegment == "home" %>
   <script async defer src="{$ThemeDir}/home.js"></script>
+<% else_if $URLSegment == "privacy" %>
+  <script async defer src="{$ThemeDir}/privacy.js"></script>
+<% else_if $URLSegment == "Security" %>
+  <script async defer src="{$ThemeDir}/cms.js"></script>
 <% end_if %>
 <!--Inizio Google Tag Manager-->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
