@@ -10,5 +10,5 @@
   <!--Fine Container-->
 </div>
 <% include TornaSu %>
-<% include BannerCookies %>
+<% include Cookies %>
 <% include Scripts %>
