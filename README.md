@@ -1,7 +1,7 @@
 # [Boilerplate] SilverStripe
 
-[![GitHub release](https://img.shields.io/badge/Release-1.9-lightgrey.svg)](https://github.com/lucacattide/web-boilerplate/releases/tag/1.9)
-[![GitHub contributors](https://img.shields.io/badge/Contributors-1-lightgrey.svg)](https://github.com/lucacattide/web-boilerplate/graphs/contributors)
+[![GitHub release](https://img.shields.io/badge/Release-1.9-lightgrey.svg)](https://github.com/lucacattide/silverstripe-boilerplate/releases/tag/1.9)
+[![GitHub contributors](https://img.shields.io/badge/Contributors-1-lightgrey.svg)](https://github.com/lucacattide/silverstripe-boilerplate/graphs/contributors)
 
 ## Team
 ### Web Design & Development
