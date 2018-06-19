@@ -1,30 +1,97 @@
 // Inizio SCSS
 // Cookies
 .cookies {
+  align-items: center;
+  /* background-color: $blu-1; */
+  bottom: auto;
+  left: 0;
+  padding: 1em 16px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+
+  &.aperto {
+    bottom: 0 !important;
+  }
+
+  &.chiuso {
+    align-items: flex-start !important;
+    background-color: transparent !important;
+    bottom: 8em !important;
+    padding: 0 !important;
+    top: auto !important;
+  
+    &.mobile {
+      bottom: 0 !important;
+    }
+  
+    @media ($media-smartphone) {
+      bottom: 6.2em !important;
+    }
+  
+    @media ($media-tablet) {
+      bottom: 5.7em !important;
+    }
+  
+    @media ($media-desktop) {
+      bottom: 3.7em !important;
+    }
+  }
+
+  &,
+  &#{__container},
+  &#{__corpo__chiudi},
+  &#{__corpo__link},
+  &#{__form__etichetta__checkbox} {
+    transition: all .3s ease-in-out;
+  }
+
+  &#{__corpo},
+  &#{__corpo__chiudi},
+  &#{__corpo__link},
+  &#{__form__etichetta} {
+    /* color: $bianco; */
+  }
+
+  &#{__corpo},
+  &#{__corpo__chiudi},
+  &#{__form__etichetta} {
+
+    /* @extend %font-light; */
+  }
+
+  &#{__corpo},
+  &#{__cta},
+  &#{__form__etichetta} {
+    /* font-size: $font-size-footer; */
+  }
+
+  &,
+  &#{__form} {
+  
+    @include display-flex;
+    @include flex-direction(column);
+  }
+
+  &#{__container} {
+    width: 100%;
+
+    &.aperto {
+      text-align: center !important;
+    }
+  }
+
+  &#{__corpo} {
 
     @extend %centro;
 
-    //background-color: $blu-1;
-    left: 0;
-    padding: 1em 16px;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 9999;
+    /* line-height: $interlinea-footer; */
+    margin: 0 auto 2em;
+    width: 88%;
 
     &#{__chiudi},
-    &#{__corpo} {
-
-      //@extend %font-light;
-
-      display: inline-block;
-      //color: $bianco;
-    }
-
-    &#{__chiudi},
-    &#{__corpo__link} {
-     //color: $bianco;
-     transition: all .3s ease-in-out;
+    &#{__link} {
 
       &:hover {
         opacity: .7;
@@ -32,18 +99,150 @@
     }
 
     &#{__chiudi} {
-      //font-size: $font-size-menu;
-      float: right;
-
+      /* font-size: $font-size-menu; */
+      position: fixed;
+  
       &:hover {
         cursor: pointer;
       }
     }
 
-    &#{__corpo} {
-      /* font-size: $font-size-footer;
-      line-height: $interlinea-footer; */
-      width: 88%;
+    &#{__chiudi--avviso} {
+      right: 16px;
+      top: 16px;
+    }
+
+    &#{__chiudi--impostazioni} {
+      right: 0;
+      top: 0;
+    }
+
+    &#{__link} {
+    
+      /* @extend %font-bold; */
     }
   }
-  // Fine SCSS
+
+  &#{__cta} {
+
+    /* @extend %cta-1;
+
+    background-color: $bianco;
+    color: $blu;*/
+    padding: .5em 16px;
+
+    &.aperto {
+      margin: 2em 16px;
+
+      @media ($media-smartphone) {
+        margin: 0 16px;
+      }
+    }
+  }
+
+  &#{__form} {
+    margin: 0 auto 1em;
+    outline: none;
+    text-align: left;
+
+    @media ($media-tablet) {
+      max-width: 62%;
+    }
+
+    @media ($media-desktop) {
+      max-width: 48%;
+    }
+
+    @media ($media-desktop-hd) {
+      max-width: 38%;
+    }
+
+    @media (min-width: 1920px) {
+      max-width: 24%;
+    }
+
+    &#{__etichetta} {
+      margin: 0 0 1em;
+      position: relative;
+      text-indent: 32px;
+
+      &:hover &#{__checkbox} {
+        /* box-shadow: 0 0 0 2px $bianco; */
+      }
+
+      &,
+      &#{__checkbox} {
+        cursor: pointer;
+      }
+
+      &#{__campo},
+      &#{__checkbox},
+      &#{__checkbox}::after {
+        position: absolute;
+      }
+
+      &#{__campo} {
+        appearance: none;
+        border: 0;
+        margin: 0;
+        opacity: 0;
+
+        &:focus,
+        &:hover {
+          /* box-shadow: 0 0 0 2px $grigio; */
+        }
+
+        /* &::-webkit-input-placeholder {
+          color: $grigio-2;
+        }
+
+        &::-moz-placeholder {
+          color: $grigio-2;
+        }
+
+        &:-ms-input-placeholder {
+          color: $grigio-2;
+        }
+
+        &:-moz-placeholder {
+          color: $grigio-2;
+        } */
+      }
+
+      &#{__campo}:checked + &#{__checkbox} {
+        /* background-color: $celeste; */
+      }
+
+      &#{__checkbox} {
+        /* background-color: $bianco; */
+        height: 12px;
+        left: 0;
+        top: 0;
+        width: 12px;
+      }
+    }
+
+    &#{__legenda} {
+      display: none;
+    }
+  }
+
+  &#{--impostazioni} {
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-track-piece,
+    &::-webkit-scrollbar-corner,
+    &::-webkit-resizer {
+      /* background-color: $bianco; */
+    }
+
+    &::-webkit-scrollbar-button,
+    &::-webkit-scrollbar-thumb {
+      /* background-color: $blu; */
+    }
+  }
+}
+// Fine SCSS

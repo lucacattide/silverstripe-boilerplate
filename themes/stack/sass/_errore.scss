@@ -1,0 +1,56 @@
+// Inizio SCSS
+// Errore
+.errore {
+  
+  @include display-flex;
+  @include flex-direction(column);
+  @include justify-content(center);
+
+  align-items: center;
+  height: auto;
+  min-height: 100vh;
+
+  &#{__articolo} {
+
+    @extend %centro;
+
+    &#{__corpo},
+    p {
+
+      /* @extend %font-light; */
+
+      color: $blu;
+      /* font-size: $font-size-footer;
+      line-height: $interlinea-footer; */
+      margin: 0;
+      padding: 0 16px;
+
+      @media ($media-tablet) {
+        /* font-size: $font-size-menu;
+        line-height: $font-size-corpo-3; */
+      }
+
+      @media ($media-desktop) {
+        /* font-size: $font-size-corpo;
+        line-height: $font-size-titolo-1; */
+        padding: 0;
+      }
+    }
+    
+    &#{__logo} {
+
+      @extend %sfondo;
+
+      background-image: url('/themes/stack/img/logo.svg');
+      height: auto;
+      margin: 0 auto 2em;
+      padding: 0 0 3.5em;
+      width: 223px;
+
+      @media ($media-desktop) {
+        padding: 0 0 3em;
+      }
+    }
+  }
+}
+// Fine SCSS

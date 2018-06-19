@@ -1,7 +1,7 @@
 <?php
     use SilverStripe\i18n\i18n;
     use SilverStripe\Admin\LeftAndMain;
-    use SilverStripe\Forms\HTMLEditor\HtmlEditorConfig;
+    use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 
     // Localizzazione
     i18n::set_locale('it_IT');
