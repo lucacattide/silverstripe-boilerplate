@@ -16,13 +16,6 @@
 <% else_if $URLSegment == "Security" %>
   <script async defer src="{$ThemeDir}/cms.js"></script>
 <% end_if %>
-<!--Inizio Google Tag Manager-->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KL9TZF5');</script>
-<!--Fine Google Tag Manager-->
 <!--Inizio Rich Snippets-->
 <script type="application/ld+json">
 {
@@ -30,21 +23,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "@type": "Organization",
   "url": "http://",
   "logo": "http:///themes/stack/img/logo.png",
-  "contactPoint": [
-    { "@type": "ContactPoint",
-      "telephone": "+39-02-35-99-7654",
-      "contactType": "customer support",
-	  "areaServed": [
-	  	"IT"
-	  ],
-	  "avaliableLanguage": [
-	  	"Italian"
-	  ]
+  "contactPoint": [{
+    "@type": "ContactPoint",
+    "telephone": "+39-02-35-99-7654",
+    "contactType": "customer support",
+    "areaServed": [
+      "IT"
+    ],
+    "availableLanguage": {
+      "@type": "Language",
+      "name": ["Italian"]
     }
-  ],
+  }],
   "name": ""
-},
-{
+}, {
   "@context": "http://schema.org",
   "@type": "",
   "name": "",
@@ -62,11 +54,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": ,
-    "longitude": 
+    "longitude":
   },
   "telephone": "+39-"
-},
-{
+}, {
   "@context": "http://schema.org",
   "@type": "WebSite",
   "name": "",
