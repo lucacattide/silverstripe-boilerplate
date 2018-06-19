@@ -69,6 +69,12 @@ a:focus {
 
 }
 
+// Pulsanti
+input[type='submit'] {
+  appearance: none !important;
+  border-radius: 0 !important;
+}
+
 // Outline
 a:focus,
 input:focus,

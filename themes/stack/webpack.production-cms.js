@@ -52,7 +52,7 @@ module.exports = merge(commonConfig, cmsConfig, {
         to: './php/dist',
       },
       {
-        from: 'index.php',
+        from: 'templates/**/*',
         to: 'dist',
       },
     ], {

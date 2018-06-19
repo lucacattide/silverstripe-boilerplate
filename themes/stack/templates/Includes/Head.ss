@@ -8,12 +8,11 @@ $MetaTags
 <meta property="og:type" content="" />
 <meta property="og:title" content="$Title.ATT" />
 <meta property="og:description" content="$SiteConfig.Tagline" />
-<meta property="og:image" content="" />
+<meta property="og:image" content="{$AbsoluteLink.ATT}themes/corporate/img/logo.png" />
 <meta property="og:audio" content="" />
 <meta property="og:video" content="" />
 <meta property="og:locale" content="$ContentLocale.ATT" />
 <meta property="og:locale:alternate" content="" />
-<meta property="og:type" content="" />
 <meta property="og:site_name" content="$SiteConfig.Title.ATT" />
 <!--Fine Meta Tags-->
 <!--Localizzazione-->
