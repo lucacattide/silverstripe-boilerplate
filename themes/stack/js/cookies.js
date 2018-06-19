@@ -10,7 +10,7 @@ function ck(n, v) {
 
 	s.setDate(s.getDate() + 30);
 	document.cookie = n +'='+ escape(v) +'; expires='+ s.toGMTString() +
-	'; path=/;';
+	'; path=/; secure';
 }
 
 /**
