@@ -5,8 +5,19 @@ SilverStripe\Core\Injector\Injector:
   Psr\Log\LoggerInterface:
     calls:
       FileLogger: [ pushHandler, [ %$FileLogger ] ]
+      MailHandler: [ pushHandler, [ %$MailHandler ] ]
   FileLogger:
     class: Monolog\Handler\StreamHandler
     constructor:
       - "log/ss-errors.log"
       - "notice"
+  MailHandler:
+      class: Monolog\Handler\NativeMailerHandler
+      constructor:
+        - l.cattide@email.it
+        - There was an error on your site
+        - l.cattide@email.it
+        - error
+      properties:
+        ContentType: text/html
+        Formatter: %$SilverStripe\Logging\DetailedErrorFormatter

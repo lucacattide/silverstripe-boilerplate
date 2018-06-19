@@ -1,6 +1,11 @@
 <?php
-
+// Definizione Namespace
 use SilverStripe\CMS\Controllers\ContentController;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Control\Director;
+use SilverStripe\Security\Security;
+use SilverStripe\Control\Email\Email;
 
 class PageController extends ContentController
 {
@@ -19,12 +24,55 @@ class PageController extends ContentController
      *
      * @var array
      */
-    private static $allowed_actions = [];
+    private static $allowed_actions = [
+        'notificacookies'
+    ];
 
+    /**
+     * Metodo gestione gruppo permessi Cliente
+     * Setter
+     * @return array
+     */
     protected function init()
     {
         parent::init();
         // You can include any CSS or JS required by your project here.
         // See: https://docs.silverstripe.org/en/developer_guides/templates/requirements/
     }
+
+    /**
+	* Funzione gestione notifica accettazione cookies
+	* @param  HTTPRequest $request Richiesta HTTP
+	* @return HTTPResponse Risposta HTTP
+	*/
+	public function notificacookies(HTTPRequest $request) {
+        $oggetto = 'Cookie Policy - Accettazione';
+        $utente = Security::getCurrentUser();
+
+        if (!$utente) {
+            $utente = $request->getIP();
+        } else {
+            $utente = $utente->Name . ' ('. $utente->Email .')';
+        }
+		if (!$request->isAjax()) {
+			return ErrorPage::response_for(404);
+		} else if (!$request->isPOST()) {
+			return $this->httpError(400, 'Metodo POST richiesto');
+		} else {
+            $emailCorpo = 'Accettazione Cookie Policy:<br /><br />';
+            $emailCorpo .= 'Sito Web: '. Director::absoluteURL() .'<br />';
+            $emailCorpo .= 'Data: '. @date('d/m/Y \- \h\. H:i:s') .'<br />';
+            $emailCorpo .= 'Utente: '. $utente .'<br />';
+            $mail = Email::create();
+
+            // TODO: Sostituire nel caso con E-Mail ad hoc
+            $mail->setFrom('l.cattide@email.it');
+            $mail->setTo('l.cattide@email.it');
+            $mail->setSubject($oggetto);
+            $mail->setBody($emailCorpo);
+            $mail->send();
+
+            return new HTTPResponse;
+		}
+	}
 }

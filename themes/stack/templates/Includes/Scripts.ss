@@ -9,7 +9,6 @@
 <!&#91;endif&#93;-->
 <script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-<script async defer src="{$ThemeDir}/js/dist/cookies.js"></script>
 <% if $URLSegment == "home" %>
   <script async defer src="{$ThemeDir}/home.js"></script>
 <% else_if $URLSegment == "privacy" %>
@@ -29,8 +28,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {
   "@context": "http://schema.org",
   "@type": "Organization",
-  "url": "http://notaiovarcacciogarofalo.it",
-  "logo": "http://notaiovarcacciogarofalo.it/themes/assuntasiani/img/logo.png",
+  "url": "http://",
+  "logo": "http:///themes/stack/img/logo.png",
   "contactPoint": [
     { "@type": "ContactPoint",
       "telephone": "+39-02-35-99-7654",
@@ -43,34 +42,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	  ]
     }
   ],
-  "name": "Notaio Marianna Varcaccio Garofalo"
+  "name": ""
 },
 {
   "@context": "http://schema.org",
-  "@type": "StudioNotarile",
-  "name": "Notaio Marianna Varcaccio Garofalo",
-  "url": "http://notaiovarcacciogarofalo.it",
-  "image": "http://notaiovarcacciogarofalo.it/themes/mvg/img/logo-1.svg",
-  "@id": "http://notaiovarcacciogarofalo.it",
+  "@type": "",
+  "name": "",
+  "url": "http://",
+  "image": "http:///themes/stack/img/logo.png",
+  "@id": "http://",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Viale Majno 9",
-    "addressLocality": "Milano",
-    "addressRegion": "MI",
-    "postalCode": "20122",
+    "streetAddress": "",
+    "addressLocality": "",
+    "addressRegion": "",
+    "postalCode": "",
     "addressCountry": "IT"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 45.4689444,
-    "longitude": 9.2032903
+    "latitude": ,
+    "longitude": 
   },
-  "telephone": "+39-02-35-99-7654"
+  "telephone": "+39-"
 },
 {
   "@context": "http://schema.org",
   "@type": "WebSite",
-  "name": "Marianna Varcaccio Garofalo | Notaio",
-  "url": "http://notaiovarcacciogarofalo.it"
+  "name": "",
+  "url": "http://"
 }
 </script>
