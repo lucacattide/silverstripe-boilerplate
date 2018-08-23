@@ -207,11 +207,16 @@ class Director implements TemplateGlobalProvider
         if ($session instanceof Session) {
             // Note: If passing $session as object, ensure that changes are written back
             // This is important for classes such as FunctionalTest which emulate cross-request persistence
-            $newVars['_SESSION'] = $session->getAll();
-            $finally[] = function () use ($session) {
+            $newVars['_SESSION'] = $sessionArray = $session->getAll();
+            $finally[] = function () use ($session, $sessionArray) {
                 if (isset($_SESSION)) {
+                    // Set new / updated keys
                     foreach ($_SESSION as $key => $value) {
                         $session->set($key, $value);
+                    }
+                    // Unset removed keys
+                    foreach (array_diff_key($sessionArray, $_SESSION) as $key => $value) {
+                        $session->clear($key);
                     }
                 }
             };
@@ -728,13 +733,26 @@ class Director implements TemplateGlobalProvider
      */
     public static function is_site_url($url)
     {
-        $urlHost = parse_url($url, PHP_URL_HOST);
-        $actualHost = parse_url(self::protocolAndHost(), PHP_URL_HOST);
-        if ($urlHost && $actualHost && $urlHost == $actualHost) {
-            return true;
-        } else {
-            return self::is_relative_url($url);
+        $parsedURL = parse_url($url);
+
+        // Validate user (disallow slashes)
+        if (!empty($parsedURL['user']) && strstr($parsedURL['user'], '\\')) {
+            return false;
         }
+        if (!empty($parsedURL['pass']) && strstr($parsedURL['pass'], '\\')) {
+            return false;
+        }
+
+        // Validate host[:port]
+        $actualHost = parse_url(self::protocolAndHost(), PHP_URL_HOST);
+        if (!empty($parsedURL['host'])
+            && $actualHost
+            && $parsedURL['host'] === $actualHost
+        ) {
+            return true;
+        }
+
+        return self::is_relative_url($url);
     }
 
     /**

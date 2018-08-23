@@ -14,4 +14,4 @@ import Modernizr from 'modernizr';
 
 // Main
 $(document).ready(() => {
-})
+});

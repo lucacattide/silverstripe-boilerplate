@@ -41,7 +41,10 @@
       <label class="cookies__form__etichetta" for="google-cookie">
         <input id="google-cookie" class="cookies__form__etichetta__campo" type="checkbox" name="google-cookie" tabindex="106" value="google_stack" />
         <span class="cookies__form__etichetta__checkbox"></span>
-        Google (Analisi/Misurazione, Ottimizzazione)
+        Google (Analisi/Misurazione, Ottimizzazione) - 
+        <a class="cookies__form__etichetta__link" href="https://tinyurl.com/y96a7je2" title="Cookie Policy - Google" tabindex="306" target="new">
+          Informativa
+        </a>
       </label>
     </form>
     <a class="cookies__cta cookies__cta--opt-out disabilita aperto" href="#" title="Gestisci l'attivazione dei cookies di terze parti"

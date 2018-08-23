@@ -4,9 +4,10 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit81fbba2ded2ce3c0d72dddd4429f782b
+class ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa
 {
     public static $files = array (
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '32dcc8afd4335739640db7d200c1971d' => __DIR__ . '/..' . '/symfony/polyfill-apcu/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -29,6 +30,7 @@ class ComposerStaticInit81fbba2ded2ce3c0d72dddd4429f782b
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Polyfill\\Apcu\\' => 22,
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\Translation\\' => 30,
@@ -142,6 +144,10 @@ class ComposerStaticInit81fbba2ded2ce3c0d72dddd4429f782b
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'Symfony\\Polyfill\\Apcu\\' => 
         array (
@@ -914,10 +920,10 @@ class ComposerStaticInit81fbba2ded2ce3c0d72dddd4429f782b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit81fbba2ded2ce3c0d72dddd4429f782b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit81fbba2ded2ce3c0d72dddd4429f782b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit81fbba2ded2ce3c0d72dddd4429f782b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit81fbba2ded2ce3c0d72dddd4429f782b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa::$classMap;
 
         }, null, ClassLoader::class);
     }

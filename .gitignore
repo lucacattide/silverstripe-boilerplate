@@ -5,7 +5,4 @@
 /themes/simple/
 /themes/stack/node_modules/
 /themes/stack/package-lock.json
-/vendor/
-composer.lock
-/Gemfile.lock
 .vscode

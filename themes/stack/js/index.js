@@ -17,4 +17,4 @@ import inizializzaTornaSu from './torna-su.js';
 $(document).ready(() => {
   gestisciCookies();
   inizializzaTornaSu();
-})
+});

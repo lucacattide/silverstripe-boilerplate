@@ -28,7 +28,7 @@ class SplFileInfo extends \SplFileInfo
      */
     public function __construct($file, $relativePath, $relativePathname)
     {
-        parent::__construct(realpath($file) ?: $file);
+        parent::__construct($file);
         $this->relativePath = $relativePath;
         $this->relativePathname = $relativePathname;
     }
@@ -66,12 +66,11 @@ class SplFileInfo extends \SplFileInfo
      */
     public function getContents()
     {
-        $level = error_reporting(0);
+        set_error_handler(function ($type, $msg) use (&$error) { $error = $msg; });
         $content = file_get_contents($this->getPathname());
-        error_reporting($level);
+        restore_error_handler();
         if (false === $content) {
-            $error = error_get_last();
-            throw new \RuntimeException($error['message']);
+            throw new \RuntimeException($error);
         }
 
         return $content;
