@@ -1,0 +1,37 @@
+fr:
+  CampaignAdmin:
+    php.SilverStripe\CampaignAdmin\CampaignAdminSAVE: Sauvegarder
+    php.SilverStripe\CampaignAdmin\CampaignAdminSAVED: Sauvegardé
+  SilverStripe\CampaignAdmin\AddToCampaignHandler:
+    ADD_TO_A_NEW_CAMPAIGN: 'Ajouter à une nouvelle campagne'
+    AddToCampaignAddAction: Ajouter
+    AddToCampaignAvailableLabel: 'Campagnes disponibles'
+    AddToCampaignFormFieldLabel: 'Choisir une campagne'
+    AddToCampaignInChangsetLabel: 'Attention, cet élément fait déjà partie d''une ou plusieurs campagne(s)'
+    AddToCampaignInChangsetLabelAll: 'Attention, cet élément fait déjà partie de TOUTES les campagnes'
+    CREATE_DENIED: 'Vous n''avez pas l''autorisation requise pour créer des campagnes'
+    CREATE_NEW: 'Créer une nouvelle campagne'
+    CREATE_NEW_PLACEHOLDER: 'Entrez un nom pour la campagne'
+    ErrorCampaignPermissionDenied: 'Vous n''avez apparemment pas les autorisations requises pour ajouter {ObjectTitle} à {CampaignTitle}'
+    ErrorGeneral: 'Désolé, une erreur est survenue'
+    ErrorItemPermissionDenied: 'Vous n''avez apparemment pas les autorisations requises pour ajouter {ObjectTitle} à une campagne'
+    ErrorNotFound: '{Type} introuvable'
+    MISSING_TITLE: 'Un nom est requis pour cette campagne'
+    NONE_SELECTED: 'Aucune campagne sélectionnée'
+    NO_CAMPAIGNS: 'Vous n''avez aucune campagne en cours. Vous pouvez éditer le détail des campagnes ultérieurement dans la section "Campagnes".'
+    NO_CREATE: 'Oh non! Vous n''avez actuellement aucune campagne de créée. Avec cet idenfiant de connexion, vous ne détenez pas les privilèges requis pour créer des campagnes. Seuls les utilisateurs avec des autorisations suffisantes peuvent créer des campagnes.'
+    Success: '<strong>{ObjectTitle}</strong> ajouté à <strong>{CampaignTitle}</strong> avec succès'
+  SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction:
+    ADDTOCAMPAIGN: 'Ajouter à la campagne'
+  SilverStripe\CampaignAdmin\AddToCampaignValidator:
+    NEW_TITLE_EMPTY: 'Merci de saisir un titre pour la nouvelle campagne'
+    SELECT_CAMPAIGN_EMPTY: 'Merci de sélectionner une campagne'
+  SilverStripe\CampaignAdmin\CampaignAdmin:
+    ACCESS_HELP: 'Permettre de visualiser la section "publication de campagnes"'
+    CANCEL: Annuler
+    CREATE: Créer
+    ERROR_DUPLICATE_NAME: 'Le nom "{Name}" existe déjà'
+    MENUTITLE: Campagnes
+    NOITEMSTEXT: 'Ajouter des éléments de la section {section}'
+    SAVEDERROR: Erreur
+    SAVEDUP: Sauvegardé

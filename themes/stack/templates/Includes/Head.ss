@@ -21,7 +21,6 @@ $MetaTags
 <link rel="preload" href="$ThemeDir/css/dist/main.css" as="style">
 <link rel="preload" href="$ThemeDir/css/dist/home.css" as="style">
 <link rel="preload" href="//code.jquery.com/jquery-3.3.1.min.js" as="script">
-<link rel="preload" href="$ThemeDir/js/dist/cookies.js" as="script">
 <% if $URLSegment == "home" %>
   <link rel="preload" href="$ThemeDir/home.js" as="script">
 <% else_if $URLSegment == "privacy" %>

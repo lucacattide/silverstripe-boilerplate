@@ -3,6 +3,19 @@
 /* Internet Explorer */
 @media all and (-ms-high-contrast: none) {
   /* IE11 */
+  // Errore
+  *::-ms-backdrop,
+  .errore {
+
+    &,
+    &#{__container} {
+      align-content: center;
+    }
+
+    &#{__container} {
+      padding: 13em 0 0;
+    }
+  }
   /* Footer */
   *::-ms-backdrop,
   .footer {

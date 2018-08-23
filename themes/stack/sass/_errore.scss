@@ -2,15 +2,21 @@
 // Errore
 .errore {
   
-  @include display-flex;
-  @include flex-direction(column);
   @include justify-content(center);
 
-  align-items: center;
   height: auto;
   min-height: 100vh;
 
-  &#{__articolo} {
+  &,
+  &#{__container} {
+
+    @include display-flex;
+    @include flex-direction(column);
+
+    align-items: center;
+  }
+
+  &#{__container__articolo} {
 
     @extend %centro;
 

@@ -5,6 +5,7 @@
   /* background-color: $blu-1; */
   bottom: auto;
   left: 0;
+  overflow: hidden;
   padding: 1em 16px;
   position: fixed;
   right: 0;
@@ -19,6 +20,7 @@
     align-items: flex-start !important;
     background-color: transparent !important;
     bottom: 8em !important;
+    max-width: 50%;
     padding: 0 !important;
     top: auto !important;
   
@@ -75,9 +77,11 @@
   }
 
   &#{__container} {
+    padding: 0 0 1em;
     width: 100%;
 
     &.aperto {
+      height: 100%;
       text-align: center !important;
     }
   }
@@ -100,7 +104,7 @@
 
     &#{__chiudi} {
       /* font-size: $font-size-menu; */
-      position: fixed;
+      position: absolute;
   
       &:hover {
         cursor: pointer;
