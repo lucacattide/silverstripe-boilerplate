@@ -1,0 +1,15 @@
+de:
+  SilverStripe\CampaignAdmin\AddToCampaignHandler:
+    AddToCampaignAddAction: Hinzufügen
+    AddToCampaignAvailableLabel: 'Verfügbare Kampagnen'
+    AddToCampaignFormFieldLabel: 'Kampagne auswählen'
+    AddToCampaignInChangsetLabel: 'Achtung, dieses Element ist bereits in Kampagne(n):'
+    ErrorCampaignPermissionDenied: 'Es scheint, als ob Sie nicht über die erforderlichen Berechtigungen verfügen, um {Object Title} zu {Campaign Title} hinzuzufügen'
+    ErrorGeneral: 'Wir entschuldigen uns, aber es gab einen Fehler'
+    ErrorItemPermissionDenied: 'Es scheint, als ob Sie nicht über die erforderlichen Berechtigungen verfügen, um {ObjectTitle} zu einer Kampagne hinzuzufügen'
+    ErrorNotFound: 'Dieses {Type} konnte nicht gefunden werden'
+    Success: '<strong>{ObjectTitle}</strong> erfolgreich zu <strong>{CampaignTitle}</strong> hinzugefügt'
+  SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction:
+    ADDTOCAMPAIGN: 'Zur Kampagne hinzufügen'
+  SilverStripe\CampaignAdmin\CampaignAdmin:
+    ACCESS_HELP: 'Anzeige des Abschnitts zur Kampagnenveröffentlichung erlauben.'

@@ -1,0 +1,37 @@
+en:
+  CampaignAdmin:
+    php.SilverStripe\CampaignAdmin\CampaignAdminSAVE: Save
+    php.SilverStripe\CampaignAdmin\CampaignAdminSAVED: Saved
+  SilverStripe\CampaignAdmin\AddToCampaignHandler:
+    ADD_TO_A_NEW_CAMPAIGN: 'Add to a new campaign'
+    AddToCampaignAddAction: Add
+    AddToCampaignAvailableLabel: 'Available campaigns'
+    AddToCampaignFormFieldLabel: 'Select a Campaign'
+    AddToCampaignInChangsetLabel: 'Heads up, this item is already in campaign(s):'
+    AddToCampaignInChangsetLabelAll: 'Heads up, this item is already in ALL campaign(s):'
+    CREATE_DENIED: 'You do not have permission to create campaigns'
+    CREATE_NEW: 'Create a new campaign'
+    CREATE_NEW_PLACEHOLDER: 'Enter campaign name'
+    ErrorCampaignPermissionDenied: 'It seems you don''t have the necessary permissions to add {ObjectTitle} to {CampaignTitle}'
+    ErrorGeneral: 'We apologise, but there was an error'
+    ErrorItemPermissionDenied: 'It seems you don''t have the necessary permissions to add {ObjectTitle} to a campaign'
+    ErrorNotFound: 'That {Type} couldn''t be found'
+    MISSING_TITLE: 'Campaign name is required'
+    NONE_SELECTED: 'No campaign selected'
+    NO_CAMPAIGNS: 'You currently don''t have any campaigns. You can edit campaign details later in the Campaigns section.'
+    NO_CREATE: 'Oh no! You currently don''t have any campaigns created. Your current login does not have privileges to create campaigns. Campaigns can only be created by users with Campaigns section rights.'
+    Success: 'Successfully added <strong>{ObjectTitle}</strong> to <strong>{CampaignTitle}</strong>'
+  SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction:
+    ADDTOCAMPAIGN: 'Add to Campaign'
+  SilverStripe\CampaignAdmin\AddToCampaignValidator:
+    NEW_TITLE_EMPTY: 'Please enter a title for the new campaign'
+    SELECT_CAMPAIGN_EMPTY: 'Please select a campaign'
+  SilverStripe\CampaignAdmin\CampaignAdmin:
+    ACCESS_HELP: 'Allow viewing of the campaign publishing section.'
+    CANCEL: Cancel
+    CREATE: Create
+    ERROR_DUPLICATE_NAME: 'Name "{Name}" already exists'
+    MENUTITLE: Campaigns
+    NOITEMSTEXT: 'Add items from the {section} section'
+    SAVEDERROR: Error.
+    SAVEDUP: Saved.

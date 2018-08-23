@@ -1,0 +1,4 @@
+ar:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'تكوينات الموقع'
+    SINGULARNAME: 'تهيئة الموقع'

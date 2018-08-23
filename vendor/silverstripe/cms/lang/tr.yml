@@ -1,0 +1,82 @@
+tr:
+  SilverStripe\CMS\Controllers\CMSMain:
+    ChoosePageParentMode: 'Sayfanın nereye oluşturulacağını seç'
+    ChoosePageType: 'Sayfa tipini seç'
+    Create: Oluştur
+    PAGENOTEXISTS: 'Sayfa bulunamadı'
+    PUBALLCONFIRM: 'Lütfen taslak sitedeki tüm sayfaları yayınlanmakta olan siteye kopyalayıp yayınla.'
+    PUBALLFUN: '"Hepsini Yayınla" özelliği'
+    PageAdded: 'Sayfa başarıyla oluşturuldu'
+    REMOVEDPAGEFROMDRAFT: '''{title}'' taslak siteden silindi'
+  SilverStripe\CMS\Controllers\CMSPagesController:
+    MENUTITLE: Sayfalar
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_Search:
+    Title: 'Tüm sayfalar'
+  SilverStripe\CMS\Controllers\ContentController:
+    INSTALL_SUCCESS: 'Kurulum Başarılı!'
+    LOGOUT: 'Çıkış Yap'
+    NOTEWONTBESHOWN: 'Not: Bu mesaj ziyaretçilerinize gösterilmeyecektir.'
+  SilverStripe\CMS\Model\RedirectorPage:
+    HEADER: 'Bu sayfa, kullanıcıları başka bir sayfaya yönlendirir'
+    OTHERURL: 'Başka bir siteye ait URL'
+    REDIRECTTO: 'Şuraya yönlendir'
+    REDIRECTTOEXTERNAL: 'Başka bir site'
+    REDIRECTTOPAGE: 'Web sitenizdeki bir sayfa'
+    YOURPAGE: 'Web sitenizdeki bir sayfa'
+  SilverStripe\CMS\Model\SiteTree:
+    ACCESSANYONE: Herkes
+    ACCESSHEADER: 'Bu sayfayı kimler görüntüleyebilir?'
+    ACCESSLOGGEDIN: 'Giriş yapmış kullanıcılar'
+    ACCESSONLYTHESE: 'Sadece bu kişiler (listeden seçiniz)'
+    ADDEDTODRAFTSHORT: Taslak
+    BUTTONCANCELDRAFT: 'Taslak değikliklerini iptal et'
+    BUTTONCANCELDRAFTDESC: 'Taslağı sil ve şu an yayında olan sayfaya geri döndür'
+    BUTTONUNPUBLISH: 'Yayından kaldır'
+    BUTTONUNPUBLISHDESC: 'Bu sayfayı yayından kaldır'
+    Comments: Yorumlar
+    Content: İçerik
+    DEFAULTABOUTTITLE: Hakkımızda
+    DEFAULTCONTACTTITLE: İletişim
+    DEFAULTHOMETITLE: Anasayfa
+    DependtPageColumnLinkType: 'Link tipi'
+    EDITHEADER: 'Bu sayfayı kimler düzenleyebilir?'
+    Editors: 'Editör Grupları'
+    HASBROKENLINKS: 'Bu sayfada hatalı linkler var.'
+    HTMLEDITORTITLE: İçerik
+    INHERIT: 'Üst sayfadan kalan'
+    LASTUPDATED: 'Son Güncellenen'
+    MENUTITLE: 'Navigasyon etiketi'
+    METADESC: Tanım
+    METAEXTRA: 'Kişisel Meta Etiketleri'
+    MODIFIEDONDRAFTSHORT: Değiştirilmiş
+    PAGETITLE: 'Sayfa ismi'
+    PAGETYPE: 'Sayfa tipi'
+    PARENTID: 'Ana sayfa'
+    PARENTTYPE: 'Sayfa konumu'
+    PARENTTYPE_ROOT: 'Üst seviye sayfa'
+    PERMISSION_GRANTACCESS_DESCRIPTION: 'Grupların işlem ve düzenlemelerinin kontrolü'
+    REORGANISE_DESCRIPTION: 'Site yapısını değiştir'
+    REORGANISE_HELP: 'Site ağacının sürükle&bırak şeklinde tekrardan düzenle'
+    SHOWINMENUS: 'Menülerde gösterilsin mi?'
+    SHOWINSEARCH: 'Aramalarda gösterilsin mi?'
+    TABBEHAVIOUR: Davranış
+    TABCONTENT: İçerik
+    TOPLEVEL: 'Site İçeriği (Üst Seviye)'
+    URLSegment: 'URL Kısmı'
+    Viewers: 'Görüntüleyici Grupları'
+    Visibility: Görünürlük
+    has_one_Parent: 'Üst Sayfa'
+    many_many_BackLinkTracking: 'Geri bağlantı izi'
+    many_many_ImageTracking: 'İmaj izi'
+    many_many_LinkTracking: 'Bağlantı izi'
+  SilverStripe\CMS\Model\VirtualPage:
+    HEADER: 'Bu sanal bir sayfadır'
+  SilverStripe\CMS\Reports\BrokenLinksReport:
+    CheckSite: 'Siteyi kontrol et'
+    HasBrokenLink: 'kırık link var'
+    HoverTitleEditPage: 'Sayfayı düzenle'
+    PageName: 'Sayfa ismi'
+    ReasonDropdownBROKENLINK: 'Kırık link'
+  SilverStripe\CMS\Search\SearchForm:
+    GO: Git
+    SEARCH: Ara

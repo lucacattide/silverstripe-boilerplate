@@ -1,0 +1,12 @@
+{
+    "CampaignAdmin.ADDCAMPAIGN": "Aggiungi campagna",
+    "CampaignAdmin.DELETECAMPAIGN": "Sei sicuro di voler eliminare questo record?",
+    "CampaignAdmin.DRAFT": "Bozza",
+    "CampaignAdmin.ITEM_SUMMARY_PLURAL": "%s elementi",
+    "CampaignAdmin.ITEM_SUMMARY_SINGULAR": "%s elemento",
+    "CampaignAdmin.MODIFIED": "Modificato",
+    "CampaignAdmin.NO_CHANGES": "Nessuna modifica",
+    "CampaignAdmin.PUBLISHCAMPAIGN": "Pubblica campagna",
+    "CampaignAdmin.REMOVED": "Eliminato",
+    "CampaignAdmin.REVERTCAMPAIGN": "Ripristina"
+}

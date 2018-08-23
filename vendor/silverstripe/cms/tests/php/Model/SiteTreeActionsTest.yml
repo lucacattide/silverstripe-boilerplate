@@ -1,0 +1,33 @@
+SilverStripe\Security\Permission:
+  cmsmain1:
+    Code: CMS_ACCESS_CMSMain
+  cmsmain2:
+    Code: CMS_ACCESS_CMSMain
+  cmsmain3:
+    Code: CMS_ACCESS_CMSMain
+  candelete:
+    Code: SiteTreeActionsTest_Page_CANDELETE
+  canedit1:
+    Code: SiteTreeActionsTest_Page_CANEDIT
+  canedit2:
+    Code: SiteTreeActionsTest_Page_CANEDIT
+SilverStripe\Security\Group:
+  cmseditors:
+    Title: CMS Editors
+    Permissions: =>SilverStripe\Security\Permission.cmsmain1,=>SilverStripe\Security\Permission.canedit1,=>SilverStripe\Security\Permission.candelete
+  cmsreadonly:
+    Title: CMS Readonly
+    Permissions: =>SilverStripe\Security\Permission.cmsmain2
+  cmsnodelete:
+    Title: CMS No Delete
+    Permissions: =>SilverStripe\Security\Permission.cmsmain3,=>SilverStripe\Security\Permission.canedit2
+SilverStripe\Security\Member:
+  cmseditor:
+    Email: cmseditor@test.com
+    Groups: =>SilverStripe\Security\Group.cmseditors
+  cmsreadonlyeditor:
+    Email: cmsreadonlyeditor@test.com
+    Groups: =>SilverStripe\Security\Group.cmsreadonly
+  cmsnodeleteeditor:
+    Email: cmsnodeleteeditor@test.com
+    Groups: =>SilverStripe\Security\Group.cmsnodelete

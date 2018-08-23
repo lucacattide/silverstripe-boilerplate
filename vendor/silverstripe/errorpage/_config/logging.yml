@@ -1,0 +1,8 @@
+---
+Name: errorpage-logging
+After:
+  - '#loggingformatters'
+---
+SilverStripe\Core\Injector\Injector:
+  Monolog\Formatter\FormatterInterface.friendly:
+    class: SilverStripe\ErrorPage\ErrorPageErrorFormatter

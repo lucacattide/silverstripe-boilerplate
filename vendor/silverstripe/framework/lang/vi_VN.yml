@@ -1,0 +1,9 @@
+vi_VN:
+  SilverStripe\Forms\DateField:
+    TODAY: 'hôm nay'
+  SilverStripe\Forms\DropdownField:
+    CHOOSE: (chọn)
+  SilverStripe\Security\Member:
+    INTERFACELANG: 'Ngôn ngữ'
+    SUBJECTPASSWORDCHANGED: 'Thay đổi mật khẩu'
+    SUBJECTPASSWORDRESET: 'Quên mật khẩu'

@@ -1,0 +1,19 @@
+bg:
+  SilverStripe\CampaignAdmin\AddToCampaignHandler:
+    AddToCampaignAddAction: Добави
+    AddToCampaignAvailableLabel: 'Налични кампании'
+    AddToCampaignFormFieldLabel: 'Избери кампания'
+    AddToCampaignInChangsetLabel: 'Внимание, този елемент вече е в кампания(и):'
+    ErrorCampaignPermissionDenied: 'Нямате необходимите права, за да добавите {ObjectTitle} към {CampaignTitle}'
+    ErrorGeneral: 'Извиняваме се, че възникна грешка.'
+    ErrorItemPermissionDenied: 'Нямате необходимите права, за да добавите {ObjectTitle} към кампания'
+    ErrorNotFound: '{Type} не можа да бъде намерен'
+    Success: 'Успешно беше добавен <strong>{ObjectTitle}</strong> към <strong>{CampaignTitle}</strong>'
+  SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction:
+    ADDTOCAMPAIGN: 'Добави към кампания'
+  SilverStripe\CampaignAdmin\CampaignAdmin:
+    ACCESS_HELP: 'Разреши преглед на публикуваната секция на кампанията.'
+    CANCEL: Отказ
+    ERROR_DUPLICATE_NAME: 'Името "{Name}" вече съществува'
+    MENUTITLE: Кампании
+    SAVEDUP: Записана.

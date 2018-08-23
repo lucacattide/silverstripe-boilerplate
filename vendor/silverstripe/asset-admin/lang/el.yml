@@ -1,0 +1,5 @@
+el:
+  SilverStripe\AssetAdmin\Controller\AssetAdmin:
+    MENUTITLE: Αρχεία
+    BACKLINKCOUNT: 'Χρησιμοποιείται σε:'
+    PAGES: σελίδες

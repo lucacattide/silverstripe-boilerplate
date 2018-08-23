@@ -1,0 +1,8 @@
+hr:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'Konfiguracije projekta'
+    SINGULARNAME: 'Konfiguracija projekta'
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
+    MENUTITLE: Postavke
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain_SilverStripeNavigator:
+    EDIT: Uredi

@@ -1,0 +1,18 @@
+SilverStripe\Versioned\ChangeSet:
+  change1:
+    Name: 'changeset 1'
+    State: open
+    IsInferred: false
+  change2:
+    Name: 'changeset 2'
+    State: published
+    IsInferred: false
+  change3:
+    Name: 'changeset 3'
+    State: open
+    IsInferred: true
+  change4:
+    Name: 'changeset 4'
+    State: published
+    IsInferred: true
+

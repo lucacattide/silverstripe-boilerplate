@@ -1,0 +1,46 @@
+bs:
+  SilverStripe\CMS\Controllers\CMSMain:
+    Create: Kreiraj
+    PAGENOTEXISTS: 'Ova stranica ne postoji'
+    PUBALLCONFIRM: 'Molimo, objavite svaku stavku na ovoj stranici, kopiranjem sadržaja na aktivnu stranicu'
+    PUBALLFUN: 'Funkcija "Objavi sve"'
+    REMOVEDPAGEFROMDRAFT: 'Uklonjeno ''{title}'' sa privremenog nacrta stranice'
+  SilverStripe\CMS\Model\RedirectorPage:
+    HEADER: 'Ova stranica će preusmjeriti korisnike na drugu stranicu'
+    OTHERURL: 'URL druge web stranice'
+    REDIRECTTO: 'Preusmjeri na'
+    REDIRECTTOEXTERNAL: 'Drugu web stranicu'
+    REDIRECTTOPAGE: 'Na stavku na Vašoj web stranici'
+    YOURPAGE: 'Stavku na Vašoj web stranici'
+  SilverStripe\CMS\Model\SiteTree:
+    ACCESSANYONE: 'Svi korisnici'
+    ACCESSHEADER: 'Ko može pregledati ovu stavku na mojoj stranici?'
+    ACCESSLOGGEDIN: 'Prijavljeni korisnici'
+    ACCESSONLYTHESE: 'Samo ovi korisnici (izaberite sa popisa)'
+    BUTTONCANCELDRAFT: 'Poništi promjene privremenog nacrta stranice'
+    BUTTONCANCELDRAFTDESC: 'Izbrišite Vaš privremeni nacrt stranice i vratite se na trenutno objavljenu stranicu'
+    BUTTONUNPUBLISH: 'Opozovi objavljivanje'
+    BUTTONUNPUBLISHDESC: 'Ukloni ovu stavku sa objavljene stranice'
+    DEFAULTABOUTTITLE: 'O nama'
+    DEFAULTCONTACTTITLE: 'Kontaktirajte nas'
+    DEFAULTHOMETITLE: Početna
+    EDITHEADER: 'Ko može izmijeniti ovu stavku unutar CMS-a?'
+    HASBROKENLINKS: 'Ova stranica ima neispravnih linkova.'
+    HTMLEDITORTITLE: Sadržaj
+    MENUTITLE: 'Oznaka navigacije'
+    METADESC: Opis
+    METAEXTRA: 'Prilagođene Meta oznake'
+    PAGETITLE: 'Ime stranice'
+    PAGETYPE: 'Tip stranice'
+    SHOWINMENUS: 'Prikaži u izbornicima?'
+    SHOWINSEARCH: 'Prikaži u pretrazi?'
+    TABBEHAVIOUR: Ponašanje
+    TABCONTENT: Sadržaj
+    TOPLEVEL: 'Sadržaj stranice (Glavni nivo)'
+  SilverStripe\CMS\Model\VirtualPage:
+    HEADER: 'Ovo je virtualna stranica'
+  SilverStripe\CMS\Reports\BrokenLinksReport:
+    Any: 'Bilo koji'
+  SilverStripe\CMS\Search\SearchForm:
+    GO: Idi
+    SEARCH: Pretraga

@@ -1,0 +1,4 @@
+mi:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'Ngā Whirihoranga Pae'
+    SINGULARNAME: 'Whirihoranga Pae'

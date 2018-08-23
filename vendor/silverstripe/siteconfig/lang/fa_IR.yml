@@ -1,0 +1,6 @@
+fa_IR:
+  SilverStripe\SiteConfig\SiteConfig:
+    PLURALNAME: 'تنظیمات سایت'
+    SINGULARNAME: 'تنظیم سایت'
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
+    MENUTITLE: تنظیمات

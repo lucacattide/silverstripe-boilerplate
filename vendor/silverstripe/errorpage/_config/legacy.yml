@@ -1,0 +1,7 @@
+---
+Name: errorpage-legacy
+---
+SilverStripe\ORM\DatabaseAdmin:
+  classname_value_remapping:
+    ErrorPage: SilverStripe\ErrorPage\ErrorPage
+    SilverStripe\CMS\Model\ErrorPage: SilverStripe\ErrorPage\ErrorPage

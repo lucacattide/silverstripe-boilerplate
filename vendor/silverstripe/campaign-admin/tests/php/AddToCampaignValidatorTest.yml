@@ -1,0 +1,8 @@
+SilverStripe\CampaignAdmin\Tests\AddToCampaignValidatorTest\TestObject:
+  object1:
+    Title: 'Test Object'
+SilverStripe\Versioned\ChangeSet:
+  changeset1:
+    Name: 'ChangeSet 1'
+  changeset2:
+    Name: 'ChangeSet 2'

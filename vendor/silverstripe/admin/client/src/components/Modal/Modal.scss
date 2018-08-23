@@ -1,0 +1,112 @@
+// Based on bootstrap modal
+.modal-dialog {
+  height: calc(100% - #{$toolbar-total-height}); // IE10 fix
+}
+
+.modal-content {
+  height: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  border: 0;
+}
+
+.modal__dialog--scrollable {
+  overflow: auto;
+}
+
+
+// Modal header
+// Top section of the modal w/ title and dismiss
+.modal-header {
+  // height: $toolbar-total-height;
+
+  // Close icon
+  .close {
+    position: relative;
+    z-index: 2;
+    font-size: 28px;
+    height: 32px;
+    opacity: .5;
+    margin-top: 0;
+    margin-right: -$panel-padding-x / 2;
+
+    span {
+      overflow: hidden;
+      display: block;
+      margin-top: -6px;
+    }
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+
+  .modal-title {
+    // margin-top: $spacer-sm / 3;
+    line-height: 32px;
+    font-size: $h2-font-size;
+    font-weight: normal;
+  }
+}
+
+.modal-body {
+  min-height: 200px;
+}
+
+
+// Modal slide up response
+@keyframes modal--slideup {
+  from {
+    bottom: -100%;
+    opacity: .5;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+.modal__response {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: calc(100% + #{$toolbar-total-height});
+  width: 100%;
+  animation: modal--slideup .6s 1;
+  background: $body-bg;
+  border-radius: $border-radius-lg;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: $panel-padding-y $panel-padding-x;
+}
+
+// Response messages
+.modal__response--good,
+.modal__response--error {
+  font-size: $font-size-lg;
+
+  span::before {
+    font-family: silverstripe;
+    margin-bottom: $spacer;
+    font-size: 48px;
+    line-height: 40px;
+    display: block;
+    padding-bottom: $spacer;
+  }
+}
+
+.modal__response--good span::before {
+  content: "O";
+  color: $brand-success;
+}
+
+.modal__response--error span::before {
+  content: "#";
+  color: $brand-danger;
+}

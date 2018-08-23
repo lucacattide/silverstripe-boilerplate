@@ -1,0 +1,15 @@
+SilverStripe\CMS\Model\SiteTree:
+  published:
+    Title: Published
+  archived:
+    Title: 'Parent Archived'
+  unpublished:
+    Title: unpublished
+  modified:
+    Title: modified1
+  archivedx:
+    Title: 'Archived: Child1'
+    Parent: =>SilverStripe\CMS\Model\SiteTree.archived
+  archivedy:
+    Title: 'Archived: Child2'
+    Parent: =>SilverStripe\CMS\Model\SiteTree.archived

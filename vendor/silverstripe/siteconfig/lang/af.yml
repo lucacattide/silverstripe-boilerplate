@@ -1,0 +1,3 @@
+af:
+  SilverStripe\SiteConfig\SiteConfig:
+    DEFAULTTHEME: '(Gebruik verstek tema)'

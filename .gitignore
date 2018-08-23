@@ -18,12 +18,9 @@
 /themes/stack/package-lock.json
 /themes/stack/postcss.config.js
 /themes/stack/webpack.*.js
-/vendor/
 /.editorconfig
 /Capfile
 /Gemfile
-/Gemfile.lock
-composer.lock
 node_modules/
 .DS_Store
 ._*

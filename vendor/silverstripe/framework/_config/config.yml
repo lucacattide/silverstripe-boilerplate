@@ -1,0 +1,12 @@
+---
+Name: coreconfig
+---
+SilverStripe\Control\HTTP:
+  cache_control:
+    max-age: 0
+    must-revalidate: "true"
+    no-transform: "true"
+  vary: "Cookie, X-Forwarded-Protocol, X-Forwarded-Proto, User-Agent, Accept"
+SilverStripe\Core\Manifest\VersionProvider:
+  modules:
+    silverstripe/framework: Framework

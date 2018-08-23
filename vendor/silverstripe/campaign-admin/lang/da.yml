@@ -1,0 +1,15 @@
+da:
+  SilverStripe\CampaignAdmin\AddToCampaignHandler:
+    AddToCampaignAddAction: Tilføj
+    AddToCampaignAvailableLabel: 'Tilgængelige kampagner'
+    AddToCampaignFormFieldLabel: 'Vælg en kampagne'
+    AddToCampaignInChangsetLabel: 'OBS, dette element er allerede i en kampagne'
+    ErrorCampaignPermissionDenied: 'Det ser ikke ud til at du har de nødvendige tilladelser til at tilføje {ObjectTitle} til {CampaignTitle}'
+    ErrorGeneral: 'Vi beklager, men der skete en fejl'
+    ErrorItemPermissionDenied: 'Det ser ud til at du ikke har de nødvendige tilladelser til at tilføje {ObjectTitle} til en kampagne'
+    ErrorNotFound: 'Den {Type} kunne ikke findes'
+    Success: 'Tilføjede <strong>{ObjectTitle}</strong> til <strong>{CampaignTitle}</strong>'
+  SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction:
+    ADDTOCAMPAIGN: 'Tilføj til kampagne'
+  SilverStripe\CampaignAdmin\CampaignAdmin:
+    ACCESS_HELP: 'Tillad visning af kampagnens publiseringssektion'

@@ -1,0 +1,66 @@
+.campaign-info {
+  position: relative;
+  background: $white;
+  border-bottom: 1px solid $gray-200;
+  padding: #{$panel-padding-y * 1.5} #{$panel-padding-x * 1.5};
+
+  .campaign-info__popover & {
+    flex-direction: column-reverse;
+  }
+
+  @include media-breakpoint-down(xs) {
+    flex-direction: column-reverse;
+  }
+}
+
+.campaign-info__banner-image {
+  background-image: url('./images/intro-banner.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 269px;
+  max-width: 100%;
+  height: 196px;
+  margin-bottom: $panel-padding-y;
+  margin-right: $panel-padding-x * 2;
+
+  .campaign-info__popover & {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @include media-breakpoint-down(xs) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.campaign-info__content {
+  max-width: $input-max-width;
+  margin-right: $panel-padding-x;
+
+  @include media-breakpoint-down(xs) {
+    margin-right: 0;
+  }
+}
+
+.campaign-info__icon {
+  margin-right: $panel-padding-x / 2;
+
+  @include media-breakpoint-down(xs) {
+    display: none;
+  }
+}
+
+.campaign-info__buttons {
+  position: absolute;
+  top: $panel-padding-y;
+  right: $panel-padding-x / 2;
+}
+
+.campaign-info__links {
+  margin-bottom: $panel-padding-y;
+}
+
+.campaign-info__close {
+  color: $body-bg;
+}

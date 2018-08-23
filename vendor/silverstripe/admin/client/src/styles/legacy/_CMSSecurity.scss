@@ -1,0 +1,28 @@
+// modal styles
+.login-dialog__body {
+  // Ensure no padding so that status messages can be fixed to the top of the iframe
+  padding: 0;
+}
+
+.login-dialog__body__iframe {
+  width: 100%;
+  height: 350px;
+}
+
+.cms-security__container {
+  // Make up for missingp padding from modal
+  padding-top: 20px;
+  padding-bottom: 20px;
+  align-items: center;
+}
+
+.cms-security__container__error {
+  // Remove side-borders
+  border-right: 0 none;
+  border-left: 0 none;
+  border-radius: 0;
+}
+
+.cms-security__container__form {
+  width: 350px;
+}

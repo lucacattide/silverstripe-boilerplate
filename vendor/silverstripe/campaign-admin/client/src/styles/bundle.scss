@@ -1,0 +1,11 @@
+// See includePaths in webpack.config.js
+@import "variables";
+
+// Thirdparty
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+// Layout and sections
+@import "../containers/CampaignAdmin/CampaignAdmin";
+@import "../components/IntroScreen/IntroScreen";

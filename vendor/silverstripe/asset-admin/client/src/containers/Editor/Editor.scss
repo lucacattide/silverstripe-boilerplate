@@ -1,0 +1,159 @@
+.editor {
+  background-color: $body-bg;
+  z-index: 2;
+  position: absolute;
+  height: 100%; // Safari fix for scroll, should be better fix
+  left: 0;
+
+  @include media-breakpoint-up(lg) {
+    width: $cms-panel-sm;
+    border-left: 1px solid $border-color;
+    position: relative;
+    padding-bottom: 0;
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: $cms-panel-md;
+  }
+
+  // Position tabs above history items
+  .nav-tabs {
+    z-index: 1;
+    position: relative;
+  }
+
+  .editor__details {
+    height: calc(100vh - #{$toolbar-total-height}); // Height fix in Safari
+    transform: translateZ(0); // Safari fix - form fields are not visible intermittently
+
+    .btn--close-panel {
+      margin-right: 0;
+    }
+  }
+}
+
+.editor__heading {
+  margin-right: $spacer * 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.editor__status-flag {
+  color: #f46b00;
+  background-color: #fff7f2;
+  border-color: #f46b00;
+  clear: both;
+  text-transform: uppercase;
+  display: inline-block;
+  position: relative;
+  line-height: 1rem;
+  margin-left: 3px;
+}
+
+.editor__specs {
+  color: $text-muted;
+  font-size: $font-size-xs;
+  margin-bottom: $spacer ;
+}
+
+.editor__top-message {
+    margin: #{-$panel-padding-x} #{-$panel-padding-x} $spacer;
+}
+
+.editor__file-preview {
+  text-align: center;
+  margin: 0 #{-$panel-padding-x} $spacer-xs;
+  position: relative;
+  max-height: $cms-panel-md * .75;
+  min-height: 60px;
+  overflow: hidden;
+  display: block;
+  align-items: center;
+  text-decoration: none;
+
+  &:not(.editor__file-preview--folder):hover .editor__thumbnail {
+    transform: scale(1.04);
+  }
+}
+
+.editor__file-preview--folder {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+.editor__file-preview-link {
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+    padding: 11px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: rgba($black, 0.6);
+    color: $white;
+    font-size: 22px;
+    opacity: 0;
+    content: "=";
+    font-family: silverstripe;
+    line-height: 27px;
+    z-index: 1;
+    transition: all .5s;
+  }
+
+  &:hover,
+  &:hover::before,
+  &:active::before {
+    text-decoration: none;
+    opacity: 1;
+  }
+}
+
+.editor__thumbnail {
+  max-width: 100%;
+  max-height: $cms-panel-md * .75;
+  min-height: 60px;
+  margin: auto;
+  transform: scale(1);
+  transition: all .5s;
+}
+
+.editor__file-preview-message--file-missing {
+  margin: #{$spacer * 2} 0 $spacer ;
+  font-size: $font-size-lg;
+  color: $brand-danger;
+  text-align: center;
+}
+
+@include media-breakpoint-down(md) {
+  .editor__heading,
+  .editor__specs {
+    text-align: center;
+    margin-right: $spacer * 1.5;
+    margin-left: $spacer * 1.5;
+  }
+
+  // Changes a .btn-close-panel into a back arrow for smaller screens
+  .btn--close-panel {
+    float: left;
+    right: auto;
+    margin-right: 0;
+    margin-left: -15px;
+    color: $text-muted;
+
+    &::before {
+      content: "5";
+    }
+  }
+}
+
+.relative-time[title] {
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -1,0 +1,237 @@
+sv:
+  SilverStripe\CMS\BatchActions\CMSBatchAction_Archive:
+    RESULT: 'Raderat %d sidor från utkast och live, och lagt till dem i arkiv'
+    TITLE: 'Avpublicerad och skickat till arkiv'
+  SilverStripe\CMS\Controllers\CMSMain:
+    ACCESS: 'Tillgång till sektionen ''{title}'''
+    ACCESS_HELP: 'Tillåt visning av sektionen innehållande sidträdet och dess innehåll. Rättigheter att visa och redigera sidan kan hanteras i dess rullgardinsmenyer, liksom i "Innehållsbehörigheter".'
+    APPLY_FILTER: Sök
+    ARCHIVE: Arkiv
+    ARCHIVEDPAGE: 'Arkiverade sidor ''{title}'''
+    AddPageRestriction: 'OBS: Vissa sidtyper är inte tillåtna här'
+    CLEAR_FILTER: Rensa
+    Cancel: Avbryt
+    ChoosePageParentMode: 'Välj var du vill skapa denna sida'
+    ChoosePageType: 'Välj sidtyp'
+    Create: Skapa
+    DUPLICATED: 'Duplicerade ''{title}'' utan problem'
+    DUPLICATEDWITHCHILDREN: 'Duplicerade ''{title}'' och undersidor utan problem'
+    NEWPAGE: 'Ny {pagetype}'
+    PAGENOTEXISTS: 'Den här sidan finns inte'
+    PAGETYPEANYOPT: 'Vilken som helst'
+    PAGETYPEOPT: Sidtyp
+    PUBALLCONFIRM: 'Publicera alla sidor på sajten och kopiera dem till "live"'
+    PUBALLFUN: '"Publicera alla"-funktion'
+    PUBLISHED: 'Publiseringen av  ''{title}'' lyckades'
+    PUBPAGES: 'Klar: Publicerade {count} sidor'
+    PageAdded: 'Lyckades skapa sida'
+    REMOVEDPAGE: 'Tog bort ''{title}'' från den publicerade sajten'
+    REMOVEDPAGEFROMDRAFT: 'Raderade ''{title}'' från utkast'
+    RESTORE: 'Återskapa utkast'
+    RESTORED: 'Återskapandet av  ''{title}'' lyckades'
+    RESTORE_DESC: 'Återställ den arkiverade versionen av sidan som ett utkast'
+    RESTORE_TO_ROOT: 'Återskapa utkast på top nivå'
+    RESTORE_TO_ROOT_DESC: 'Återställ den arkiverade versionen till ett utkast som en top menu sida'
+    ROLLEDBACKPUBv2: 'Återställde till den publicerade versionen.'
+    ROLLEDBACKVERSIONv2: 'Återställde till version #{version}.'
+    SAVED: 'Sparade  ''{title}'' lyckades.'
+    SAVEDRAFT: 'Spara utkast'
+    UNPUBLISH_AND_ARCHIVE: 'Avpublicerad och arkivera'
+  SilverStripe\CMS\Controllers\CMSPageAddController:
+    MENUTITLE: 'Skapa sida'
+    ParentMode_child: 'Under en annan sida'
+    ParentMode_top: Toppnivå
+  SilverStripe\CMS\Controllers\CMSPageEditController:
+    MENUTITLE: 'Redigera sida'
+  SilverStripe\CMS\Controllers\CMSPageHistoryController:
+    COMPAREMODE: 'Jämföringsläge (välj två)'
+    MENUTITLE: Historia
+    REVERTTOTHISVERSION: 'Ändra till denna version'
+    SHOWUNPUBLISHED: 'Visa opublicerade versioner'
+    VIEW: 'Titta på'
+    VIEWINGLATEST: 'Nu visas den senaste versionen.'
+    VIEWINGVERSION: 'Nu visas version {version}.'
+  SilverStripe\CMS\Controllers\CMSPageSettingsController:
+    MENUTITLE: 'Redigera sida'
+  SilverStripe\CMS\Controllers\CMSPagesController:
+    MENUTITLE: Sidor
+  SilverStripe\CMS\Controllers\CMSSIteTreeFilter_PublishedPages:
+    Title: 'Publicerade sidor'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_ChangedPages:
+    Title: 'Ändrade sidor'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_DeletedPages:
+    Title: 'Alla sidor inklusive arkiverade sidor'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_Search:
+    Title: 'Alla sidor'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_StatusDeletedPages:
+    Title: 'Arkiverade sidor'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_StatusDraftPages:
+    Title: 'Utkast sidor'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_StatusRemovedFromDraftPages:
+    Title: 'Live men borttagen från utkast'
+  SilverStripe\CMS\Controllers\ContentController:
+    ARCHIVEDSITE: 'Utkast version'
+    ARCHIVEDSITEFROM: 'Arkiverad sajt från'
+    CMS: CMS
+    DRAFT: Utkast
+    DRAFTSITE: Utkast
+    INSTALL_SUCCESS: 'Installation lyckades!'
+    LOGGEDINAS: 'Inloggad som'
+    LOGIN: 'Logga in'
+    LOGOUT: 'Logga ut'
+    NOTEWONTBESHOWN: 'Observera: Detta meddelande kommer inte att visas för besökarna'
+    NOTLOGGEDIN: 'Inte inloggad'
+    PUBLISHED: Publicerad
+    PUBLISHEDSITE: 'Publicerad sajt'
+    VIEWPAGEIN: 'titta på sidan i:'
+  SilverStripe\CMS\Controllers\SilverStripeNavigator:
+    ARCHIVED: Arkiverad
+  SilverStripe\CMS\Forms\SiteTreeURLSegmentField:
+    EMPTY: 'Ange ett URL-segment eller klicka på avbryt'
+    HelpChars: 'Specialtecken konverteras eller tas bort'
+  SilverStripe\CMS\Model\RedirectorPage:
+    DESCRIPTION: 'Omdirigerar till en annan intern eller extern sida'
+    HEADER: 'Den här sidan omdirigerar användare till en annan sida'
+    OTHERURL: 'Andra sidans URL'
+    PLURALNAME: 'Omdirigerings sidor'
+    REDIRECTTO: 'Omdirigera till'
+    REDIRECTTOEXTERNAL: 'En annan sajt'
+    REDIRECTTOPAGE: 'En sida på din sajt'
+    SINGULARNAME: Omdirigeringssida
+    YOURPAGE: 'Sida på din sajt'
+  SilverStripe\CMS\Model\SiteTree:
+    ACCESSANYONE: Alla
+    ACCESSHEADER: 'Vem kan se den här sidan?'
+    ACCESSLOGGEDIN: 'Inloggade användare'
+    ACCESSONLYTHESE: 'Bara dessa (välj från listan)'
+    ADDEDTODRAFTHELP: 'Sidan har inte publicerats än'
+    ADDEDTODRAFTSHORT: Utkast
+    APPEARSVIRTUALPAGES: 'Detta innehåll förekommer även på en virtuell sida i sektionen {title}.'
+    ARCHIVEDPAGEHELP: 'Sidan är borttagen från utkast och från live'
+    ARCHIVEDPAGESHORT: Arkiverad
+    BUTTONCANCELDRAFT: 'Ångra utkaständringar'
+    BUTTONCANCELDRAFTDESC: 'Radera utkast och återgå till den publicerade sidan'
+    BUTTONDELETEDESC: 'Radera från utkast och live, och lägg till i arkiv'
+    BUTTONPUBLISHED: Publicerad
+    BUTTONSAVED: Sparad
+    BUTTONSAVEPUBLISH: 'Spara & publicera'
+    BUTTONUNPUBLISH: Avpublicera
+    BUTTONUNPUBLISHDESC: 'Ta bort den här sidan från den publicerade sajten'
+    Comments: Kommentarer
+    Content: Innehåll
+    DEFAULTABOUTCONTENT: '<p>Du kan fylla den här sidan med ditt eget innehåll, eller radera den och skapa dina egna sidor.<br/></p>'
+    DEFAULTABOUTTITLE: 'Om oss'
+    DEFAULTCONTACTCONTENT: '<p>Du kan fylla den här sidan med ditt eget innehåll, eller radera den och skapa dina egna sidor.<br/></p>'
+    DEFAULTCONTACTTITLE: 'Kontakta oss'
+    DEFAULTHOMECONTENT: '<p>Välkommen till SilverStripe!  Detta är hemsidan din startsida. Du kan ändra denna sida genom att gå till <a href="admin/">administrationsdelen</a>.</p><p> Du har tillgång till You can now access the <a href="http://docs.silverstripe.org">utvecklar dokumentationen</a>, eller börja med att titta på <a href="http://www.silverstripe.org/learn/lessons">SilverStripelektionerna</a>.</p>'
+    DEFAULTHOMETITLE: Hem
+    DEPENDENT_NOTE: 'Följande sidor berörs av den här sidan. Inklusive virtuella sidor, omdirigeringssidor, och sidor med innehållslänkar.'
+    DESCRIPTION: 'Generisk innehållssida'
+    DependtPageColumnLinkType: Länktyp
+    DependtPageColumnURL: URL
+    EDITHEADER: 'Vem kan redigera den här sidan?'
+    EDITORGROUPS: Redaktörsgrupper
+    EDIT_ALL_DESCRIPTION: 'Redigera alla sidor'
+    EDIT_ALL_HELP: 'Möjlighet att redigera alla sidor på sajten, oavsett inställningarna under Åtkomstfliken. Kräver "Tillgång till ''Sidor''-delen"'
+    Editors: Redaktörsgrupper
+    HASBROKENLINKS: 'Den här sidan har trasiga länkar.'
+    HTMLEDITORTITLE: Innehåll
+    INHERIT: 'Ärv från överordnad sida'
+    LASTUPDATED: 'Senast uppdaterad'
+    LINKCHANGENOTE: 'Om du ändrar sidans länkadress så kommer det också påverka länkarna på underliggande sidor'
+    LINKSALREADYUNIQUE: ' {url} är redan unik'
+    LINKSCHANGEDTO: ' ändra {url1} -> {url2}'
+    MENUTITLE: Navigationsetikett
+    METADESC: Metabeskrivning
+    METADESCHELP: 'Sökmotorer använder detta innehåll vid visning av sökresultatet (rangordningen påverkas dock inte av detta innehåll).'
+    METAEXTRA: 'Egna metataggar'
+    METAEXTRAHELP: 'HTML taggar för övrig meta information. Till exempel &lt;meta name="Namn" content="innehållet kommer här" /&gt;'
+    MODIFIEDONDRAFTHELP: 'Sidan har ej publicerade ändringar'
+    MODIFIEDONDRAFTSHORT: Ändrad
+    MetadataToggle: Metadata
+    MoreOptions: 'Fler alternativ'
+    OBSOLETECLASS: 'Denna sida är den föråldrade typen {type}. Att spara kommer att återställa dess typ och du kan förlora data'
+    ONLIVEONLYSHORT: 'Visa endast på publicerad sida'
+    ONLIVEONLYSHORTHELP: 'Sidan är publicerad men har raderats från utkastet'
+    PAGELOCATION: 'Sidans position'
+    PAGETITLE: Sidnamn
+    PAGETYPE: Sidtyp
+    PARENTID: 'Överordnad sida'
+    PARENTTYPE: 'Sidans position'
+    PARENTTYPE_ROOT: 'Översta nivån'
+    PARENTTYPE_SUBPAGE: 'Undersida under en överordnad sida (välj nedan)'
+    PERMISSION_GRANTACCESS_DESCRIPTION: 'Administrera åtkomsträttigheter för innehåll'
+    PERMISSION_GRANTACCESS_HELP: 'Tillåt inställning av sidspecifika åtkomstbegränsningar i "Sidor"-sektionen.'
+    PLURALNAME: Sidor
+    PageTypNotAllowedOnRoot: 'Sidtypen "{type}" tillåts inte på rotnivå'
+    PageTypeNotAllowed: 'Sidtypen "{type}" tillåts inte som barn till förälderns sida'
+    REMOVE_INSTALL_WARNING: 'Varning: Du bör radera install.php från SilverStripe-installationen p.g.a säkerhetsskäl.'
+    REORGANISE_DESCRIPTION: 'Ändra sidstrukturen'
+    REORGANISE_HELP: 'Flytta om sidorna i sidträdet genom att dra och släppa.'
+    SHOWINMENUS: 'Visa i menyer?'
+    SHOWINSEARCH: 'Visa i sökningar?'
+    SINGULARNAME: Sida
+    TABBEHAVIOUR: Beteende
+    TABCONTENT: Huvudinnehåll
+    TABDEPENDENT: 'Beroende sidor'
+    TOPLEVEL: 'Sajtinnehåll (toppnivå)'
+    URLSegment: URL-segment
+    VIEWERGROUPS: Åtkomstgrupper
+    VIEW_ALL_DESCRIPTION: 'Visa alla sidor'
+    VIEW_ALL_HELP: 'Möjlighet att redigera alla sidor på sajten, oavsett inställningarna under Åtkomstfliken. Kräver åtkomst till "Tillgång till ''Sidor''-delen"'
+    VIEW_DRAFT_CONTENT: 'Se utkast'
+    VIEW_DRAFT_CONTENT_HELP: 'Gäller sidor visade i utkastläge utanför CMS:et. Användbart för medarbetare utan CMS-åtkomst.'
+    VIRTUALPAGEDRAFTWARNING: 'Publicera den länkade sidan för att kunna publicera den virtuella sidan'
+    VIRTUALPAGEWARNING: 'Välj en länkad sida och spara först för att kunna publicera den här sidan'
+    VIRTUALPAGEWARNINGSETTINGS: 'Välj en länkad sida i huvudinnehållsfälten för att kunna publicera'
+    Viewers: Åskådargrupper
+    Visibility: Synlighet
+    has_one_Parent: 'Överordnad sida'
+    many_many_BackLinkTracking: 'Spåra inlänkar'
+    many_many_ImageTracking: 'Spåra bild'
+    many_many_LinkTracking: 'Spåra länk'
+  SilverStripe\CMS\Model\VirtualPage:
+    CHOOSE: 'Länkad sida'
+    DESCRIPTION: 'Visar innehåll från en annan sida'
+    EditLink: redigera
+    HEADER: 'Det här är en virutell sida'
+    HEADERWITHLINK: 'Det här är en virtuell sida som kopierar innehållet från "{title}" ({link})'
+    PLURALNAME: 'Virtuella sidor'
+    PageTypNotAllowedOnRoot: 'Ursprungliga sidan av typ "{type}" tillåts inte på rotnivå för denna virtuella sida'
+    SINGULARNAME: 'Virtuell sida'
+  SilverStripe\CMS\Reports\BrokenLinksReport:
+    Any: Alla
+    BROKENLINKS: 'Rapport för brutna länkar'
+    CheckSite: 'Kontrollera sajt'
+    CheckSiteDropdownDraft: Utkast
+    CheckSiteDropdownPublished: 'Publicerad Sajt'
+    ColumnDateLastModified: 'Datum vid senaste modifiering'
+    ColumnDateLastPublished: 'Datum vid senaste publicering'
+    ColumnProblemType: Problemtyp
+    ColumnURL: URL
+    HasBrokenFile: 'har trasig fil'
+    HasBrokenLink: 'har trasig länk'
+    HasBrokenLinkAndFile: 'har trasig länk och fil'
+    HoverTitleEditPage: 'Redigera sida'
+    PageName: Sidnamn
+    ReasonDropdown: 'Problem att kontrollera'
+    ReasonDropdownBROKENFILE: 'Trasig fil'
+    ReasonDropdownBROKENLINK: 'Bruten länk'
+    ReasonDropdownRPBROKENLINK: 'Omdirigeringssida pekar på en icke-existerande sida'
+    ReasonDropdownVPBROKENLINK: 'Virtuell sida pekar på icke-existerande sida'
+    RedirectorNonExistent: 'omdirigeringssida pekar på en icke-existerande sida'
+    VirtualPageNonExistent: 'virtuell sida pekar på icke-existerande sida'
+  SilverStripe\CMS\Search\SearchForm:
+    FILTERDATEFROM: Från
+    FILTERDATETO: Till
+    FILTERLABELTEXT: Sök
+    GO: Kör
+    PAGEFILTERDATEHEADING: 'Senast ändrad'
+    SEARCH: Sök
+    SearchResults: Sökresultat
+  SilverStripe\CMS\Tasks\RemoveOrphanedPagesTask:
+    BUTTONRUN: Kör
+    CHOOSEOPERATION: 'Välj funktion:'
+    DELETEWARNING: 'Varning: Denna funktion är ej reversibla. Vänligen använd med försiktighet.'
+    SELECTALL: 'Välj alla'
+    UNSELECTALL: 'avmarkera alla'

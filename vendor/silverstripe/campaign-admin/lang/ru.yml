@@ -1,0 +1,18 @@
+ru:
+  SilverStripe\CampaignAdmin\AddToCampaignHandler:
+    AddToCampaignAddAction: Добавить
+    AddToCampaignAvailableLabel: 'Доступные кампании'
+    AddToCampaignFormFieldLabel: 'Выбрать кампанию'
+    AddToCampaignInChangsetLabel: 'Внимание, этот элемент уже в кампании(ях):'
+    ErrorCampaignPermissionDenied: 'У Вас нет прав для добавления {ObjectTitle} к {CampaignTitle}'
+    ErrorGeneral: 'Приносим извинения, произошла ошибка'
+    ErrorItemPermissionDenied: 'У Вас нет прав для добавления {ObjectTitle} к кампании'
+    ErrorNotFound: 'Этот {Type} не может быть найден'
+    Success: '<strong>{ObjectTitle}</strong> успешно добавлен в <strong>{CampaignTitle}</strong>'
+  SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction:
+    ADDTOCAMPAIGN: 'Добавить к кампании'
+  SilverStripe\CampaignAdmin\CampaignAdmin:
+    ACCESS_HELP: 'Разрешить просмотр секции кампании о публикации.'
+    CANCEL: Отмена
+    MENUTITLE: Кампании
+    SAVEDUP: Сохранено.

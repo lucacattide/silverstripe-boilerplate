@@ -1,0 +1,113 @@
+// TODO ensure .toolbar is used globally and remove toolbar--"modifier" classes from following block
+.toolbar,
+.toolbar--north,
+.toolbar--content,
+.toolbar--south {
+  @include make-container();
+  min-height: $toolbar-total-height;
+
+  .btn-toolbar {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .btn {
+    margin-bottom: 0;
+  }
+}
+
+// Northern bar containing breadcrumb, tabs etc.
+.toolbar--north {
+  background-image: none;
+  background-color: $body-bg-dark;
+  border-bottom: 1px solid $border-color;
+  z-index: 60;
+  position: relative;
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+}
+
+
+// Secondary content actions eg. Add page button
+.toolbar--content {
+  margin-top: -$panel-padding-y;
+  margin-left: -$panel-padding-x;
+  margin-right: -$panel-padding-x;
+  padding-top: $spacer-xs;
+  padding-bottom: $spacer-xs;
+  min-height: auto;
+  width: auto; // override 100% width due to negative margin
+
+  .btn {
+    transition: font-size 0s;
+  }
+
+  @include media-breakpoint-down(md) {
+
+    // If toolbar has too many items for smaller screens
+    &.toolbar--space-save {
+
+      // Hide labels and decrease spacing for smaller screens
+      .btn__text {
+        @include sr-only();
+      }
+
+      .btn {
+        margin-right: 0;
+      }
+
+      .btn::before {
+        margin-right: 0;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .btn {
+      // Hide text on small devices if the button has an icon
+      &[class*="font-icon-"] {
+        font-size: 0;
+      }
+
+      &:before {
+        margin-right: 0;
+        top: 0;
+      }
+    }
+  }
+}
+
+// Primary content actions
+.toolbar--south {
+  height: $toolbar-total-height;
+  padding-top: $spacer-xs;
+  padding-bottom: $spacer-xs;
+  border-top: 1px solid $border-color;
+  width: 100%;
+  background-color: $body-bg;
+}
+
+.toolbar__back-button {
+  padding-left: $spacer / 4;
+  padding-right: $spacer / 4;
+  min-width: 24px; // Safari fix
+  color: $text-muted; // TEMP: Needed for anchor buttons to override legacy styles
+  margin-left: -$spacer-xs;
+
+  @include media-breakpoint-down(sm) {
+    margin-left: 42px;
+  }
+
+  .toolbar--south & {
+    margin-top: 0;
+    margin-right: 5px;
+  }
+}
+
+.toolbar__navigation {
+  position: relative;
+  display: flex;
+  align-items: center;
+}

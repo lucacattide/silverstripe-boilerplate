@@ -1,0 +1,209 @@
+// Required for preview position
+.campaign-admin__campaign {
+  position: relative;
+  height: 100%;
+
+  @include media-breakpoint-up(lg) {
+    .toolbar__back-button {
+      display: none;
+    }
+  }
+
+  // On smaller screens hide the preview and show list of items with nothing selected
+  @include media-breakpoint-down(md) {
+    &.campaign-admin__campaign--hide-preview .campaign-admin__campaign-preview {
+      display: none;
+    }
+
+    .list-group-item.active {
+      background-color: $list-group-bg;
+      color: $list-group-link-color;
+      z-index: 0;
+
+      @include media-breakpoint-down(lg) {
+        border: none;
+      }
+
+      &:hover {
+        background-color: $list-group-hover-bg;
+        color: $list-group-link-color;
+        border-color: $list-group-border-color;
+      }
+    }
+  }
+
+  .campaign-admin__campaign-preview--empty {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .campaign-admin__empty-heading {
+    font-size: $h1-font-size;
+    margin-bottom: 1em;
+  }
+
+  .campaign-admin__empty-info {
+    padding-top: calc(270px + 0.5em);
+    background-image: url('images/empty-campaign-preview.png');
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    font-size: $font-size-lg;
+  }
+}
+
+.campaign-admin__campaign-items {
+  width: 100%;
+  z-index: 1;
+  position: relative;
+
+  @include media-breakpoint-up(lg) {
+    width: $cms-panel-sm;
+  }
+}
+
+
+// Campaign items which have linked associations
+.campaign-admin__item-links,
+.campaign-admin__item-links--has-links,
+.campaign-admin__item-links--is-linked {
+  display: flex;
+  align-items: center;
+  color: $brand-primary;
+  position: absolute;
+  right: $spacer;
+  bottom: $spacer * 2 / 3;
+  font-size: $font-size-sm;
+
+  .font-icon-link {
+    font-size: 16px;
+    position: relative;
+    top: 3px;
+    margin-right: 1px;
+    margin-left: 3px;
+  }
+
+  .campaign-admin__item-links__number {
+    opacity: 0;
+  }
+}
+
+.list-group-item {
+
+  &:hover {
+    .campaign-admin__item-links--is-linked {
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    .campaign-admin__item-links--has-links {
+      @include media-breakpoint-up(lg) {
+        color: $white;
+      }
+
+      opacity: 1;
+    }
+
+    .campaign-admin__item-links__number {
+      opacity: 1;
+    }
+  }
+
+  .list-group-item__heading {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.list-group-wrapper--empty {
+  .list-group {
+    border-bottom: 0;
+  }
+
+  .list-group-item {
+    background: transparent;
+    font-style: italic;
+    border-bottom: 0;
+    cursor: default;
+  }
+
+  .accordion__title {
+    cursor: default;
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.campaign-admin__item-links--is-linked {
+  opacity: 1;
+
+  .campaign-admin__item-links__number {
+    display: none;
+  }
+}
+
+.list-group-item:hover {
+  .campaign-admin__item-links--is-linked {
+    opacity: 1;
+  }
+}
+
+#campaign-preview-popver_Popover {
+
+  .alert {
+    // margin: -10px 0 -10px 0;
+    margin-bottom: 0;
+    margin-left: calc(-#{$popover-padding} + 1px);
+    margin-right: calc(-#{$popover-padding} + 1px);
+
+    &:first-child {
+      margin-top: -10px;
+    }
+
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    &:last-child {
+      margin-bottom: -10px;
+    }
+
+    &:not(:last-child) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &.campaign-admin__unremoveable-item {
+      padding-left: 35px;
+
+      .font-icon-link {
+        position: absolute;
+        top: 13px;
+        left: 15px;
+      }
+    }
+  }
+}
+
+.campaign-status {
+  $diameter: 10px;
+
+  display: inline-block;
+  width: $diameter;
+  height: $diameter;
+  border-radius: $diameter;
+  margin-right: .5em;
+
+  &--open {
+    background-color: $brand-primary;
+  }
+
+  &--published {
+    background-color: $brand-success;
+  }
+}

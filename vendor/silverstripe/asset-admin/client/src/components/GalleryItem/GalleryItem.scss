@@ -1,0 +1,404 @@
+$gallery-item-label-height: 40px;
+
+.gallery-item {
+  position: relative;
+  background-color: $white;
+  border: 1px solid;
+  border-color: $border-color-light $border-color $border-color-dark;
+  width: $gallery-item-width;
+  border-radius: $border-radius-sm;
+  transition: box-shadow $transition-speed-fast;
+  height: $gallery-item-height;
+
+  &:hover {
+    box-shadow: $gallery-item-shadow;
+    cursor: pointer;
+  }
+
+  &:not(.gallery-item--error):not(.gallery-item--folder):hover .gallery-item--overlay {
+    opacity: 1;
+    display: block;
+  }
+}
+
+.gallery-item--enlarged {
+  transform: scale(1.1);
+  border: 1px dashed $brand-primary;
+  font-size: 1.1em;
+
+  // Prevent hidden input breaking outside of overlay
+  .gallery-item__checkbox {
+    transform: scale(0.9);
+  }
+};
+
+.gallery-item__draggable,
+.gallery-item__droppable {
+  margin: 0 $spacer $spacer  0;
+}
+
+.gallery-item__draggable > .gallery-item__droppable,
+.gallery-item__droppable > .gallery-item__draggable {
+  margin: 0;
+}
+
+.gallery-item--folder {
+  height: $gallery-folder-height;
+
+  .gallery-item__thumbnail {
+    background: url("../../images/folder.png") 12px 14px no-repeat;
+    background-size: 27px 24px;
+    height: $gallery-folder-height - 2;
+    width: 45px;
+    float: left;
+  }
+
+  .gallery-item__title {
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-left: 0;
+    width: 131px;
+    height: $gallery-folder-title-height;
+  }
+
+  .gallery-item__checkbox-label {
+    margin-top: 5px;
+  }
+}
+
+.gallery-item__thumbnail {
+  height: 132px;
+  width: $gallery-thumb-width;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-top-left-radius: $border-radius-sm;
+  border-top-right-radius: $border-radius-sm;
+  background-size: cover;
+}
+
+.gallery-item__thumbnail--error {
+  background-color: mix($white, $brand-danger, 20);
+}
+
+.gallery-item__thumbnail--no-preview {
+  background-color: $gray-600;
+}
+
+.gallery-item__thumbnail--loading {
+  background: white url("../../images/spinner.gif") center center no-repeat;
+}
+
+@media
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+    .gallery-item__thumbnail--loading {
+      background: white url("../../images/spinner@2x.gif") center center no-repeat;
+      background-size: 43px 43px;
+    }
+  }
+
+.gallery-item__thumbnail--small {
+  background-size: auto;
+  background-color: #fff;
+}
+
+.gallery-item__title {
+  padding: 11px 12px;
+  height: $gallery-title-height;
+  width: $gallery-thumb-width;
+  margin: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+
+  .gallery-item--selectable & {
+    // Make space for the checkbox on the right hand side
+    padding-right: 32px;
+  }
+}
+
+// ACTIONS
+// Hidden checkbox is controlled via it's label
+.gallery-item__checkbox {
+  margin: 6px 4px;
+  height: 26px;
+  width: 16px;
+  z-index: -1;
+  position: absolute;
+}
+
+// Label acts as a trigger for input
+.gallery-item__checkbox-label {
+  width: 30px;
+  height: $gallery-item-label-height;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-bottom: 0;
+
+  .gallery-item--selectable &::before {
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    position: absolute;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-sm;
+    font-size: 1.15em;
+    padding: 1px;
+    color: transparent;
+    background-color: $white;
+  }
+}
+
+.gallery-item__checkbox-label:not(.gallery-item__checkbox-label--disabled) {
+  .gallery-item--selectable &:hover::before {
+    border: 1px solid $component-active-border-color;
+  }
+}
+
+// If error or currently uploading the label becomes an X to cancel upload
+.gallery-item--error .gallery-item__checkbox-label,
+.gallery-item__upload-progress + .gallery-item__title .gallery-item__checkbox-label {
+
+  &::before {
+    font-size: 19px;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  &:hover::before {
+    border: 0;
+  }
+}
+
+.gallery-item--error {
+
+  &:hover,
+  .gallery-item__thumbnail,
+  .gallery-item__title,
+  .gallery-item__checkbox-label {
+    cursor: not-allowed;
+  }
+
+  .gallery-item__checkbox-label::before {
+    color: $brand-danger;
+  }
+}
+
+.gallery-item__error-message {
+  position: absolute;
+  top: calc(50% - (#{$gallery-item-label-height} / 2));
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  max-height: calc(100% - #{$gallery-item-label-height});
+  overflow: hidden;
+  width: 90%;
+  color: $white;
+  background-color: mix($white, $brand-danger, 20);
+  text-align: center;
+}
+
+.gallery-item--error,
+.gallery-item--missing {
+  .gallery-item__thumbnail {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: mix($white, $brand-danger, 20);
+      border-radius: 2px 2px 0 0;
+    }
+  }
+
+  &:hover .gallery-item__thumbnail::after,
+  &:hover .gallery-item__error-message {
+    background: mix($white, $brand-danger, 10);
+  }
+}
+
+.gallery-item--overlay {
+  background: rgba(darken($body-color, 10%), .5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  opacity: 0;
+  display: none;
+  transition-property: opacity, background;
+  transition-duration: $transition-speed-mid;
+  border-top-left-radius: $border-radius-sm;
+  border-top-right-radius: $border-radius-sm;
+  color: $white;
+  height: $gallery-thumb-height;
+  width: 100%;
+  font-size: 14px;
+  padding-top: 56px;
+  text-align: center;
+
+  &::before {
+    margin-right: 5px;
+  }
+}
+
+.gallery-item--selected {
+  border-color: $component-active-border-color;
+
+  .gallery-item__checkbox-label::before {
+    border-color: $component-active-border-color;
+    background-color: $component-active-border-color;
+    color: $white;
+  }
+}
+
+.gallery-item--highlighted,
+.gallery-item__drag-shadow {
+  border-color: $component-active-border-color;
+  background-color: $component-active-bg-light;
+}
+
+.gallery-item--focussed .gallery-item--overlay {
+  opacity: 1;
+  display: block;
+}
+
+.gallery-item--archive .gallery-item__thumbnail {
+  background: $white url("../../images/icon_archive.png") center center no-repeat;
+}
+
+.gallery-item--audio .gallery-item__thumbnail {
+  background: $white url("../../images/icon_audio.png") center center no-repeat;
+}
+
+.gallery-item--video .gallery-item__thumbnail {
+  background: $white url("../../images/icon_video.png") center center no-repeat;
+}
+
+.gallery-item--document .gallery-item__thumbnail {
+  background: $white url("../../images/icon_document.png") center center no-repeat;
+}
+
+.gallery-item--false .gallery-item__thumbnail {
+  background: $white url("../../images/icon_file.png") center center no-repeat;
+}
+
+
+// Individual progress bar
+.gallery-item__upload-progress {
+  height: 18px;
+  width: 75%;
+  position: absolute;
+  top: calc(50% - (#{$gallery-item-label-height} / 2));
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: $gray-300;
+
+  + .gallery-item__title .gallery-item__checkbox-label::before {
+    color: $body-color;
+  }
+}
+
+.gallery-item__progress-bar {
+  height: 100%;
+  background: $brand-primary;
+  width: 0%;
+}
+
+.gallery-item--draft,
+.gallery-item--modified {
+  position: absolute;
+  top: $spacer-xs;
+  left: $spacer-xs;
+  display: block;
+  width: 8px;
+  height: 8px;
+  border: 1px solid $state-draft;
+  box-shadow: 0 0 1px .5px $white;
+  border-radius: 100%;
+  z-index: 1;
+
+  &:hover::after {
+    top: -4px;
+    font-size: $font-size-xxs;
+    font-weight: 200;
+    position: absolute;
+    color: $white;
+    margin-left: $spacer-sm;
+  }
+}
+
+.gallery-item--draft {
+  background-color: $state-draft-bg;
+
+  &:hover::after {
+    content: "DRAFT";
+  }
+}
+
+.gallery-item--modified {
+  background-color: $state-modified-bg;
+
+  &:hover::after {
+    content: "MODIFIED";
+  }
+}
+
+.gallery-item__drag-layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.gallery-item__drag-layer-item {
+  display: inline-block;
+  position: relative;
+  opacity: 0.5;
+
+  .gallery-item {
+    z-index: 104;
+  }
+}
+
+.gallery-item__drag-layer-count,
+.gallery-item__badge {
+  display: inline-block;
+  position: absolute;
+  font-size: 1rem;
+  top: -0.5rem;
+  right: -0.5rem;
+  z-index: 105;
+}
+
+.gallery-item__drag-shadow {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  transform: translate(-0.5rem, -0.5rem);
+  z-index: 103;
+  border-width: 1px;
+  border-style: solid;
+
+  &.gallery-item__drag-shadow--second {
+    transform: translate(-1rem, -1rem);
+    z-index: 102;
+  }
+}
