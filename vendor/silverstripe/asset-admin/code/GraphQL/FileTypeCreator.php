@@ -9,7 +9,6 @@ use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\AssetAdmin\Model\ThumbnailGenerator;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Folder;
-use SilverStripe\CMS\Model\SiteTreeFileExtension;
 use SilverStripe\GraphQL\Manager;
 use SilverStripe\GraphQL\TypeCreator;
 use SilverStripe\GraphQL\Util\CaseInsensitiveFieldAccessor;
@@ -126,6 +125,9 @@ class FileTypeCreator extends TypeCreator
             'published' => [
                 'type' => Type::boolean(),
             ],
+            'modified' => [
+                'type' => Type::boolean(),
+            ],
             'inUseCount' => [
                 'type' => Type::int(),
             ],
@@ -213,24 +215,33 @@ class FileTypeCreator extends TypeCreator
         return $object->isPublished();
     }
 
+    /**
+     * @param File $object
+     * @param array $args
+     * @param array $context
+     * @param ResolveInfo $info
+     * @return string|null`
+     */
+    public function resolveModifiedField($object, array $args, $context, $info)
+    {
+        return $object->isModifiedOnDraft();
+    }
+
     public function resolveField($object, array $args, $context, $info)
     {
         return $this->accessor->getValue($object, $info->fieldName);
     }
 
     /**
-     * @param File|SiteTreeFileExtension $object
+     * @param File $object
      * @param array $args
-     * @param $context
-     * @param $info
+     * @param array $context
+     * @param ResolveInfo $info
      * @return int
      */
     public function resolveInUseCountField($object, array $args, $context, $info)
     {
-        if (File::has_extension(SiteTreeFileExtension::class)) {
-            return $object->BackLinkTrackingCount();
-        }
-        return 0;
+        return $object->BackLinkTrackingCount();
     }
 
     /**

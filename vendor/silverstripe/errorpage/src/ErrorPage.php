@@ -269,7 +269,7 @@ class ErrorPage extends Page
     }
 
     /**
-     * Write out the published version of the page to the filesystem
+     * Write out the published version of the page to the filesystem.
      *
      * @return true if the page write was successful
      */
@@ -285,25 +285,32 @@ class ErrorPage extends Page
             // Restore front-end themes from config
             $themes = SSViewer::config()->get('themes') ?: $originalThemes;
             SSViewer::set_themes($themes);
-            // Render page as non-member
+
+            // Render page as non-member in live mode
             $response = Member::actAs(null, function () {
-                return Director::test(Director::makeRelative($this->Link()));
+                $response = Director::test(Director::makeRelative($this->getAbsoluteLiveLink()));
+                return $response;
             });
+
             $errorContent = $response->getBody();
         } finally {
             // Restore themes
             SSViewer::set_themes($originalThemes);
         }
 
-        // Store file content in the default store
-        $storeFilename = File::join_paths(
-            self::config()->store_filepath,
-            $this->getErrorFilename()
-        );
-        self::get_asset_handler()->setContent($storeFilename, $errorContent);
+        // Make sure we have content to save
+        if ($errorContent) {
+            // Store file content in the default store
+            $storeFilename = File::join_paths(
+                self::config()->store_filepath,
+                $this->getErrorFilename()
+            );
+            self::get_asset_handler()->setContent($storeFilename, $errorContent);
 
-        // Success
-        return true;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

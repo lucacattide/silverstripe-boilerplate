@@ -1,9 +1,6 @@
 // Variables
 @import "variables";
 
-// Compatibilty with compass
-@import "legacy/compasscompat";
-
 // Thirdparty
 @import "chosen";
 @import "~bootstrap/scss/bootstrap";
@@ -20,50 +17,48 @@
 
 // Legacy
 @import "legacy/sprity";
-@import "legacy/sprites";
 @import "legacy/mixins";
-@import "legacy/themes/default";
 @import "legacy/uitheme";
 @import "legacy/forms";
 @import "legacy/style";
 @import "legacy/tree";
 @import "legacy/preview";
 @import "legacy/actionTabs";
-@import "legacy/ModelAdmin";
 @import "legacy/SecurityAdmin";
 @import "legacy/CMSSecurity";
 @import "legacy/retina";
 @import "legacy/popover-actions-simulate";
 
-@import "legacy/CheckboxSetField";
-@import "legacy/ConfirmedPasswordField";
-@import "legacy/DatetimeField";
 @import "legacy/GridField";
 @import "legacy/SelectionGroup";
 
 // Components
+@import "../components/Accordion/Accordion";
+@import "../components/ActionMenu/ActionMenu";
+@import "../components/Badge/Badge";
+@import "../components/Breadcrumb/Breadcrumb";
+@import "../components/FieldGroup/FieldGroup";
+@import "../components/Form/Form";
+@import "../components/FormAction/FormAction";
+@import "../components/FormAlert/FormAlert";
+@import "../components/FormBuilderModal/FormBuilderModal";
+@import "../components/GridField/GridField";
+@import "../components/GridFieldActions/GridFieldActions";
+@import "../components/HiddenField/HiddenField";
+@import "../components/IframeDialog/IframeDialog";
+@import "../components/Label/Label";
+@import "../components/ListGroup/ListGroup";
 @import "../components/Menu/Menu";
 @import "../components/MobileMenuToggle/MobileMenuToggle";
-@import "../components/Accordion/Accordion";
-@import "../components/FieldGroup/FieldGroup";
-@import "../components/ListGroup/ListGroup";
-@import "../components/Breadcrumb/Breadcrumb";
-@import "../components/FormBuilderModal/FormBuilderModal";
-@import "../components/FormAction/FormAction";
-@import "../components/PopoverField/PopoverField";
-@import "../components/GridField/GridField";
-@import "../components/HiddenField/HiddenField";
-@import "../components/Label/Label";
-@import "../components/FormAlert/FormAlert";
-@import "../components/OptionsetField/OptionField";
-@import "../components/Preview/Preview";
-@import "../components/Toolbar/Toolbar";
-@import "../components/Tooltip/Tooltip";
-@import "../components/Tabs/Tabs";
-@import "../components/Form/Form";
 @import "../components/Modal/Modal";
-@import "../components/TreeDropdownField/TreeDropdownField";
+@import "../components/OptionsetField/OptionField";
+@import "../components/PopoverField/PopoverField";
+@import "../components/Preview/Preview";
+@import "../components/Tabs/Tabs";
 @import "../components/TinymceInlineToolbar/TinymceInlineToolbar";
+@import "../components/Toolbar/Toolbar";
+@import "../components/TreeDropdownField/TreeDropdownField";
+@import "../components/UsedOnTable/UsedOnTable";
 
 // Layout and sections
 @import "layout";

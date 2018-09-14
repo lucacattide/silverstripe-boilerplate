@@ -6,9 +6,7 @@
  * @todo Add radial gradient to default delete button state
  * @todo Create SASS mixin-function to simply swap the from/to, to to/from colours in grsdient mixins?
  */
-@import "themes/default";
 @import "mixins";
-@import "elementMixins";
 
 
 // Extends basic table styles, requires .table .table-hover
@@ -369,9 +367,8 @@
 }
 
 .grid-field {
-
   // If gridfield isn't first thing on page
-  .form-group + & {
+  .field + & {
     .toolbar--content {
       margin-top: 0;
     }

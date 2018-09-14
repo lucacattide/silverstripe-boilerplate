@@ -1,6 +1,0 @@
-<?php
-
-/**
- * @ignore
- */
-trait TestTraitA {}

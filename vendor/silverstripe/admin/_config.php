@@ -14,6 +14,7 @@ TinyMCEConfig::get('cms')
     ->setOptions([
         'friendly_name' => 'Default CMS',
         'priority' => '50',
+        'skin' => 'silverstripe',
         'body_class' => 'typography',
         'contextmenu' => "sslink ssmedia inserttable | cell row column deletetable",
         'use_native_selects' => false,

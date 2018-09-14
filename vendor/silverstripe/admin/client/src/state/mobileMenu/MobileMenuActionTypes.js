@@ -1,6 +1,0 @@
-export default {
-  TOGGLE_MENU: 'TOGGLE_MENU',
-  OPEN_MENU: 'OPEN_MENU',
-  CLOSE_MENU: 'CLOSE_MENU',
-};
-

@@ -54,7 +54,6 @@ nl:
     ROLLEDBACKPUBv2: 'Teruggedraaid naar gepubliceerde versie.'
     ROLLEDBACKVERSIONv2: 'Teruggedraaid naar versie #{version}.'
     SAVED: '''{title}'' is opgeslagen.'
-    SAVEDRAFT: 'Concept opslaan'
     SHOW_AS_LIST: 'Als lijst tonen'
     TOO_MANY_PAGES: 'Te veel pagina''s'
     TabContent: Inhoud
@@ -85,8 +84,6 @@ nl:
   SilverStripe\CMS\Controllers\CMSPagesController:
     FILTER: Filter
     MENUTITLE: 'Pagina ''s'
-  SilverStripe\CMS\Controllers\CMSSIteTreeFilter_PublishedPages:
-    Title: 'Gepubliceerde pagina''s'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_ChangedPages:
     Title: 'Gewijzigde pagina''s'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_DeletedPages:
@@ -156,7 +153,6 @@ nl:
     BUTTONDELETEDESC: 'Verwijderde concept/live versie en archiveer'
     BUTTONPUBLISHED: Gepubliceerd
     BUTTONSAVED: Opgeslagen
-    BUTTONSAVEPUBLISH: 'Opslaan & publiceren'
     BUTTONUNPUBLISH: 'Publicatie intrekken'
     BUTTONUNPUBLISHDESC: 'Deze pagina verwijderen uit de gepubliceerde site'
     Comments: Commentaar
@@ -189,7 +185,6 @@ nl:
     METADESC: 'Meta omschrijving'
     METADESCHELP: 'Zoekmachines gebruiken deze inhoud voor het weergeven van zoekresultaten (hoewel het hun ranking niet zal beïnvloeden).'
     METAEXTRA: 'Andere meta tags'
-    METAEXTRAHELP: 'HTML-tags voor extra meta-informatie. Bijvoorbeeld &lt;meta name = "customName" content="uw aangepaste inhoud"/&gt;'
     MODIFIEDONDRAFTHELP: 'Pagina heeft wijzigingen die nog niet gepubliceerd zijn'
     MODIFIEDONDRAFTSHORT: Aangepast
     MetadataToggle: Metadata
@@ -239,8 +234,6 @@ nl:
     many_many_BackLinkTracking: 'Backlinks traceren'
     many_many_ImageTracking: 'Afbeeldingen traceren'
     many_many_LinkTracking: 'Links traceren'
-  SilverStripe\CMS\Model\SiteTreeFileExtension:
-    PAGES: 'pagina(''s)'
   SilverStripe\CMS\Model\VirtualPage:
     CHOOSE: 'Gekoppelde pagina'
     DESCRIPTION: 'Toont de inhoud van een andere pagina'

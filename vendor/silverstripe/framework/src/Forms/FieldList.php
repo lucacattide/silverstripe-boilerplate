@@ -59,6 +59,38 @@ class FieldList extends ArrayList
     }
 
     /**
+     * Iterate over each field in the current list recursively
+     *
+     * @param callable $callback
+     */
+    public function recursiveWalk(callable $callback)
+    {
+        $stack = $this->toArray();
+        while (!empty($stack)) {
+            /** @var FormField $field */
+            $field = array_shift($stack);
+            $callback($field);
+            if ($field instanceof CompositeField) {
+                $stack = array_merge($field->getChildren()->toArray(), $stack);
+            }
+        }
+    }
+
+    /**
+     * Return a flattened list of all fields
+     *
+     * @return static
+     */
+    public function flattenFields()
+    {
+        $fields = [];
+        $this->recursiveWalk(function (FormField $field) use (&$fields) {
+            $fields[] = $field;
+        });
+        return static::create($fields);
+    }
+
+    /**
      * Return a sequential set of all fields that have data.  This excludes wrapper composite fields
      * as well as heading / help text fields.
      *
@@ -66,8 +98,19 @@ class FieldList extends ArrayList
      */
     public function dataFields()
     {
-        if (!$this->sequentialSet) {
-            $this->collateDataFields($this->sequentialSet);
+        if (empty($this->sequentialSet)) {
+            $fields = [];
+            $this->recursiveWalk(function (FormField $field) use (&$fields) {
+                if (!$field->hasData()) {
+                    return;
+                }
+                $name = $field->getName();
+                if (isset($fields[$name])) {
+                    $this->fieldNameError($field, __FUNCTION__);
+                }
+                $fields[$name] = $field;
+            });
+            $this->sequentialSet = $fields;
         }
         return $this->sequentialSet;
     }
@@ -77,10 +120,60 @@ class FieldList extends ArrayList
      */
     public function saveableFields()
     {
-        if (!$this->sequentialSaveableSet) {
-            $this->collateDataFields($this->sequentialSaveableSet, true);
+        if (empty($this->sequentialSaveableSet)) {
+            $fields = [];
+            $this->recursiveWalk(function (FormField $field) use (&$fields) {
+                if (!$field->canSubmitValue()) {
+                    return;
+                }
+                $name = $field->getName();
+                if (isset($fields[$name])) {
+                    $this->fieldNameError($field, __FUNCTION__);
+                }
+                $fields[$name] = $field;
+            });
+            $this->sequentialSaveableSet = $fields;
         }
         return $this->sequentialSaveableSet;
+    }
+
+    /**
+     * Return array of all field names
+     *
+     * @return array
+     */
+    public function dataFieldNames()
+    {
+        return array_keys($this->dataFields());
+    }
+
+    /**
+     * Trigger an error for duplicate field names
+     *
+     * @param FormField $field
+     * @param $functionName
+     */
+    protected function fieldNameError(FormField $field, $functionName)
+    {
+        if ($this->form) {
+            $errorSuffix = sprintf(
+                " in your '%s' form called '%s'",
+                get_class($this->form),
+                $this->form->getName()
+            );
+        } else {
+            $errorSuffix = '';
+        }
+
+        user_error(
+            sprintf(
+                "%s() I noticed that a field called '%s' appears twice%s",
+                $functionName,
+                $field->getName(),
+                $errorSuffix
+            ),
+            E_USER_ERROR
+        );
     }
 
     protected function flushFieldsCache()
@@ -89,8 +182,14 @@ class FieldList extends ArrayList
         $this->sequentialSaveableSet = null;
     }
 
+    /**
+     * @deprecated 4.1..5.0 Please use dataFields or saveableFields
+     * @param $list
+     * @param bool $saveableOnly
+     */
     protected function collateDataFields(&$list, $saveableOnly = false)
     {
+        Deprecation::notice('5.0', 'Please use dataFields or SaveableFields');
         if (!isset($list)) {
             $list = array();
         }
@@ -132,6 +231,8 @@ class FieldList extends ArrayList
      *                        or TabSet.Tab.Subtab. This function will create any missing tabs.
      * @param FormField $field The {@link FormField} object to add to the end of that tab.
      * @param string $insertBefore The name of the field to insert before.  Optional.
+     *
+     * @return $this
      */
     public function addFieldToTab($tabName, $field, $insertBefore = null)
     {
@@ -147,6 +248,8 @@ class FieldList extends ArrayList
         } else {
             $tab->push($field);
         }
+        
+        return $this;
     }
 
     /**
@@ -154,10 +257,11 @@ class FieldList extends ArrayList
      * This is most commonly used when overloading getCMSFields()
      *
      * @param string $tabName The name of the tab or tabset.  Subtabs can be referred to as TabSet.Tab
-     *                        or TabSet.Tab.Subtab.
-     * This function will create any missing tabs.
+     *                        or TabSet.Tab.Subtab. This function will create any missing tabs.
      * @param array $fields An array of {@link FormField} objects.
      * @param string $insertBefore Name of field to insert before
+     *
+     * @return $this
      */
     public function addFieldsToTab($tabName, $fields, $insertBefore = null)
     {
@@ -178,6 +282,8 @@ class FieldList extends ArrayList
                 $tab->push($field);
             }
         }
+        
+        return $this;
     }
 
     /**
@@ -185,6 +291,8 @@ class FieldList extends ArrayList
      *
      * @param string $tabName The name of the tab
      * @param string $fieldName The name of the field
+     *
+     * @return $this
      */
     public function removeFieldFromTab($tabName, $fieldName)
     {
@@ -193,6 +301,8 @@ class FieldList extends ArrayList
         // Find the tab
         $tab = $this->findOrMakeTab($tabName);
         $tab->removeByName($fieldName);
+        
+        return $this;
     }
 
     /**
@@ -200,6 +310,8 @@ class FieldList extends ArrayList
      *
      * @param string $tabName The name of the Tab or TabSet field
      * @param array $fields A list of fields, e.g. array('Name', 'Email')
+     *
+     * @return $this
      */
     public function removeFieldsFromTab($tabName, $fields)
     {
@@ -212,6 +324,8 @@ class FieldList extends ArrayList
         foreach ($fields as $field) {
             $tab->removeByName($field);
         }
+        
+        return $this;
     }
 
     /**
@@ -222,6 +336,8 @@ class FieldList extends ArrayList
      * @param boolean $dataFieldOnly If this is true, then a field will only
      * be removed if it's a data field.  Dataless fields, such as tabs, will
      * be left as-is.
+     *
+     * @return $this
      */
     public function removeByName($fieldName, $dataFieldOnly = false)
     {
@@ -234,7 +350,7 @@ class FieldList extends ArrayList
             foreach ($fieldName as $field) {
                 $this->removeByName($field, $dataFieldOnly);
             }
-            return;
+            return $this;
         }
 
         $this->flushFieldsCache();
@@ -251,6 +367,8 @@ class FieldList extends ArrayList
                 $child->removeByName($fieldName, $dataFieldOnly);
             }
         }
+        
+        return $this;
     }
 
     /**
@@ -651,18 +769,24 @@ class FieldList extends ArrayList
     }
 
     /**
-     * Transform the named field into a readonly feld.
+     * Transform the named field into a readonly field.
      *
-     * @param string|FormField
+     * @param string|array|FormField $field
      */
     public function makeFieldReadonly($field)
     {
-        $fieldName = ($field instanceof FormField) ? $field->getName() : $field;
-        $srcField = $this->dataFieldByName($fieldName);
-        if ($srcField) {
-            $this->replaceField($fieldName, $srcField->performReadonlyTransformation());
-        } else {
-            user_error("Trying to make field '$fieldName' readonly, but it does not exist in the list", E_USER_WARNING);
+        if (!is_array($field)) {
+            $field = [$field];
+        }
+
+        foreach ($field as $item) {
+            $fieldName = ($item instanceof FormField) ? $item->getName() : $item;
+            $srcField = $this->dataFieldByName($fieldName);
+            if ($srcField) {
+                $this->replaceField($fieldName, $srcField->performReadonlyTransformation());
+            } else {
+                user_error("Trying to make field '$fieldName' readonly, but it does not exist in the list", E_USER_WARNING);
+            }
         }
     }
 

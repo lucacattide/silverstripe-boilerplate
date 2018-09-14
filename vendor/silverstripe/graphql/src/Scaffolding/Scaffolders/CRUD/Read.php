@@ -2,87 +2,97 @@
 
 namespace SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD;
 
-use GraphQL\Type\Definition\Type;
-use SilverStripe\GraphQL\Scaffolding\Interfaces\CRUDInterface;
-use SilverStripe\GraphQL\Scaffolding\Scaffolders\QueryScaffolder;
-use SilverStripe\GraphQL\Scaffolding\Scaffolders\SchemaScaffolder;
-use SilverStripe\GraphQL\Scaffolding\Traits\DataObjectTypeTrait;
-use SilverStripe\ORM\DataList;
-use SilverStripe\GraphQL\Scaffolding\Scaffolders\UnionScaffolder;
-use SilverStripe\GraphQL\Scaffolding\Util\ScaffoldingUtil;
-use SilverStripe\GraphQL\Manager;
-use SilverStripe\Core\ClassInfo;
 use Exception;
+use GraphQL\Type\Definition\ResolveInfo;
+use SilverStripe\GraphQL\OperationResolver;
+use SilverStripe\GraphQL\Scaffolding\Interfaces\CRUDInterface;
+use SilverStripe\GraphQL\Scaffolding\Scaffolders\ListQueryScaffolder;
+use SilverStripe\ORM\DataList;
+use SilverStripe\ORM\DataObjectInterface;
+use SilverStripe\Security\Member;
 
 /**
  * Scaffolds a generic read operation for DataObjects.
  */
-class Read extends QueryScaffolder implements CRUDInterface
+class Read extends ListQueryScaffolder implements OperationResolver, CRUDInterface
 {
-    use DataObjectTypeTrait;
-
     /**
-     * ReadOperationScaffolder constructor.
+     * Read constructor.
      *
      * @param string $dataObjectClass
      */
     public function __construct($dataObjectClass)
     {
-        $this->dataObjectClass = $dataObjectClass;
+        parent::__construct(null, null, $this, $dataObjectClass);
+    }
 
-        $typeName = $this->getDataObjectInstance()->plural_name();
-        $typeName = str_replace(' ', '', $typeName);
-        $typeName = ucfirst($typeName);
-        $operationName = 'read'.$typeName;
-
-        $resolver = function ($object, array $args, $context, $info) {
-            if (!singleton($this->dataObjectClass)->canView($context['currentUser'])) {
-                throw new Exception(sprintf(
-                    'Cannot view %s',
-                    $this->dataObjectClass
-                ));
-            }
-    
-            $list = DataList::create($this->dataObjectClass);
-    
-            return $list;
-        };
-        
-        parent::__construct($operationName, $this->typeName(), $resolver);
+    /**
+     * @param array $args
+     * @return DataList
+     */
+    protected function getResults($args)
+    {
+        return DataList::create($this->getDataObjectClass());
     }
 
     /**
      * @return string
      */
-    public function getIdentifier()
+    public function getName()
     {
-        return SchemaScaffolder::READ;
+        $name = parent::getName();
+        if ($name) {
+            return $name;
+        }
+
+        $typePlural = $this->pluralise($this->getTypeName());
+        return 'read' . ucfirst($typePlural);
     }
 
     /**
-     * Creates a thunk that lazily fetches the type
-     * @param  Manager $manager
-     * @return Type
+     * @param Member $member
+     * @return boolean
      */
-    protected function getType(Manager $manager)
+    protected function checkPermission(Member $member)
     {
-        // Create unions for exposed descendants
-        $descendants = ClassInfo::subclassesFor($this->dataObjectClass);
-        array_shift($descendants);
-        $union = [$this->typeName];
-        foreach ($descendants as $descendant) {
-            $typeName = ScaffoldingUtil::typeNameForDataObject($descendant);
-            if ($manager->hasType($typeName)) {
-                $union[] = $typeName;
-            }
-        }
-        if (sizeof($union) > 1) {
-            return (new UnionScaffolder(
-                $this->typeName.'WithDescendants',
-                $union
-            ))->scaffold($manager);
+        return $this->getDataObjectInstance()->canView($member);
+    }
+
+    /**
+     * @param DataObjectInterface $object
+     * @param array $args
+     * @param array $context
+     * @param ResolveInfo $info
+     * @return mixed
+     * @throws Exception
+     */
+    public function resolve($object, array $args, $context, ResolveInfo $info)
+    {
+        if (!$this->checkPermission($context['currentUser'])) {
+            throw new Exception(sprintf(
+                'Cannot view %s',
+                $this->getDataObjectClass()
+            ));
         }
 
-        return $manager->getType($this->typeName);
+        $list = $this->getResults($args);
+        $this->extend('updateList', $list, $args, $context, $info);
+        return $list;
+    }
+
+    /**
+     * Pluralise a name
+     *
+     * @param string $typeName
+     * @return string
+     */
+    protected function pluralise($typeName)
+    {
+        // Ported from DataObject::plural_name()
+        if (preg_match('/[^aeiou]y$/i', $typeName)) {
+            $typeName = substr($typeName, 0, -1) . 'ie';
+        }
+        $typeName .= 's';
+        return $typeName;
     }
 }

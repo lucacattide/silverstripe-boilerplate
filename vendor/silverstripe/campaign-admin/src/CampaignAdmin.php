@@ -165,6 +165,7 @@ class CampaignAdmin extends LeftAndMain implements PermissionProvider
         );
         $actions = new FieldList();
         $form = Form::create($this, 'EditForm', $fields, $actions);
+        $form->addExtraClass('form--padded');
 
         // Set callback response
         $form->setValidationResponseCallback(function () use ($form) {

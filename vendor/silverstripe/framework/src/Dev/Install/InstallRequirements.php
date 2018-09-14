@@ -7,6 +7,7 @@ use Exception;
 use InvalidArgumentException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use SilverStripe\Core\Path;
 use SilverStripe\Core\TempFolder;
 use SplFileInfo;
 
@@ -20,6 +21,8 @@ use SplFileInfo;
  */
 class InstallRequirements
 {
+    use InstallEnvironmentAware;
+
     /**
      * List of errors
      *
@@ -47,26 +50,9 @@ class InstallRequirements
      */
     protected $originalIni = [];
 
-    /**
-     * Base path
-     * @var
-     */
-    protected $baseDir;
-
     public function __construct($basePath = null)
     {
-        if ($basePath) {
-            $this->baseDir = $basePath;
-        } elseif (defined('BASE_PATH')) {
-            $this->baseDir = BASE_PATH;
-        } else {
-            throw new BadMethodCallException("No BASE_PATH defined");
-        }
-    }
-
-    public function getBaseDir()
-    {
-        return rtrim($this->baseDir, '/\\') . '/';
+        $this->initBaseDir($basePath);
     }
 
     /**
@@ -183,49 +169,10 @@ class InstallRequirements
     }
 
     /**
-     * Check if the web server is IIS and version greater than the given version.
-     *
-     * @param int $fromVersion
-     * @return bool
-     */
-    public function isIIS($fromVersion = 7)
-    {
-        $webserver = $this->findWebserver();
-        if (preg_match('#.*IIS/(?<version>[.\\d]+)$#', $webserver, $matches)) {
-            return version_compare($matches['version'], $fromVersion, '>=');
-        }
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isApache()
-    {
-        return strpos($this->findWebserver(), 'Apache') !== false;
-    }
-
-    /**
-     * Find the webserver software running on the PHP host.
-     *
-     * @return string|false Server software or boolean FALSE
-     */
-    public function findWebserver()
-    {
-        // Try finding from SERVER_SIGNATURE or SERVER_SOFTWARE
-        if (!empty($_SERVER['SERVER_SIGNATURE'])) {
-            $webserver = $_SERVER['SERVER_SIGNATURE'];
-        } elseif (!empty($_SERVER['SERVER_SOFTWARE'])) {
-            $webserver = $_SERVER['SERVER_SOFTWARE'];
-        } else {
-            return false;
-        }
-
-        return strip_tags(trim($webserver));
-    }
-
-    /**
      * Check everything except the database
+     *
+     * @param array $originalIni
+     * @return array
      */
     public function check($originalIni)
     {
@@ -234,6 +181,10 @@ class InstallRequirements
         $isApache = $this->isApache();
         $isIIS = $this->isIIS();
         $webserver = $this->findWebserver();
+
+        // Get project dirs to inspect
+        $projectDir = $this->getProjectDir();
+        $projectSrcDir = $this->getProjectSrcDir();
 
         $this->requirePHPVersion('5.5.0', '5.5.0', array(
             "PHP Configuration",
@@ -250,18 +201,27 @@ class InstallRequirements
             $this->getBaseDir()
         ));
 
-        $this->requireModule('mysite', array(
+        $this->requireModule($projectDir, [
             "File permissions",
-            "mysite/ directory exists?",
+            "{$projectDir}/ directory exists?",
             ''
-        ));
+        ]);
         $this->requireModule('vendor/silverstripe/framework', array(
             "File permissions",
             "vendor/silverstripe/framework/ directory exists?",
             '',
         ));
 
-        $this->requireWriteable('index.php', array("File permissions", "Is the index.php file writeable?", null));
+
+        $this->requireWriteable(
+            $this->getPublicDir() . 'index.php',
+            [
+                "File permissions",
+                "Is the index.php file writeable?",
+                null,
+            ],
+            true
+        );
 
         $this->requireWriteable('.env', ["File permissions", "Is the .env file writeable?", null], false, false);
 
@@ -272,41 +232,67 @@ class InstallRequirements
                 "SilverStripe requires Apache version 2 or greater",
                 $webserver
             ));
-            $this->requireWriteable('.htaccess', array("File permissions", "Is the .htaccess file writeable?", null));
+            $this->requireWriteable(
+                $this->getPublicDir() . '.htaccess',
+                array("File permissions", "Is the .htaccess file writeable?", null),
+                true
+            );
         } elseif ($isIIS) {
-            $this->requireWriteable('web.config', array("File permissions", "Is the web.config file writeable?", null));
+            $this->requireWriteable(
+                $this->getPublicDir() . 'web.config',
+                array("File permissions", "Is the web.config file writeable?", null),
+                true
+            );
         }
 
-        $this->requireWriteable('mysite/_config.php', array(
+        $this->requireWriteable("{$projectDir}/_config.php", [
             "File permissions",
-            "Is the mysite/_config.php file writeable?",
-            null
-        ));
+            "Is the {$projectDir}/_config.php file writeable?",
+            null,
+        ]);
 
-        $this->requireWriteable('mysite/_config/theme.yml', array(
+        $this->requireWriteable("{$projectDir}/_config/theme.yml", [
             "File permissions",
-            "Is the mysite/_config/theme.yml file writeable?",
-            null
-        ));
+            "Is the {$projectDir}/_config/theme.yml file writeable?",
+            null,
+        ]);
 
         if (!$this->checkModuleExists('cms')) {
-            $this->requireWriteable('mysite/code/RootURLController.php', array(
+            $this->requireWriteable("{$projectSrcDir}/RootURLController.php", [
                 "File permissions",
-                "Is the mysite/code/RootURLController.php file writeable?",
-                null
-            ));
+                "Is the {$projectSrcDir}/RootURLController.php file writeable?",
+                null,
+            ]);
         }
 
+        // Check public folder exists
+        $this->requireFile(
+            'public',
+            [
+                'File permissions',
+                'Is there a public/ directory?',
+                'It is recommended to have a separate public/ web directory',
+            ],
+            false,
+            false
+        );
 
         // Ensure root assets dir is writable
-        $this->requireWriteable('assets', array("File permissions", "Is the assets/ directory writeable?", null));
+        $this->requireWriteable(
+            ASSETS_PATH,
+            array("File permissions", "Is the assets/ directory writeable?", null),
+            true
+        );
 
         // Ensure all assets files are writable
-        $assetsDir = $this->getBaseDir() . 'assets';
-        $innerIterator = new RecursiveDirectoryIterator($assetsDir, RecursiveDirectoryIterator::SKIP_DOTS);
+        $innerIterator = new RecursiveDirectoryIterator(ASSETS_PATH, RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new RecursiveIteratorIterator($innerIterator, RecursiveIteratorIterator::SELF_FIRST);
         /** @var SplFileInfo $file */
         foreach ($iterator as $file) {
+            // Only report file as error if not writable
+            if ($file->isWritable()) {
+                continue;
+            }
             $relativePath = substr($file->getPathname(), strlen($this->getBaseDir()));
             $message = $file->isDir()
                 ? "Is the {$relativePath} directory writeable?"
@@ -396,6 +382,13 @@ class InstallRequirements
             'PHP Configuration',
             'SimpleXML support',
             'SimpleXML support not included in PHP.'
+        ));
+
+        // Check for INTL support
+        $this->requireClass('IntlTimeZone', array(
+            'PHP Configuration',
+            'Intl support',
+            'Internationalization (php-intl) support not included in PHP.'
         ));
 
         // Check for token_get_all
@@ -789,35 +782,6 @@ class InstallRequirements
     }
 
     /**
-     * Check that a module exists
-     *
-     * @param string $dirname
-     * @return bool
-     */
-    public function checkModuleExists($dirname)
-    {
-        // Mysite is base-only and doesn't need _config.php to be counted
-        if ($dirname === 'mysite') {
-            return file_exists($this->getBaseDir() . $dirname);
-        }
-
-        $paths = [
-            "vendor/silverstripe/{$dirname}/",
-            "{$dirname}/",
-        ];
-        foreach ($paths as $path) {
-            $checks = ['_config', '_config.php'];
-            foreach ($checks as $check) {
-                if (file_exists($this->getBaseDir() . $path . $check)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * The same as {@link requireFile()} but does additional checks
      * to ensure the module directory is intact.
      *
@@ -831,20 +795,30 @@ class InstallRequirements
         if (!file_exists($path)) {
             $testDetails[2] .= " Directory '$path' not found. Please make sure you have uploaded the SilverStripe files to your webserver correctly.";
             $this->error($testDetails);
-        } elseif (!file_exists($path . '/_config.php') && $dirname != 'mysite') {
+        } elseif (!file_exists($path . '/_config.php') && !in_array($dirname, ['mysite', 'app'])) {
             $testDetails[2] .= " Directory '$path' exists, but is missing files. Please make sure you have uploaded "
                 . "the SilverStripe files to your webserver correctly.";
             $this->error($testDetails);
         }
     }
 
-    public function requireFile($filename, $testDetails)
+    public function requireFile($filename, $testDetails, $absolute = false, $error = true)
     {
         $this->testing($testDetails);
-        $filename = $this->getBaseDir() . $filename;
-        if (!file_exists($filename)) {
-            $testDetails[2] .= " (file '$filename' not found)";
+
+        if ($absolute) {
+            $filename = Path::normalise($filename);
+        } else {
+            $filename = Path::join($this->getBaseDir(), $filename);
+        }
+        if (file_exists($filename)) {
+            return;
+        }
+        $testDetails[2] .= " (file '$filename' not found)";
+        if ($error) {
             $this->error($testDetails);
+        } else {
+            $this->warning($testDetails);
         }
     }
 
@@ -853,9 +827,9 @@ class InstallRequirements
         $this->testing($testDetails);
 
         if ($absolute) {
-            $filename = str_replace('/', DIRECTORY_SEPARATOR, $filename);
+            $filename = Path::normalise($filename);
         } else {
-            $filename = $this->getBaseDir() . str_replace('/', DIRECTORY_SEPARATOR, $filename);
+            $filename = Path::join($this->getBaseDir(), $filename);
         }
 
         if (file_exists($filename)) {
@@ -864,47 +838,49 @@ class InstallRequirements
             $isWriteable = is_writeable(dirname($filename));
         }
 
-        if (!$isWriteable) {
-            if (function_exists('posix_getgroups')) {
-                $userID = posix_geteuid();
-                $user = posix_getpwuid($userID);
+        if ($isWriteable) {
+            return;
+        }
 
-                $currentOwnerID = fileowner(file_exists($filename) ? $filename : dirname($filename));
-                $currentOwner = posix_getpwuid($currentOwnerID);
+        if (function_exists('posix_getgroups')) {
+            $userID = posix_geteuid();
+            $user = posix_getpwuid($userID);
 
-                $testDetails[2] .= "User '$user[name]' needs to be able to write to this file:\n$filename\n\nThe "
-                    . "file is currently owned by '$currentOwner[name]'.  ";
+            $currentOwnerID = fileowner(file_exists($filename) ? $filename : dirname($filename));
+            $currentOwner = posix_getpwuid($currentOwnerID);
 
-                if ($user['name'] == $currentOwner['name']) {
-                    $testDetails[2] .= "We recommend that you make the file writeable.";
-                } else {
-                    $groups = posix_getgroups();
-                    $groupList = array();
-                    foreach ($groups as $group) {
-                        $groupInfo = posix_getgrgid($group);
-                        if (in_array($currentOwner['name'], $groupInfo['members'])) {
-                            $groupList[] = $groupInfo['name'];
-                        }
-                    }
-                    if ($groupList) {
-                        $testDetails[2] .= "    We recommend that you make the file group-writeable "
-                            . "and change the group to one of these groups:\n - " . implode("\n - ", $groupList)
-                            . "\n\nFor example:\nchmod g+w $filename\nchgrp " . $groupList[0] . " $filename";
-                    } else {
-                        $testDetails[2] .= "  There is no user-group that contains both the web-server user and the "
-                            . "owner of this file.  Change the ownership of the file, create a new group, or "
-                            . "temporarily make the file writeable by everyone during the install process.";
+            $testDetails[2] .= "User '$user[name]' needs to be able to write to this file:\n$filename\n\nThe "
+                . "file is currently owned by '$currentOwner[name]'.  ";
+
+            if ($user['name'] == $currentOwner['name']) {
+                $testDetails[2] .= "We recommend that you make the file writeable.";
+            } else {
+                $groups = posix_getgroups();
+                $groupList = array();
+                foreach ($groups as $group) {
+                    $groupInfo = posix_getgrgid($group);
+                    if (in_array($currentOwner['name'], $groupInfo['members'])) {
+                        $groupList[] = $groupInfo['name'];
                     }
                 }
-            } else {
-                $testDetails[2] .= "The webserver user needs to be able to write to this file:\n$filename";
+                if ($groupList) {
+                    $testDetails[2] .= "    We recommend that you make the file group-writeable "
+                        . "and change the group to one of these groups:\n - " . implode("\n - ", $groupList)
+                        . "\n\nFor example:\nchmod g+w $filename\nchgrp " . $groupList[0] . " $filename";
+                } else {
+                    $testDetails[2] .= "  There is no user-group that contains both the web-server user and the "
+                        . "owner of this file.  Change the ownership of the file, create a new group, or "
+                        . "temporarily make the file writeable by everyone during the install process.";
+                }
             }
+        } else {
+            $testDetails[2] .= "The webserver user needs to be able to write to this file:\n$filename";
+        }
 
-            if ($error) {
-                $this->error($testDetails);
-            } else {
-                $this->warning($testDetails);
-            }
+        if ($error) {
+            $this->error($testDetails);
+        } else {
+            $this->warning($testDetails);
         }
     }
 
@@ -937,29 +913,6 @@ class InstallRequirements
         }
     }
 
-    public function testApacheRewriteExists($moduleName = 'mod_rewrite')
-    {
-        if (function_exists('apache_get_modules') && in_array($moduleName, apache_get_modules())) {
-            return true;
-        }
-        if (isset($_SERVER['HTTP_MOD_REWRITE']) && $_SERVER['HTTP_MOD_REWRITE'] == 'On') {
-            return true;
-        }
-        if (isset($_SERVER['REDIRECT_HTTP_MOD_REWRITE']) && $_SERVER['REDIRECT_HTTP_MOD_REWRITE'] == 'On') {
-            return true;
-        }
-        return false;
-    }
-
-    public function testIISRewriteModuleExists($moduleName = 'IIS_UrlRewriteModule')
-    {
-        if (isset($_SERVER[$moduleName]) && $_SERVER[$moduleName]) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function requireApacheRewriteModule($moduleName, $testDetails)
     {
         $this->testing($testDetails);
@@ -971,15 +924,6 @@ class InstallRequirements
         }
     }
 
-    /**
-     * Determines if the web server has any rewriting capability.
-     * @return boolean
-     */
-    public function hasRewritingCapability()
-    {
-        return ($this->testApacheRewriteExists() || $this->testIISRewriteModuleExists());
-    }
-
     public function requireIISRewriteModule($moduleName, $testDetails)
     {
         $this->testing($testDetails);
@@ -989,22 +933,6 @@ class InstallRequirements
             $this->warning($testDetails);
             return false;
         }
-    }
-
-    public function getDatabaseTypeNice($databaseClass)
-    {
-        return substr($databaseClass, 0, -8);
-    }
-
-    /**
-     * Get an instance of a helper class for the specific database.
-     *
-     * @param string $databaseClass e.g. MySQLDatabase or MSSQLDatabase
-     * @return DatabaseConfigurationHelper
-     */
-    public function getDatabaseConfigurationHelper($databaseClass)
-    {
-        return DatabaseAdapterRegistry::getDatabaseConfigurationHelper($databaseClass);
     }
 
     public function requireDatabaseFunctions($databaseConfig, $testDetails)

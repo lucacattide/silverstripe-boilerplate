@@ -3,6 +3,8 @@
 namespace SilverStripe\Assets;
 
 use InvalidArgumentException;
+use SilverStripe\Assets\Shortcodes\FileLink;
+use SilverStripe\Assets\Shortcodes\FileLinkTracking;
 use SilverStripe\Assets\Shortcodes\FileShortcodeProvider;
 use SilverStripe\Assets\Shortcodes\ImageShortcodeProvider;
 use SilverStripe\Assets\Storage\AssetContainer;
@@ -17,9 +19,11 @@ use SilverStripe\Dev\Deprecation;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HTMLReadonlyField;
 use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\CMSPreviewable;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DB;
+use SilverStripe\ORM\HasManyList;
 use SilverStripe\ORM\Hierarchy\Hierarchy;
 use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Security\InheritedPermissions;
@@ -29,6 +33,7 @@ use SilverStripe\Security\Permission;
 use SilverStripe\Security\PermissionChecker;
 use SilverStripe\Security\PermissionProvider;
 use SilverStripe\Security\Security;
+use SilverStripe\Versioned\RecursivePublishable;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\HTML;
 
@@ -87,9 +92,11 @@ use SilverStripe\View\HTML;
  *
  * @method File Parent() Returns parent File
  * @method Member Owner() Returns Member object of file owner.
+ * @method HasManyList|FileLink[] BackLinks() List of SiteTreeLink objects attached to this page
  *
  * @mixin Hierarchy
  * @mixin Versioned
+ * @mixin RecursivePublishable
  * @mixin InheritedPermissionsExtension
  */
 class File extends DataObject implements AssetContainer, Thumbnail, CMSPreviewable, PermissionProvider, Resettable
@@ -132,6 +139,14 @@ class File extends DataObject implements AssetContainer, Thumbnail, CMSPreviewab
         "Owner" => Member::class,
     );
 
+    private static $has_many = [
+        'BackLinks' => FileLink::class . '.Linked',
+    ];
+
+    private static $owned_by = [
+        'BackLinks',
+    ];
+
     private static $defaults = array(
         "ShowInSearch" => 1,
     );
@@ -150,6 +165,14 @@ class File extends DataObject implements AssetContainer, Thumbnail, CMSPreviewab
     /**
      * @config
      * @var array List of allowed file extensions, enforced through {@link validate()}.
+     *
+     * You can remove extensions from this list with YAML configuration, for example:
+     *
+     * ```
+     * SilverStripe\Assets\File:
+     *   allowed_extensions:
+     *     ppt: false
+     * ```
      *
      * Note: if you modify this, you should also change a configuration file in the assets directory.
      * Otherwise, the files will be able to be uploaded but they won't be able to be served by the
@@ -433,6 +456,10 @@ class File extends DataObject implements AssetContainer, Thumbnail, CMSPreviewab
     /**
      * List of basic content editable file fields.
      *
+     * Note: These fields no longer affect the edit form in asset-admin. To add fields to the file
+     * edit form in asset-admin, you will need to add an extension to FileFormFactory and use the
+     * updateFormFields() hook.
+     *
      * @return FieldList
      */
     public function getCMSFields()
@@ -608,6 +635,47 @@ class File extends DataObject implements AssetContainer, Thumbnail, CMSPreviewab
         $this->updateFilesystem();
 
         parent::onBeforeWrite();
+    }
+
+    /**
+     * Update link tracking on delete
+     */
+    protected function onAfterDelete()
+    {
+        parent::onAfterDelete();
+        $this->updateDependantObjects();
+    }
+
+    public function onAfterRevertToLive()
+    {
+        // Force query of draft object and update (as source record is bound to live stage)
+        /** @var File $draftRecord */
+        $draftRecord = Versioned::get_by_stage(self::class, Versioned::DRAFT)->byID($this->ID);
+        $draftRecord->updateDependantObjects();
+    }
+
+    /**
+     * Update objects linking to this file
+     */
+    protected function updateDependantObjects()
+    {
+        // Skip live stage
+        if (Versioned::get_stage() === Versioned::LIVE) {
+            return;
+        }
+
+        // Need to flush cache to avoid outdated versionnumber references
+        $this->flushCache();
+
+        // Trigger update of all parent owners on change
+        /** @var DataObject|FileLinkTracking $object */
+        foreach ($this->BackLinkTracking() as $object) {
+            // Update sync link tracking
+            $object->syncLinkTracking();
+            if ($object->isChanged()) {
+                $object->write();
+            }
+        }
     }
 
     /**
@@ -897,7 +965,7 @@ class File extends DataObject implements AssetContainer, Thumbnail, CMSPreviewab
             'dmg' => _t(__CLASS__.'.DmgType', 'Apple disk image'),
             'pdf' => _t(__CLASS__.'.PdfType', 'Adobe Acrobat PDF file'),
             'mp3' => _t(__CLASS__.'.Mp3Type', 'MP3 audio file'),
-            'wav' => _t(__CLASS__.'.WavType', 'WAV audo file'),
+            'wav' => _t(__CLASS__.'.WavType', 'WAV audio file'),
             'avi' => _t(__CLASS__.'.AviType', 'AVI video file'),
             'mpg' => _t(__CLASS__.'.MpgType', 'MPEG video file'),
             'mpeg' => _t(__CLASS__.'.MpgType', 'MPEG video file'),
@@ -1149,6 +1217,36 @@ class File extends DataObject implements AssetContainer, Thumbnail, CMSPreviewab
     }
 
     /**
+     * Get the back-link tracking objects that link to this file via HTML fields
+     *
+     * @retun ArrayList|DataObject[]
+     */
+    public function BackLinkTracking()
+    {
+        // @todo - Implement PolymorphicManyManyList to replace this
+        $list = ArrayList::create();
+        foreach ($this->BackLinks() as $link) {
+            // Ensure parent record exists
+            $item = $link->Parent();
+            if ($item && $item->isInDB()) {
+                $list->push($item);
+            }
+        }
+        return $list;
+    }
+
+    /**
+     * Count of backlinks
+     * Note: Doesn't filter broken records
+     *
+     * @return int
+     */
+    public function BackLinkTrackingCount()
+    {
+        return $this->BackLinks()->count();
+    }
+
+    /**
      * Joins one or more segments together to build a Filename identifier.
      *
      * Note that the result will not have a leading slash, and should not be used
@@ -1253,6 +1351,42 @@ class File extends DataObject implements AssetContainer, Thumbnail, CMSPreviewab
                 'help' => _t(__CLASS__.'.EDIT_ALL_HELP', 'Edit any file on the site, even if restricted')
             ]
         ];
+    }
+
+    /**
+     * Get the list of globally allowed file extensions for file uploads.
+     *
+     * Specific extensions can be disabled with configuration, for example:
+     *
+     * ```
+     * SilverStripe\Assets\File:
+     *   allowed_extensions:
+     *     dmg: false
+     *     docx: false
+     * ```
+     *
+     * @return array
+     */
+    public static function getAllowedExtensions()
+    {
+        $config = static::config()->get('allowed_extensions');
+
+        $allowedExtensions = [];
+        foreach ($config as $key => $value) {
+            if (is_int($key)) {
+                // Numeric indexes, example: [jpg, png, gif]
+                $key = $value;
+                $value = true;
+            }
+
+            // Skip disabled extensions
+            if (in_array($value, [null, false], true)) {
+                continue;
+            }
+
+            $allowedExtensions[] = strtolower($key);
+        }
+        return $allowedExtensions;
     }
 
     /**

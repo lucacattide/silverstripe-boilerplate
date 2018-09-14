@@ -2,31 +2,31 @@
 // Torna Su
 .torna-su {
 
-    /* @extend %centro;
+  /* @extend %centro;
     @extend %font; */
-    @include link-colors($bianco, $blu);
-  
-    //background-color: $blu;
-    bottom: 0;
-    //font-size: $font-size-menu;
-    padding: 1em 22px 1em 18px;
-    position: fixed;
-    right: 0;
-    transition: all .3s ease-in-out;
-    z-index: 8000;
-  
-    &:hover {
-      //background-color: $bianco;
-      cursor: pointer;
+  //@include link-colors($bianco, $blu);
+
+  //background-color: $blu;
+  bottom: 0;
+  //font-size: $font-size-menu;
+  padding: 1em 22px 1em 18px;
+  position: fixed;
+  right: 0;
+  transition: all .3s ease-in-out;
+  z-index: 8000;
+
+  &:hover {
+    //background-color: $bianco;
+    cursor: pointer;
+  }
+
+  &.solleva {
+    bottom: 4em !important;
+
+    @media ($media-desktop) {
+      bottom: 2.6em !important;
     }
-  
-    &.solleva {
-      bottom: 4em !important;
-  
-      @media ($media-desktop) {
-        bottom: 2.6em !important;
-      }
-    }
-  } 
-  // Fine SCSS
-  
+  }
+}
+
+// Fine SCSS

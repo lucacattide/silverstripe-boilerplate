@@ -10,6 +10,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 // Esportazione modulo
 module.exports = {
+  mode: 'development',
   module: {
     rules: [{
         // Immagini

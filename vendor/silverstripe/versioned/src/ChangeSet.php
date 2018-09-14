@@ -4,7 +4,6 @@ namespace SilverStripe\Versioned;
 
 use BadMethodCallException;
 use Exception;
-use LogicException;
 use SilverStripe\Assets\File;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\FieldList;
@@ -114,6 +113,8 @@ class ChangeSet extends DataObject
     /**
      * Publish this changeset, then closes it.
      *
+     * User code should call {@see canPublish()} prior to invoking this method.
+     *
      * @throws Exception
      * @return bool True if successful
      */
@@ -129,9 +130,6 @@ class ChangeSet extends DataObject
             throw new ValidationException(
                 "ChangeSet does not include all necessary changes and cannot be published."
             );
-        }
-        if (!$this->canPublish()) {
-            throw new LogicException("The current member does not have permission to publish this ChangeSet.");
         }
 
         DB::get_conn()->withTransaction(function () {
@@ -193,7 +191,6 @@ class ChangeSet extends DataObject
 
         $item->Added = ChangeSetItem::EXPLICITLY;
         $item->write();
-
 
         $this->sync();
     }
@@ -317,8 +314,8 @@ class ChangeSet extends DataObject
                 // If a ChangeSetItem exists, but isn't in $implicit, it's no longer required, so delete it
                 if (!array_key_exists($objectKey, $implicit)) {
                     $item->delete();
-                } // Otherwise it is required, so update ReferencedBy and remove from $implicit
-                else {
+                } else {
+                    // Otherwise it is required, so update ReferencedBy and remove from $implicit
                     $item->ReferencedBy()->setByIDList($implicit[$objectKey]['ReferencedBy']);
                     unset($implicit[$objectKey]);
                 }
@@ -394,7 +391,8 @@ class ChangeSet extends DataObject
         if (!$member) {
             $member = Security::getCurrentUser();
         }
-        foreach ($this->Changes() as $change) {
+        // Check all explicitly added items
+        foreach ($this->Changes()->filter(['Added' => ChangeSetItem::EXPLICITLY]) as $change) {
             /** @var ChangeSetItem $change */
             if (!$change->canPublish($member)) {
                 return false;

@@ -6,6 +6,7 @@ use BadMethodCallException;
 use Exception;
 use InvalidArgumentException;
 use ReflectionClass;
+use SilverStripe\Control\Middleware\HTTPCacheControlMiddleware;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\Debug;
@@ -514,10 +515,10 @@ class RequestHandler extends ViewableData
         $request = $this->getRequest();
 
         // Call a handler method such as onBeforeHTTPError404
-        $this->extend("onBeforeHTTPError{$errorCode}", $request);
+        $this->extend("onBeforeHTTPError{$errorCode}", $request, $errorMessage);
 
         // Call a handler method such as onBeforeHTTPError, passing 404 as the first arg
-        $this->extend('onBeforeHTTPError', $errorCode, $request);
+        $this->extend('onBeforeHTTPError', $errorCode, $request, $errorMessage);
 
         // Throw a new exception
         throw new HTTPResponse_Exception($errorMessage, $errorCode);
@@ -560,7 +561,11 @@ class RequestHandler extends ViewableData
         // Check configured url_segment
         $url = $this->config()->get('url_segment');
         if ($url) {
-            return Controller::join_links($url, $action, '/');
+            $link = Controller::join_links($url, $action, '/');
+
+            // Give extensions the chance to modify by reference
+            $this->extend('updateLink', $link, $action);
+            return $link;
         }
 
         // no link defined by default
@@ -652,9 +657,6 @@ class RequestHandler extends ViewableData
      */
     public function redirectBack()
     {
-        // Don't cache the redirect back ever
-        HTTP::set_cache_age(0);
-
         // Prefer to redirect to ?BackURL, but fall back to Referer header
         // As a last resort redirect to base url
         $url = $this->getBackURL()

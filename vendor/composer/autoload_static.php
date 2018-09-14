@@ -104,6 +104,7 @@ class ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa
         'L' => 
         array (
             'League\\Flysystem\\' => 17,
+            'League\\Csv\\' => 11,
         ),
         'I' => 
         array (
@@ -404,6 +405,10 @@ class ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa
         'League\\Flysystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
+        ),
+        'League\\Csv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/csv/src',
         ),
         'Intervention\\Image\\' => 
         array (

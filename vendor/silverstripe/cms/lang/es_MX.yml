@@ -58,7 +58,6 @@ es_MX:
     ROLLEDBACKPUBv2: 'Regresar a la versión publicada.'
     ROLLEDBACKVERSIONv2: 'Restaurada a la versión #{version}.'
     SAVED: '''{title}'' guardada con éxito.'
-    SAVEDRAFT: 'Guardar borrador'
     SHOW_AS_LIST: 'Mostrar como lista'
     TOO_MANY_PAGES: 'Demasiadas páginas'
     TabContent: Contenido
@@ -97,8 +96,6 @@ es_MX:
     ListView: 'Ver como lista'
     MENUTITLE: Páginas
     TreeView: 'Ver como árbol'
-  SilverStripe\CMS\Controllers\CMSSIteTreeFilter_PublishedPages:
-    Title: 'Páginas publicadas'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_ChangedPages:
     Title: 'Páginas modificadas'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_DeletedPages:
@@ -178,7 +175,6 @@ es_MX:
     BUTTONDELETEDESC: 'Eliminar de borrador/público y archivar'
     BUTTONPUBLISHED: Publicado
     BUTTONSAVED: Guardado
-    BUTTONSAVEPUBLISH: 'Guardar y publicar'
     BUTTONUNPUBLISH: 'Ocultar al público'
     BUTTONUNPUBLISHDESC: 'Quitar ésta página del sitio público'
     Comments: Comentarios
@@ -234,8 +230,6 @@ es_MX:
     many_many_ImageTracking: 'Seguir la Imagen'
     many_many_LinkTracking: 'Seguir el Enlace'
   SilverStripe\CMS\Model\SiteTreeFileExtension:
-    BACKLINKCOUNT: 'Usado en:'
-    PAGES: Página(s)
     TITLE_INDEX: '#'
     TITLE_TYPE: Tipo
     TITLE_USED_ON: 'Usado en'

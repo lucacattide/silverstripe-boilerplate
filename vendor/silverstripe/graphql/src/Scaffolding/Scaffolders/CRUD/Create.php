@@ -2,14 +2,16 @@
 
 namespace SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD;
 
-use SilverStripe\GraphQL\Scaffolding\Interfaces\CRUDInterface;
-use SilverStripe\GraphQL\Scaffolding\Scaffolders\MutationScaffolder;
-use SilverStripe\GraphQL\Scaffolding\Traits\DataObjectTypeTrait;
+use Exception;
 use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use SilverStripe\Core\Injector\Injector;
-use SilverStripe\GraphQL\Scaffolding\Scaffolders\SchemaScaffolder;
-use Exception;
+use SilverStripe\GraphQL\Manager;
+use SilverStripe\GraphQL\OperationResolver;
+use SilverStripe\GraphQL\Scaffolding\Extensions\TypeCreatorExtension;
+use SilverStripe\GraphQL\Scaffolding\Interfaces\CRUDInterface;
+use SilverStripe\GraphQL\Scaffolding\Scaffolders\MutationScaffolder;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DataObjectSchema;
 use SilverStripe\ORM\FieldType\DBField;
@@ -17,80 +19,80 @@ use SilverStripe\ORM\FieldType\DBField;
 /**
  * A generic "create" operation for a DataObject.
  */
-class Create extends MutationScaffolder implements CRUDInterface
+class Create extends MutationScaffolder implements OperationResolver, CRUDInterface
 {
-    use DataObjectTypeTrait;
-
     /**
-     * CreateOperationScaffolder constructor.
+     * Create constructor.
      *
      * @param string $dataObjectClass
      */
     public function __construct($dataObjectClass)
     {
-        $this->dataObjectClass = $dataObjectClass;
-
-        parent::__construct(
-            'create'.ucfirst($this->typeName()),
-            $this->typeName(),
-            function ($object, array $args, $context, $info) {
-                // Todo: this is totally half baked
-                if (singleton($this->dataObjectClass)->canCreate($context['currentUser'], $context)) {
-                    /** @var DataObject $newObject */
-                    $newObject = Injector::inst()->create($this->dataObjectClass);
-                    $newObject->update($args['Input']);
-                    $newObject->write();
-                    
-                    return DataObject::get_by_id($this->dataObjectClass, $newObject->ID);
-                } else {
-                    throw new Exception("Cannot create {$this->dataObjectClass}");
-                }
-            }
-        );
+        parent::__construct(null, null, $this, $dataObjectClass);
     }
 
     /**
      * @return string
      */
-    public function getIdentifier()
+    public function getName()
     {
-        return SchemaScaffolder::CREATE;
+        $name = parent::getName();
+        if ($name) {
+            return $name;
+        }
+
+        return 'create' . ucfirst($this->getTypeName());
     }
 
     /**
+     * @param Manager $manager
+     */
+    public function addToManager(Manager $manager)
+    {
+        $manager->addType($this->generateInputType($manager));
+        parent::addToManager($manager);
+    }
+
+    /**
+     * @param Manager $manager
      * @return array
      */
-    protected function createArgs()
+    protected function createDefaultArgs(Manager $manager)
     {
         return [
             'Input' => [
-                'type' => Type::nonNull($this->generateInputType()),
-            ],
+                'type' => Type::nonNull($manager->getType($this->inputTypeName())),
+            ]
         ];
     }
 
     /**
+     * @param Manager $manager
      * @return InputObjectType
      */
-    protected function generateInputType()
+    protected function generateInputType(Manager $manager)
     {
         return new InputObjectType([
-            'name' => $this->typeName().'CreateInputType',
-            'fields' => function () {
+            'name' => $this->inputTypeName(),
+            'fields' => function () use ($manager) {
                 $fields = [];
                 $instance = $this->getDataObjectInstance();
 
                 // Setup default input args.. Placeholder!
                 $schema = Injector::inst()->get(DataObjectSchema::class);
-                $db = $schema->fieldSpecs($this->dataObjectClass);
+                $db = $schema->fieldSpecs($this->getDataObjectClass());
 
                 unset($db['ID']);
 
                 foreach ($db as $dbFieldName => $dbFieldType) {
-                    /** @var DBField $result */
+                    /** @var DBField|TypeCreatorExtension $result */
                     $result = $instance->obj($dbFieldName);
+                    // Skip complex fields, e.g. composite, as that would require scaffolding a new input type.
+                    if (!$result->isInternalGraphQLType()) {
+                        continue;
+                    }
                     $arr = [
-                        'type' => $result->getGraphQLType(),
+                        'type' => $result->getGraphQLType($manager),
                     ];
                     $fields[$dbFieldName] = $arr;
                 }
@@ -98,5 +100,36 @@ class Create extends MutationScaffolder implements CRUDInterface
                 return $fields;
             },
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    protected function inputTypeName()
+    {
+        return $this->getTypeName() . 'CreateInputType';
+    }
+
+    public function resolve($object, array $args, $context, ResolveInfo $info)
+    {
+        // Todo: this is totally half baked
+        $singleton = $this->getDataObjectInstance();
+        if (!$singleton->canCreate($context['currentUser'], $context)) {
+            throw new Exception("Cannot create {$this->getDataObjectClass()}");
+        }
+
+        /** @var DataObject $newObject */
+        $newObject = Injector::inst()->create($this->getDataObjectClass());
+        $newObject->update($args['Input']);
+
+        // Extension points that return false should kill the create
+        $results = $this->extend('augmentMutation', $newObject, $args, $context, $info);
+        if (in_array(false, $results, true)) {
+            return null;
+        }
+
+        // Save and return
+        $newObject->write();
+        return DataObject::get_by_id($this->getDataObjectClass(), $newObject->ID);
     }
 }
