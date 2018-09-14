@@ -58,7 +58,6 @@ ru:
     ROLLEDBACKPUBv2: 'Восстановлена опубликованная версия.'
     ROLLEDBACKVERSIONv2: 'Версия #{version} восстановлена.'
     SAVED: '''{title}'' сохранен'
-    SAVEDRAFT: 'Сохранить черновик'
     SHOW_AS_LIST: 'в виде списка'
     TOO_MANY_PAGES: 'Слишком много страниц'
     TabContent: Содержимое
@@ -98,8 +97,6 @@ ru:
     ListView: 'Отобразить списком'
     MENUTITLE: Страницы
     TreeView: 'Отобразить деревом'
-  SilverStripe\CMS\Controllers\CMSSIteTreeFilter_PublishedPages:
-    Title: 'Опубликованные страницы'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_ChangedPages:
     Title: 'Изменённые страницы'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_DeletedPages:
@@ -180,7 +177,6 @@ ru:
     BUTTONDELETEDESC: 'Отменить публикацию, удалить из черновиков и отправить в архив'
     BUTTONPUBLISHED: Опубликовано
     BUTTONSAVED: Сохранено
-    BUTTONSAVEPUBLISH: 'Сохранить и опубликовать'
     BUTTONUNPUBLISH: 'Отмена публикации'
     BUTTONUNPUBLISHDESC: 'Удалить эту страницу с опубликованного сайта'
     Comments: Комментарии
@@ -214,7 +210,6 @@ ru:
     METADESC: Описание
     METADESCHELP: 'Поисковые системы используют этот контент для отображения результатов поиска (однако на рейтинг страницы он не влияет).'
     METAEXTRA: 'Пользовательские мета-тэги'
-    METAEXTRAHELP: 'HTML-теги для дополнительной мета-информации. Например, &lt;meta name="customName" content="your custom content here" /&gt;'
     MODIFIEDONDRAFTHELP: 'На этой странице есть неопубликованные изменения'
     MODIFIEDONDRAFTSHORT: Изменено
     MetadataToggle: Метаданные
@@ -267,8 +262,6 @@ ru:
     many_many_ImageTracking: 'Отслеживание изображений'
     many_many_LinkTracking: 'Отслеживание ссылок'
   SilverStripe\CMS\Model\SiteTreeFileExtension:
-    BACKLINKCOUNT: 'Используется на:'
-    PAGES: страниц(ы)
     TITLE_INDEX: №
     TITLE_TYPE: Тип
     TITLE_USED_ON: 'Используется на'

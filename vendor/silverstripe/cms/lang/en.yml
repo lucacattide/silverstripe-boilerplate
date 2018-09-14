@@ -39,6 +39,7 @@ en:
     PAGES: 'Page status'
     PAGETYPEANYOPT: Any
     PAGETYPEOPT: 'Page type'
+    PAGETYPE_TITLE: '(Page type: {type}) {title}'
     PLEASESAVE: 'Please Save Page: This page could not be updated because it hasn''t been saved yet.'
     PUBALLCONFIRM: 'Please publish every page in the site, copying content stage to live'
     PUBALLFUN: '"Publish All" functionality'
@@ -58,7 +59,7 @@ en:
     ROLLEDBACKPUBv2: 'Rolled back to published version.'
     ROLLEDBACKVERSIONv2: 'Rolled back to version #{version}.'
     SAVED: 'Saved ''{title}'' successfully.'
-    SAVEDRAFT: 'Save draft'
+    SAVEDRAFT: Save
     SHOW_AS_LIST: 'show as list'
     TOO_MANY_PAGES: 'Too many pages'
     TabContent: Content
@@ -98,12 +99,12 @@ en:
     ListView: 'List View'
     MENUTITLE: Pages
     TreeView: 'Tree View'
-  SilverStripe\CMS\Controllers\CMSSIteTreeFilter_PublishedPages:
-    Title: 'Published pages'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_ChangedPages:
     Title: 'Modified pages'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_DeletedPages:
     Title: 'All pages, including archived'
+  SilverStripe\CMS\Controllers\CMSSiteTreeFilter_PublishedPages:
+    Title: 'Published pages'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_Search:
     Title: 'All pages'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_StatusDeletedPages:
@@ -180,7 +181,7 @@ en:
     BUTTONDELETEDESC: 'Remove from draft/live and send to archive'
     BUTTONPUBLISHED: Published
     BUTTONSAVED: Saved
-    BUTTONSAVEPUBLISH: 'Save & publish'
+    BUTTONSAVEPUBLISH: Publish
     BUTTONUNPUBLISH: Unpublish
     BUTTONUNPUBLISHDESC: 'Remove this page from the published site'
     Comments: Comments
@@ -214,7 +215,7 @@ en:
     METADESC: 'Meta Description'
     METADESCHELP: 'Search engines use this content for displaying search results (although it will not influence their ranking).'
     METAEXTRA: 'Custom Meta Tags'
-    METAEXTRAHELP: 'HTML tags for additional meta information. For example &lt;meta name="customName" content="your custom content here" /&gt;'
+    METAEXTRAHELP: 'HTML tags for additional meta information. For example <meta name="customName" content="your custom content here" />'
     MODIFIEDONDRAFTHELP: 'Page has unpublished changes'
     MODIFIEDONDRAFTSHORT: Modified
     MetadataToggle: Metadata
@@ -265,11 +266,17 @@ en:
     many_many_ImageTracking: 'Image Tracking'
     many_many_LinkTracking: 'Link Tracking'
   SilverStripe\CMS\Model\SiteTreeFileExtension:
-    BACKLINKCOUNT: 'Used on:'
-    PAGES: page(s)
     TITLE_INDEX: '#'
     TITLE_TYPE: Type
     TITLE_USED_ON: 'Used on'
+  SilverStripe\CMS\Model\SiteTreeFileFormFactoryExtension:
+    USAGE: Usage
+  SilverStripe\CMS\Model\SiteTreeLink:
+    PLURALNAME: 'Site Tree Links'
+    PLURALS:
+      one: 'A Site Tree Link'
+      other: '{count} Site Tree Links'
+    SINGULARNAME: 'Site Tree Link'
   SilverStripe\CMS\Model\VirtualPage:
     CHOOSE: 'Linked Page'
     DESCRIPTION: 'Displays the content of another page'

@@ -12,6 +12,7 @@ use SilverStripe\Core\Injector\Injectable;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
+use SilverStripe\GraphQL\Scaffolding\StaticSchema;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\Security\Member;
 use SilverStripe\GraphQL\Scaffolding\Interfaces\ScaffoldingProvider;
@@ -68,34 +69,13 @@ class Manager
      */
     public static function createFromConfig($config)
     {
+        // Bootstrap schema class mapping from config
+        if ($config && array_key_exists('typeNames', $config)) {
+            StaticSchema::inst()->setTypeNames($config['typeNames']);
+        }
+
         /** @var Manager $manager */
         $manager = Injector::inst()->create(Manager::class);
-
-        if (isset($config['scaffolding'])) {
-            $scaffolder = SchemaScaffolder::createFromConfig($config['scaffolding']);
-        } else {
-            $scaffolder = new SchemaScaffolder();
-        }
-        if (isset($config['scaffolding_providers'])) {
-            foreach ($config['scaffolding_providers'] as $provider) {
-                if (!class_exists($provider)) {
-                    throw new InvalidArgumentException(sprintf(
-                        'Scaffolding provider %s does not exist.',
-                        $provider
-                    ));
-                }
-
-                $provider = Injector::inst()->create($provider);
-                if (!$provider instanceof ScaffoldingProvider) {
-                    throw new InvalidArgumentException(sprintf(
-                        'All scaffolding providers must implement the %s interface',
-                        ScaffoldingProvider::class
-                    ));
-                }
-                $scaffolder = $provider->provideGraphQLScaffolding($scaffolder);
-            }
-        }
-        $scaffolder->addToManager($manager);
 
         // Types (incl. Interfaces and InputTypes)
         if ($config && array_key_exists('types', $config)) {
@@ -146,6 +126,33 @@ class Manager
                 }, $name);
             }
         }
+
+        if (isset($config['scaffolding'])) {
+            $scaffolder = SchemaScaffolder::createFromConfig($config['scaffolding']);
+        } else {
+            $scaffolder = new SchemaScaffolder();
+        }
+        if (isset($config['scaffolding_providers'])) {
+            foreach ($config['scaffolding_providers'] as $provider) {
+                if (!class_exists($provider)) {
+                    throw new InvalidArgumentException(sprintf(
+                        'Scaffolding provider %s does not exist.',
+                        $provider
+                    ));
+                }
+
+                $provider = Injector::inst()->create($provider);
+                if (!$provider instanceof ScaffoldingProvider) {
+                    throw new InvalidArgumentException(sprintf(
+                        'All scaffolding providers must implement the %s interface',
+                        ScaffoldingProvider::class
+                    ));
+                }
+                $scaffolder = $provider->provideGraphQLScaffolding($scaffolder);
+            }
+        }
+        $scaffolder->addToManager($manager);
+
 
         return $manager;
     }
@@ -251,12 +258,12 @@ class Manager
         if (isset($this->types[$name])) {
             return $this->types[$name];
         } else {
-            throw new \InvalidArgumentException("Type '$name' is not a registered GraphQL type");
+            throw new InvalidArgumentException("Type '$name' is not a registered GraphQL type");
         }
     }
 
     /**
-     * @param  string  $name
+     * @param  string $name
      *
      * @return boolean
      */

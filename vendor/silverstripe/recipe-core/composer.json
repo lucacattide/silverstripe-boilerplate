@@ -5,17 +5,19 @@
     "homepage": "http://silverstripe.org",
     "license": "BSD-3-Clause",
     "require": {
-        "silverstripe/recipe-plugin": "^1",
-        "silverstripe/assets": "1.0.4@stable",
-        "silverstripe/config": "1.0.3@stable",
-        "silverstripe/framework": "4.0.4@stable"
+        "silverstripe/recipe-plugin": "^1.2",
+        "silverstripe/assets": "1.2.1@stable",
+        "silverstripe/config": "1.0.6@stable",
+        "silverstripe/framework": "4.2.1@stable"
     },
     "require-dev": {
         "phpunit/PHPUnit": "^5.7"
     },
     "extra": {
         "project-files": [
-            "mysite/*",
+            "app/*"
+        ],
+        "public-files": [
             ".htaccess",
             "web.config",
             "index.php",

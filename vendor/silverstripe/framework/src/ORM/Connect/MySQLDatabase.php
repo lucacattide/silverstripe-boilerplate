@@ -57,6 +57,11 @@ class MySQLDatabase extends Database
      */
     private static $collation = 'utf8_general_ci';
 
+    /**
+     * @var bool
+     */
+    protected $transactionNesting = 0;
+
     public function connect($parameters)
     {
         // Ensure that driver is available (required by PDO)
@@ -300,16 +305,21 @@ class MySQLDatabase extends Database
 
     public function transactionStart($transactionMode = false, $sessionCharacteristics = false)
     {
-        // This sets the isolation level for the NEXT transaction, not the current one.
-        if ($transactionMode) {
-            $this->query('SET TRANSACTION ' . $transactionMode);
-        }
+        if ($this->transactionNesting > 0) {
+            $this->transactionSavepoint('NESTEDTRANSACTION' . $this->transactionNesting);
+        } else {
+            // This sets the isolation level for the NEXT transaction, not the current one.
+            if ($transactionMode) {
+                $this->query('SET TRANSACTION ' . $transactionMode);
+            }
 
-        $this->query('START TRANSACTION');
+            $this->query('START TRANSACTION');
 
-        if ($sessionCharacteristics) {
-            $this->query('SET SESSION TRANSACTION ' . $sessionCharacteristics);
+            if ($sessionCharacteristics) {
+                $this->query('SET SESSION TRANSACTION ' . $sessionCharacteristics);
+            }
         }
+        ++$this->transactionNesting;
     }
 
     public function transactionSavepoint($savepoint)
@@ -319,16 +329,78 @@ class MySQLDatabase extends Database
 
     public function transactionRollback($savepoint = false)
     {
+        // Named transaction
         if ($savepoint) {
             $this->query('ROLLBACK TO ' . $savepoint);
+            return true;
+        }
+
+        // Fail if transaction isn't available
+        if (!$this->transactionNesting) {
+            return false;
+        }
+        --$this->transactionNesting;
+        if ($this->transactionNesting > 0) {
+            $this->transactionRollback('NESTEDTRANSACTION' . $this->transactionNesting);
         } else {
             $this->query('ROLLBACK');
         }
+        return true;
+    }
+
+    public function transactionDepth()
+    {
+        return $this->transactionNesting;
     }
 
     public function transactionEnd($chain = false)
     {
-        $this->query('COMMIT AND ' . ($chain ? '' : 'NO ') . 'CHAIN');
+        // Fail if transaction isn't available
+        if (!$this->transactionNesting) {
+            return false;
+        }
+        --$this->transactionNesting;
+        if ($this->transactionNesting <= 0) {
+            $this->transactionNesting = 0;
+            $this->query('COMMIT AND ' . ($chain ? '' : 'NO ') . 'CHAIN');
+        }
+        return true;
+    }
+
+    /**
+     * In error condition, set transactionNesting to zero
+     */
+    protected function resetTransactionNesting()
+    {
+        $this->transactionNesting = 0;
+    }
+
+    public function query($sql, $errorLevel = E_USER_ERROR)
+    {
+        $this->inspectQuery($sql);
+        return parent::query($sql, $errorLevel);
+    }
+
+    public function preparedQuery($sql, $parameters, $errorLevel = E_USER_ERROR)
+    {
+        $this->inspectQuery($sql);
+        return parent::preparedQuery($sql, $parameters, $errorLevel);
+    }
+
+    /**
+     * Inspect a SQL query prior to execution
+     *
+     * @param string $sql
+     */
+    protected function inspectQuery($sql)
+    {
+        // Any DDL discards transactions.
+        // See https://dev.mysql.com/doc/internals/en/transactions-notes-on-ddl-and-normal-transaction.html
+        // on why we need to be over-eager
+        $isDDL = $this->getConnector()->isQueryDDL($sql);
+        if ($isDDL) {
+            $this->resetTransactionNesting();
+        }
     }
 
     public function comparisonClause(

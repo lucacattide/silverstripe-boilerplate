@@ -228,7 +228,7 @@ $grid-gutter-width: $spacer * 2.5; // 40px
 $line-height-lg: (4 / 3);
 $line-height-sm: 1.5;
 
-//$border-width: 1px !default;
+$border-width: 1px !default;
 $border-color: $gray-200;
 
 $border-radius:          .23rem !default;
@@ -254,7 +254,7 @@ $font-family-serif: Georgia, "Times New Roman", Times, serif;
 $font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base: $font-family-sans-serif;
 
-//$font-size-base: 1rem !default; // Uses $font-size-root: 13px
+$font-size-base: 1rem; // Uses $font-size-root: 13px
 $font-size-lg: 1.231rem; // 16px
 $font-size-sm: .923rem; // 12px
 
@@ -328,7 +328,7 @@ $table-hover-bg: #f0f4f7;
 $table-active-bg: map_get($theme-colors, primary);
 
 //$table-border-width:            $border-width !default;
-//$table-border-color:            $gray-200 !default;
+$table-border-color:            lighten($border-color, 4) !default;
 
 //$table-head-bg:                 $gray-200 !default;
 //$table-head-color:              $gray-700 !default;
@@ -409,7 +409,7 @@ $input-focus-box-shadow:         rgba(102, 175, 233, .6);
 
 //$form-text-margin-top:     .25rem !default;
 
-//$form-check-margin-bottom:  .5rem !default;
+$form-check-margin-bottom:  .5rem !default;
 $form-check-input-gutter:   1.5385rem;
 //$form-check-input-margin-y: .25rem !default;
 //$form-check-input-margin-x: .25rem !default;
@@ -521,8 +521,8 @@ $input-group-addon-bg:           $gray-100;
 //$dropdown-divider-bg:            $gray-200 !default;
 //$dropdown-box-shadow:            0 .5rem 1rem rgba($black,.175) !default;
 
-//$dropdown-link-color:            $gray-900 !default;
-//$dropdown-link-hover-color:      darken($gray-900, 5%) !default;
+$dropdown-link-color:            $body-color;
+$dropdown-link-hover-color:      $body-color;
 //$dropdown-link-hover-bg:         $gray-100 !default;
 
 //$dropdown-link-active-color:     $component-active-color !default;
@@ -551,17 +551,17 @@ $dropdown-item-padding-x:        1.3rem !default;
 
 // Navs
 
-//$nav-link-padding-y:            .5rem !default;
-//$nav-link-padding-x:            1rem !default;
+$nav-link-padding-y:            $spacer; // .5rem !default;
+$nav-link-padding-x:            #{$spacer / 4}; // 1rem !default;
 //$nav-link-disabled-color:       $gray-600 !default;
 
 $nav-tabs-border-color: $border-color;
-//$nav-tabs-border-width:                       $border-width !default;
-//$nav-tabs-border-radius:                      $border-radius !default;
+$nav-tabs-border-width:                       $border-width !default;
+$nav-tabs-border-radius:                      0 !default;
 $nav-tabs-link-hover-border-color:            $gray-300;
 $nav-tabs-link-active-color: $body-color;
 $nav-tabs-link-active-bg: transparent;
-$nav-tabs-link-active-border-color: lighten(map_get($colors, gray-dark), 10);
+$nav-tabs-link-active-border-color: $text-muted;
 
 //$nav-pills-border-radius:     $border-radius !default;
 //$nav-pills-link-active-color: $component-active-color !default;
@@ -669,28 +669,28 @@ $nav-tabs-link-active-border-color: lighten(map_get($colors, gray-dark), 10);
 
 // Popovers
 
-//$popover-inner-padding:               1px !default;
-//$popover-bg:                          $white !default;
-//$popover-max-width:                   276px !default;
-//$popover-border-width:                $border-width !default;
-$popover-border-color: rgba(0, 0, 0, .1);
-//$popover-box-shadow:                  0 5px 10px rgba($black,.2) !default;
+$popover-font-size:                 $font-size-base;  // SS custom
+$popover-bg:                        $white; // SS custom
+//$popover-max-width:                 276px !default;
+//$popover-border-width:              $border-width !default;
+//$popover-border-color:              rgba($black, .2) !default;
+//$popover-border-radius:             $border-radius-lg !default;
+//$popover-box-shadow:                0 .25rem .5rem rgba($black, .2);
 
-$popover-header-bg: darken($body-bg, 2);
-//$popover-header-color:                 $headings-color !default;
-//$popover-header-padding-y:             8px !default;
-//$popover-header-padding-x:             14px !default;
+$popover-header-bg:                 $popover-bg; // SS custom
+//$popover-header-color:              $headings-color !default;
+$popover-header-padding-y:          $spacer * .75; // SS custom: 12px
+$popover-header-padding-x:          $spacer; // SS custom: 16px
 
-//$popover-body-color:               $body-color !default;
-//$popover-body-padding-y:           9px !default;
-//$popover-body-padding-x:           14px !default;
+//$popover-body-color:                $body-color !default;
+$popover-body-padding-y:            $popover-header-padding-y; // SS custom
+$popover-body-padding-x:            $popover-header-padding-x; // SS custom
 
-//$popover-arrow-width:                 10px !default;
-//$popover-arrow-height:                5px !default;
-//$popover-arrow-color:                 $popover-bg !default;
+//$popover-arrow-width:               1rem;
+//$popover-arrow-height:              .5rem;
+//$popover-arrow-color:               $popover-bg !default;
 
-//$popover-arrow-outer-width:           ($popover-arrow-width + 1px) !default;
-//$popover-arrow-outer-color:           fade-in($popover-border-color, .05) !default;
+//$popover-arrow-outer-color:         fade-in($popover-border-color, .05) !default;
 
 
 // Badges

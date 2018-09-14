@@ -923,7 +923,7 @@ class Member extends DataObject
         // The test on $this->ID is used for when records are initially created. Note that this only works with
         // cleartext passwords, as we can't rehash existing passwords. Checking passwordChangesToWrite prevents
         // recursion between changePassword and this method.
-        if ((!$this->ID && $this->Password) || ($this->isChanged('Password') && !$this->passwordChangesToWrite)) {
+        if (!$this->ID || ($this->isChanged('Password') && !$this->passwordChangesToWrite)) {
             $this->changePassword($this->Password, false);
         }
 
@@ -950,8 +950,9 @@ class Member extends DataObject
     {
         parent::onAfterDelete();
 
-        //prevent orphaned records remaining in the DB
+        // prevent orphaned records remaining in the DB
         $this->deletePasswordLogs();
+        $this->Groups()->removeAll();
     }
 
     /**
@@ -1359,6 +1360,11 @@ class Member extends DataObject
      */
     public static function mapInCMSGroups($groups = null)
     {
+        // non-countable $groups will issue a warning when using count() in PHP 7.2+
+        if (!$groups) {
+            $groups = [];
+        }
+
         // Check CMS module exists
         if (!class_exists(LeftAndMain::class)) {
             return ArrayList::create()->map();
@@ -1677,12 +1683,18 @@ class Member extends DataObject
      */
     public function validate()
     {
+        // If validation is disabled, skip this step
+        if (!DataObject::config()->uninherited('validation_enabled')) {
+            return ValidationResult::create();
+        }
+
         $valid = parent::validate();
         $validator = static::password_validator();
 
         if (!$this->ID || $this->isChanged('Password')) {
             if ($this->Password && $validator) {
-                $valid->combineAnd($validator->validate($this->Password, $this));
+                $userValid = $validator->validate($this->Password, $this);
+                $valid->combineAnd($userValid);
             }
         }
 

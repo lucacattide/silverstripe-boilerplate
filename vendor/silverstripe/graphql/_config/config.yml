@@ -24,3 +24,22 @@ SilverStripe\ORM\FieldType\DBPrimaryKey:
 SilverStripe\ORM\FieldType\DBForeignKey:
   graphql_type: ID
 
+# Register the CRUD
+SilverStripe\GraphQL\Scaffolding\Scaffolders\OperationScaffolder:
+  operations:
+    create: SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD\Create
+    read: SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD\Read
+    readOne: SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD\ReadOne
+    update: SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD\Update
+    delete: SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD\Delete
+
+SilverStripe\GraphQL\Controller:
+  extensions:
+    - SilverStripe\GraphQL\Extensions\IntrospectionProvider
+---
+Only:
+  moduleexists: 'silverstripe/admin'
+---
+SilverStripe\Admin\LeftAndMain:
+  extensions:
+    - SilverStripe\GraphQL\Extensions\ClientConfigProvider

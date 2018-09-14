@@ -1,7 +1,0 @@
----
-Name: dev-email
-Only:
-  environment: dev
----
-Email:
-  send_all_emails_to: 'l.cattide@email.it'

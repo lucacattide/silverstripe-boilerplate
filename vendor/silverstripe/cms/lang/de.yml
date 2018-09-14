@@ -49,7 +49,6 @@ de:
     ROLLEDBACKPUBv2: 'Veröffentlichte Version wiederhergestellt'
     ROLLEDBACKVERSIONv2: 'Version #{version} wiederhergestellt.'
     SAVED: '''{title}'' erfolgreich gespeichert.'
-    SAVEDRAFT: 'Entwurf speichern'
     SHOW_AS_LIST: 'als Liste zeigen'
     TOO_MANY_PAGES: 'Zu viele Seiten'
     TabContent: Inhalt
@@ -86,8 +85,6 @@ de:
     ListView: Listenansicht
     MENUTITLE: Seiten
     TreeView: Baumansicht
-  SilverStripe\CMS\Controllers\CMSSIteTreeFilter_PublishedPages:
-    Title: 'Veröffentlichte Seiten'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_ChangedPages:
     Title: 'Geänderte Seiten'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_DeletedPages:
@@ -150,7 +147,6 @@ de:
     BUTTONCANCELDRAFTDESC: 'Löschen Sie Ihren Entwurf und kehren Sie zur derzeit veröffentlichten Seite zurück.'
     BUTTONPUBLISHED: Veröffentlicht
     BUTTONSAVED: Gespeichert
-    BUTTONSAVEPUBLISH: 'Speichern & Veröffentlichen'
     BUTTONUNPUBLISH: 'Veröffentlichung zurücknehmen'
     BUTTONUNPUBLISHDESC: 'Entferne diese Seite aus der veröffentlichten Website'
     Comments: Kommentare
@@ -178,7 +174,6 @@ de:
     METADESC: 'Meta Beschreibung'
     METADESCHELP: 'Suchmaschinen können diesen Inhalt für die Anzeige der Suchergebnisse verwenden (auch wenn es die Position nicht beeinflusst).'
     METAEXTRA: 'Benutzerdefinierte Meta-Tags'
-    METAEXTRAHELP: 'HTML Tags für zusätzliche Meta Informationen, z.B.: &lt;meta name="ihrName" content="Ihr Inhalt" /&gt;'
     MODIFIEDONDRAFTHELP: 'Die Seite hat unveröffentlichte Änderungen'
     MODIFIEDONDRAFTSHORT: 'Zuletzt geändert'
     MetadataToggle: Metadaten

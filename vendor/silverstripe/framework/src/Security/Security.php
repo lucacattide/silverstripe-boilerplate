@@ -25,6 +25,7 @@ use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\ORM\ValidationResult;
 use SilverStripe\View\ArrayData;
+use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
 use SilverStripe\View\TemplateGlobalProvider;
 
@@ -318,6 +319,24 @@ class Security extends Controller implements TemplateGlobalProvider
     {
         self::set_ignore_disallowed_actions(true);
 
+        // Parse raw message / escape type
+        $parseMessage = function ($message) {
+            if ($message instanceof DBField) {
+                return [
+                    $message->getValue(),
+                    $message->config()->get('escape_type') === 'raw'
+                        ? ValidationResult::CAST_TEXT
+                        : ValidationResult::CAST_HTML,
+                ];
+            }
+
+            // Default to escaped value
+            return [
+                $message,
+                ValidationResult::CAST_TEXT,
+            ];
+        };
+
         if (!$controller && Controller::has_curr()) {
             $controller = Controller::curr();
         }
@@ -380,7 +399,8 @@ class Security extends Controller implements TemplateGlobalProvider
                 $message = $messageSet['default'];
             }
 
-            static::singleton()->setSessionMessage($message, ValidationResult::TYPE_WARNING);
+            list($messageText, $messageCast) = $parseMessage($message);
+            static::singleton()->setSessionMessage($messageText, ValidationResult::TYPE_WARNING, $messageCast);
             $request = new HTTPRequest('GET', '/');
             if ($controller) {
                 $request->setSession($controller->getRequest()->getSession());
@@ -399,7 +419,8 @@ class Security extends Controller implements TemplateGlobalProvider
             $message = $messageSet['default'];
         }
 
-        static::singleton()->setSessionMessage($message, ValidationResult::TYPE_WARNING);
+        list($messageText, $messageCast) = $parseMessage($message);
+        static::singleton()->setSessionMessage($messageText, ValidationResult::TYPE_WARNING, $messageCast);
 
         $controller->getRequest()->getSession()->set("BackURL", $_SERVER['REQUEST_URI']);
 
@@ -462,7 +483,9 @@ class Security extends Controller implements TemplateGlobalProvider
     public function Link($action = null)
     {
         /** @skipUpgrade */
-        return Controller::join_links(Director::baseURL(), "Security", $action);
+        $link = Controller::join_links(Director::baseURL(), "Security", $action);
+        $this->extend('updateLink', $link, $action);
+        return $link;
     }
 
     /**
@@ -471,6 +494,7 @@ class Security extends Controller implements TemplateGlobalProvider
      */
     public function ping()
     {
+        Requirements::clear();
         return 1;
     }
 
@@ -1266,6 +1290,14 @@ class Security extends Controller implements TemplateGlobalProvider
      * By default, this is set to the homepage.
      */
     private static $default_login_dest = "";
+
+    /**
+     * @config
+     * @var string Set the default reset password destination
+     * This is the URL that users will be redirected to after they change their password,
+     * By default, it's redirecting to {@link $login}.
+     */
+    private static $default_reset_password_dest;
 
     protected static $ignore_disallowed_actions = false;
 

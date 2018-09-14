@@ -132,7 +132,7 @@ class DevelopmentAdmin extends Controller
             // in CLI we cant use httpError because of a bug with stuff being in the output already, see DevAdminControllerTest
             throw new Exception($msg);
         } else {
-            $this->httpError(500, $msg);
+            $this->httpError(404, $msg);
         }
     }
 
@@ -148,12 +148,14 @@ class DevelopmentAdmin extends Controller
      */
     protected static function get_links()
     {
-        $links = array();
+        $links = [];
 
         $reg = Config::inst()->get(__CLASS__, 'registered_controllers');
         foreach ($reg as $registeredController) {
-            foreach ($registeredController['links'] as $url => $desc) {
-                $links[$url] = $desc;
+            if (isset($registeredController['links'])) {
+                foreach ($registeredController['links'] as $url => $desc) {
+                    $links[$url] = $desc;
+                }
             }
         }
         return $links;

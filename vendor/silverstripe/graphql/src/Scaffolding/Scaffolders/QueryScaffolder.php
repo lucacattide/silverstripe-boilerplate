@@ -2,38 +2,41 @@
 
 namespace SilverStripe\GraphQL\Scaffolding\Scaffolders;
 
-use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
+use InvalidArgumentException;
 use SilverStripe\GraphQL\Manager;
-use SilverStripe\GraphQL\Pagination\Connection;
+use SilverStripe\GraphQL\OperationResolver;
 use SilverStripe\GraphQL\Scaffolding\Interfaces\ManagerMutatorInterface;
 use SilverStripe\GraphQL\Scaffolding\Interfaces\ScaffolderInterface;
-use InvalidArgumentException;
+use SilverStripe\GraphQL\Scaffolding\StaticSchema;
+use SilverStripe\GraphQL\Scaffolding\Traits\DataObjectTypeTrait;
 
 /**
  * Scaffolds a GraphQL query field.
  */
-class QueryScaffolder extends OperationScaffolder implements ManagerMutatorInterface, ScaffolderInterface
+abstract class QueryScaffolder extends OperationScaffolder implements ManagerMutatorInterface, ScaffolderInterface
 {
+    use DataObjectTypeTrait;
+
     /**
      * @var bool
      */
-    protected $usePagination = true;
+    protected $isNested = false;
 
     /**
-     * @var array
+     * QueryScaffolder constructor.
+     *
+     * @param string $operationName
+     * @param string $typeName
+     * @param OperationResolver|callable|null $resolver
+     * @param string $class
      */
-    protected $sortableFields = [];
-
-    /**
-     * @param bool $bool
-     * @return $this
-     */
-    public function setUsePagination($bool)
+    public function __construct($operationName = null, $typeName = null, $resolver = null, $class = null)
     {
-        $this->usePagination = (bool) $bool;
-
-        return $this;
+        if ($class) {
+            $this->setDataObjectClass($class);
+        }
+        parent::__construct($operationName, $typeName, $resolver);
     }
 
     /**
@@ -41,94 +44,57 @@ class QueryScaffolder extends OperationScaffolder implements ManagerMutatorInter
      */
     public function addToManager(Manager $manager)
     {
-        $manager->addQuery(function () use ($manager) {
-            return $this->scaffold($manager);
-        }, $this->getName());
+        if (!$this->getName() && !$this->dataObjectClass) {
+            throw new InvalidArgumentException(sprintf(
+                '%s must have either a typeName or dataObjectClass member defined.',
+                __CLASS__
+            ));
+        }
+
+        $this->extend('onBeforeAddToManager', $manager);
+        if (!$this->isNested) {
+            $manager->addQuery(function () use ($manager) {
+                return $this->scaffold($manager);
+            }, $this->getName());
+        }
     }
 
     /**
-     * @param array $fields
+     * Set to true if this query is a nested field and should not appear in the root query field
+     * @param bool $bool
      * @return $this
      */
-    public function addSortableFields($fields)
+    public function setNested($bool)
     {
-        $this->sortableFields = array_unique(
-            array_merge(
-                $this->sortableFields,
-                (array) $fields
-            )
-        );
+        $this->isNested = (boolean)$bool;
 
         return $this;
     }
 
-    public function applyConfig(array $config)
+    public function getTypeName()
     {
-        parent::applyConfig($config);
-        if (isset($config['sortableFields'])) {
-            if (is_array($config['sortableFields'])) {
-                $this->addSortableFields($config['sortableFields']);
-            } else {
-                throw new InvalidArgumentException(sprintf(
-                    'sortableFields must be an array (see %s)',
-                    $this->typeName
-                ));
-            }
-        }
-        if (isset($config['paginate'])) {
-            $this->setUsePagination((bool) $config['paginate']);
-        }
-
-        return $this;
+        return parent::getTypeName() ?: $this->typeName();
     }
 
     /**
-     * @param Manager $manager
-     *
-     * @return array
-     */
-    public function scaffold(Manager $manager)
-    {
-        if ($this->usePagination) {
-            return (new PaginationScaffolder(
-                $manager,
-                $this->createConnection($manager)
-            ))->toArray();
-        }
-
-        return [
-            'name' => $this->operationName,
-            'args' => $this->createArgs(),
-            'type' => Type::listOf($this->getType($manager)),
-            'resolve' => $this->createResolverFunction(),
-        ];
-    }
-
-    /**
-     * Creates a Connection for pagination.
+     * Get the type from Manager
      *
      * @param Manager $manager
-     * @return Connection
-     */
-    protected function createConnection(Manager $manager)
-    {
-        return Connection::create($this->operationName)
-            ->setConnectionType($this->getType($manager))
-            ->setConnectionResolver($this->createResolverFunction())
-            ->setArgs($this->createArgs())
-            ->setSortableFields($this->sortableFields);
-    }
-
-    /**
-     * Creates a thunk that lazily fetches the type
-     *
-     * @param Manager $manager
-     * @return ObjectType
+     * @return Type
      */
     protected function getType(Manager $manager)
     {
-        /** @var ObjectType $type */
-        $type = $manager->getType($this->typeName);
-        return $type;
+        // If an explicit type name has been provided, use it.
+        $typeName = $this->getTypeName();
+        if ($typeName && $manager->hasType($typeName)) {
+            return $manager->getType($typeName);
+        }
+
+        // Fall back on a computed type name
+        return StaticSchema::inst()->fetchFromManager(
+            $this->dataObjectClass,
+            $manager,
+            StaticSchema::PREFER_UNION
+        );
     }
 }

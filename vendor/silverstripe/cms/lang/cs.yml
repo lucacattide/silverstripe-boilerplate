@@ -58,7 +58,6 @@ cs:
     ROLLEDBACKPUBv2: 'Vráceno zpět na zveřejněnou verzi.'
     ROLLEDBACKVERSIONv2: 'Vráceno zpět na verzi #{version}.'
     SAVED: 'Uloženo ''{title}'' úspěšně'
-    SAVEDRAFT: 'Uložit koncept'
     SHOW_AS_LIST: 'ukázat jako seznam'
     TOO_MANY_PAGES: 'Příliš mnoho stránek'
     TabContent: Obsah
@@ -96,8 +95,6 @@ cs:
     ListView: 'Pohled seznam'
     MENUTITLE: Stránky
     TreeView: 'Pohled strom'
-  SilverStripe\CMS\Controllers\CMSSIteTreeFilter_PublishedPages:
-    Title: 'Zveřejněné stránky'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_ChangedPages:
     Title: 'Upravené stránky'
   SilverStripe\CMS\Controllers\CMSSiteTreeFilter_DeletedPages:
@@ -166,7 +163,6 @@ cs:
     BUTTONDELETEDESC: 'Smazáno z konceptu/webu a odesláno do archivu'
     BUTTONPUBLISHED: Zveřejněno
     BUTTONSAVED: Uloženo
-    BUTTONSAVEPUBLISH: 'Uložit & zveřejnit'
     BUTTONUNPUBLISH: Nezveřejňovat
     BUTTONUNPUBLISHDESC: 'Odstranit tuto stránku z publikovaných na webu'
     Comments: Komentáře
@@ -199,7 +195,6 @@ cs:
     METADESC: Popis
     METADESCHELP: 'Krátký popis/perex, který při vyplnění mohou vyhledávače využít ve výsledcích vyhledávání. I když tento popisek nemá přímý vliv na hodnocení stránky, tak může zvýšit míru prokliku (CTR).'
     METAEXTRA: 'Vlastní meta tagy'
-    METAEXTRAHELP: 'HTML tagy pro další meta informace. Například &lt;meta name="vlastnínazev" content="vlastní obsah zde" /&gt;'
     MODIFIEDONDRAFTHELP: 'Stránka má nezveřejněné změny'
     MODIFIEDONDRAFTSHORT: Upraveno
     MetadataToggle: Metadata
@@ -246,8 +241,6 @@ cs:
     many_many_ImageTracking: 'Stopování obrázku'
     many_many_LinkTracking: 'Stopování odkazu'
   SilverStripe\CMS\Model\SiteTreeFileExtension:
-    BACKLINKCOUNT: 'Použito na:'
-    PAGES: stránka(y)
     TITLE_INDEX: '#'
     TITLE_TYPE: Typ
     TITLE_USED_ON: 'Použito na'

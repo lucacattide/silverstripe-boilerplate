@@ -2,11 +2,11 @@
 
 namespace SilverStripe\CampaignAdmin\Tests\Behat\Context;
 
-use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Element\DocumentElement;
 use Behat\Mink\Element\NodeElement;
 use SilverStripe\BehatExtension\Context\FixtureContext as BaseFixtureContext;
 use SilverStripe\BehatExtension\Utility\StepHelper;
+use SilverStripe\MinkFacebookWebDriver\FacebookWebDriver;
 use SilverStripe\Versioned\ChangeSet;
 
 /**
@@ -93,9 +93,10 @@ class FixtureContext extends BaseFixtureContext
         assertNotNull($button, sprintf('Campaign %s has no delete button', $name));
         $button->click();
 
-        /** @var Selenium2Driver $driver */
+        /** @var FacebookWebDriver $driver */
         $driver = $this->getMainContext()->getSession()->getDriver();
-        $driver->getWebDriverSession()->accept_alert();
+        $webDriver = $driver->getWebDriver();
+        $webDriver->switchTo()->alert()->accept();
     }
 
     /**

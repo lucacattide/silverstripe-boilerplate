@@ -2,20 +2,18 @@
 
 namespace SilverStripe\GraphQL\Scaffolding\Scaffolders;
 
-use League\Flysystem\Exception;
-use SilverStripe\Core\Injector\Injector;
+use Exception;
 use InvalidArgumentException;
-use SilverStripe\GraphQL\Manager;
-use SilverStripe\GraphQL\Scaffolding\Extensions\TypeCreatorExtension;
-use SilverStripe\GraphQL\Scaffolding\Interfaces\CRUDInterface;
-use SilverStripe\GraphQL\Scaffolding\Interfaces\ResolverInterface;
-use SilverStripe\GraphQL\Scaffolding\Util\OperationList;
-use SilverStripe\GraphQL\Scaffolding\Util\ScaffoldingUtil;
-use SilverStripe\GraphQL\Scaffolding\Interfaces\ManagerMutatorInterface;
-use SilverStripe\ORM\ArrayLib;
-use SilverStripe\Core\ClassInfo;
-use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Extensible;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\GraphQL\Manager;
+use SilverStripe\GraphQL\OperationResolver;
+use SilverStripe\GraphQL\Scaffolding\Extensions\TypeCreatorExtension;
+use SilverStripe\GraphQL\Scaffolding\Interfaces\ManagerMutatorInterface;
+use SilverStripe\GraphQL\Scaffolding\StaticSchema;
+use SilverStripe\GraphQL\Scaffolding\Util\OperationList;
+use SilverStripe\ORM\ArrayLib;
 use SilverStripe\View\ViewableData;
 
 /**
@@ -24,6 +22,10 @@ use SilverStripe\View\ViewableData;
  */
 class SchemaScaffolder implements ManagerMutatorInterface
 {
+    use Extensible;
+
+    const ALL = '*';
+
     const CREATE = 'create';
 
     const READ = 'read';
@@ -32,7 +34,7 @@ class SchemaScaffolder implements ManagerMutatorInterface
 
     const DELETE = 'delete';
 
-    const ALL = '*';
+    const READ_ONE = 'readOne';
 
     /**
      * @var DataObjectScaffolder[]
@@ -126,8 +128,11 @@ class SchemaScaffolder implements ManagerMutatorInterface
      */
     public function type($class)
     {
+        // Remove leading backslash. All namespaces are assumed absolute in YAML
+        $class = ltrim($class, '\\');
+
         foreach ($this->types as $scaffold) {
-            if ($scaffold->getDataObjectClass() == $class) {
+            if ($scaffold->getDataObjectClass() === $class) {
                 return $scaffold;
             }
         }
@@ -144,8 +149,8 @@ class SchemaScaffolder implements ManagerMutatorInterface
      *
      * @param  string                     $name
      * @param  string                     $class
-     * @param  callable|ResolverInterface $resolver
-     * @return QueryScaffolder
+     * @param  callable|OperationResolver $resolver
+     * @return QueryScaffolder|ListQueryScaffolder
      */
     public function query($name, $class, $resolver = null)
     {
@@ -157,11 +162,8 @@ class SchemaScaffolder implements ManagerMutatorInterface
             return $query;
         }
 
-        $operationScaffold = (new QueryScaffolder(
-            $name,
-            ScaffoldingUtil::typeNameForDataObject($class),
-            $resolver
-        ))->setChainableParent($this);
+        $operationScaffold = (new ListQueryScaffolder($name, null, $resolver, $class))
+            ->setChainableParent($this);
 
         $this->queries->push($operationScaffold);
 
@@ -173,7 +175,7 @@ class SchemaScaffolder implements ManagerMutatorInterface
      *
      * @param  string                     $name
      * @param  string                     $class
-     * @param  callable|ResolverInterface $resolver
+     * @param  callable|OperationResolver $resolver
      * @return bool|MutationScaffolder
      */
     public function mutation($name, $class, $resolver = null)
@@ -184,11 +186,8 @@ class SchemaScaffolder implements ManagerMutatorInterface
             return $mutation;
         }
 
-        $operationScaffold = (new MutationScaffolder(
-            $name,
-            ScaffoldingUtil::typeNameForDataObject($class),
-            $resolver
-        ))->setChainableParent($this);
+        $operationScaffold = (new MutationScaffolder($name, null, $resolver, $class))
+            ->setChainableParent($this);
 
         $this->mutations->push($operationScaffold);
 
@@ -256,6 +255,20 @@ class SchemaScaffolder implements ManagerMutatorInterface
     }
 
     /**
+     * Gets all nested queries for all types
+     * @return array
+     */
+    public function getNestedQueries()
+    {
+        $queries = [];
+        foreach ($this->types as $scaffold) {
+            $queries = array_merge($queries, $scaffold->getNestedQueries());
+        }
+
+        return $queries;
+    }
+
+    /**
      * @return OperationList
      */
     public function getMutations()
@@ -270,7 +283,43 @@ class SchemaScaffolder implements ManagerMutatorInterface
      */
     public function addToManager(Manager $manager)
     {
-        // Register fixed types
+        $this->registerFixedTypes($manager);
+        $this->registerPeripheralTypes($manager);
+
+        $this->extend('onBeforeAddToManager', $manager);
+
+        // Add all DataObjects to the manager
+        foreach ($this->types as $scaffold) {
+            $scaffold->addToManager($manager);
+            $inheritanceScaffolder = new InheritanceScaffolder(
+                $scaffold->getDataObjectClass(),
+                StaticSchema::config()->get('inheritanceTypeSuffix')
+            );
+            // Due to shared ancestry, it's inevitable that the same union type will get added multiple times.
+            if (!$manager->hasType($inheritanceScaffolder->getName())) {
+                $inheritanceScaffolder->addToManager($manager);
+            }
+        }
+
+        foreach ($this->queries as $scaffold) {
+            $scaffold->addToManager($manager);
+        }
+
+        foreach ($this->mutations as $scaffold) {
+            $scaffold->addToManager($manager);
+        }
+
+        $this->extend('onAfterAddToManager', $manager);
+    }
+
+    /**
+     * Registers special SS types that are made available to all schemas, e.g. DBFile ObjectType
+     *
+     * @param Manager $manager
+     * @throws Exception
+     */
+    protected function registerFixedTypes(Manager $manager)
+    {
         $fixedTypes = Config::inst()->get(self::class, 'fixed_types');
         if ($fixedTypes) {
             if (!is_array($fixedTypes)) {
@@ -304,44 +353,35 @@ class SchemaScaffolder implements ManagerMutatorInterface
                 $instance->addToManager($manager);
             }
         }
+    }
 
+    /**
+     * Registers types and respective operations for all ancestors of exposed dataobjects
+     * @param Manager $manager
+     */
+    protected function registerPeripheralTypes(Manager $manager)
+    {
+        $schema = StaticSchema::inst();
         foreach ($this->types as $scaffold) {
             // Add dependent classes, e.g has_one, has_many nested queries
             foreach ($scaffold->getDependentClasses() as $class) {
                 $this->type($class);
-            }
-            // The fields and operations explicitly exposed to the lowest type in the ancestry
-            $exposedFields = $scaffold->getFields();
-            $exposedOperations = $scaffold->getOperations();
-
-            // Expose all the ancestors, and add the exposed fields and operations
-            foreach ($scaffold->getAncestralClasses() as $class) {
-                $ancestorType = $this->type($class);
-                $inst = $ancestorType->getDataObjectInstance();
-                foreach ($exposedFields as $field) {
-                    if (ScaffoldingUtil::isValidFieldName($inst, $field->Name)) {
-                        $ancestorType->addField($field->Name, $field->Description);
-                    }
-                }
-                foreach ($exposedOperations as $op) {
-                    if ($op instanceof CRUDInterface) {
-                        $ancestorType->operation($op->getIdentifier());
-                    }
+                // Implicitly, all subclasses are added (albeit with no fields)
+                foreach ($schema->getDescendants($class) as $subclass) {
+                    $this->type($subclass);
                 }
             }
-        }
 
-        // Add all DataObjects to the manager
-        foreach ($this->types as $scaffold) {
-            $scaffold->addToManager($manager);
-        }
+            $tree = array_merge(
+                $schema->getAncestry($scaffold->getDataObjectClass()),
+                $schema->getDescendants($scaffold->getDataObjectClass())
+            );
 
-        foreach ($this->queries as $scaffold) {
-            $scaffold->addToManager($manager);
-        }
-
-        foreach ($this->mutations as $scaffold) {
-            $scaffold->addToManager($manager);
+            // Expose all the classes along the inheritance chain
+            foreach ($tree as $class) {
+                $newType = $this->type($class);
+                $scaffold->cloneTo($newType);
+            }
         }
     }
 }

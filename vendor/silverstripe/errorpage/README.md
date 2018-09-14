@@ -7,7 +7,7 @@
 [![License](https://poser.pugx.org/silverstripe/errorpage/license.svg)](https://github.com/silverstripe/silverstripe-errorpage#license)
 [![Dependency Status](https://www.versioneye.com/php/silverstripe:errorpage/badge.svg)](https://www.versioneye.com/php/silverstripe:errorpage)
 [![Reference Status](https://www.versioneye.com/php/silverstripe:errorpage/reference_badge.svg?style=flat)](https://www.versioneye.com/php/silverstripe:errorpage/references)
-![helpfulrobot](https://helpfulrobot.io/silverstripe/errorpage/badge)
+[![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 
 ## Overview
 
@@ -79,6 +79,8 @@ ErrorPage:
 ## Documentation
 
 To Do
+### Theming
+To apply a custom template for the error page you will need to create a ErrorPage.ss file in either `templates/SilverStripe/ErrorPage/ErrorPage.ss` or `templates/SilverStripe/ErrorPage/Layout/ErrorPage.ss`
 
 ## Reporting Issues
 

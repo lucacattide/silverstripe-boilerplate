@@ -2,12 +2,12 @@
 
 namespace SilverStripe\Forms;
 
+use LogicException;
 use ReflectionClass;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\RequestHandler;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Convert;
-use SilverStripe\Dev\Deprecation;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DataObjectInterface;
 use SilverStripe\ORM\FieldType\DBField;
@@ -356,15 +356,23 @@ class FormField extends RequestHandler
     }
 
     /**
-     * Return a link to this field.
+     * Return a link to this field
      *
      * @param string $action
-     *
      * @return string
+     * @throws LogicException If no form is set yet
      */
     public function Link($action = null)
     {
-        return Controller::join_links($this->form->FormAction(), 'field/' . $this->name, $action);
+        if (!$this->form) {
+            throw new LogicException(
+                'Field must be associated with a form to call Link(). Please use $field->setForm($form);'
+            );
+        }
+
+        $link = Controller::join_links($this->form->FormAction(), 'field/' . $this->name, $action);
+        $this->extend('updateLink', $link, $action);
+        return $link;
     }
 
     /**
@@ -605,7 +613,7 @@ class FormField extends RequestHandler
     }
 
     /**
-     * Set an HTML attribute on the field element, mostly an <input> tag.
+     * Set an HTML attribute on the field element, mostly an input tag.
      *
      * Some attributes are best set through more specialized methods, to avoid interfering with
      * built-in behaviour:
@@ -1263,7 +1271,7 @@ class FormField extends RequestHandler
      *
      * The field type is the class name with the word Field dropped off the end, all lowercase.
      *
-     * It's handy for assigning HTML classes. Doesn't signify the <input type> attribute.
+     * It's handy for assigning HTML classes. Doesn't signify the input type attribute.
      *
      * @see {link getAttributes()}.
      *
@@ -1292,7 +1300,7 @@ class FormField extends RequestHandler
     /**
      * Describe this field, provide help text for it.
      *
-     * By default, renders as a <span class="description"> underneath the form field.
+     * By default, renders as a span class="description" underneath the form field.
      *
      * @param string $description
      *

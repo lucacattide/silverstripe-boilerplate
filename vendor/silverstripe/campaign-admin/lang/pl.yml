@@ -1,0 +1,37 @@
+pl:
+  CampaignAdmin:
+    php.SilverStripe\CampaignAdmin\CampaignAdminSAVE: Zapisz
+    php.SilverStripe\CampaignAdmin\CampaignAdminSAVED: Zapisano
+  SilverStripe\CampaignAdmin\AddToCampaignHandler:
+    ADD_TO_A_NEW_CAMPAIGN: 'Dodaj do nowej kampanii'
+    AddToCampaignAddAction: Dodaj
+    AddToCampaignAvailableLabel: 'Dostępne kampanie'
+    AddToCampaignFormFieldLabel: 'Wybierz kampanię'
+    AddToCampaignInChangsetLabel: 'Ostrożnie, ten element jest już w kampanii:'
+    AddToCampaignInChangsetLabelAll: 'Ostrożnie, ten element jest już w wszystkich kampaniach:'
+    CREATE_DENIED: 'Nie masz uprawnień do tworzenia kampanii'
+    CREATE_NEW: 'Utwórz nową kampanię'
+    CREATE_NEW_PLACEHOLDER: 'Nadaj nazwę kampani'
+    ErrorCampaignPermissionDenied: 'Wygląda na to, że nie masz niezbędnych uprawnień, by dodać {ObjectTitle} do {CampaignTitle}'
+    ErrorGeneral: 'Przepraszamy, ale wystąpił błąd'
+    ErrorItemPermissionDenied: 'Wygląda na to, że nie masz niezbędnych uprawnień do dodania {ObjectTitle} do kampanii'
+    ErrorNotFound: 'Nie można znaleźć {Type}'
+    MISSING_TITLE: 'Nazwa kampanii jest wymagana'
+    NONE_SELECTED: 'Nie wybrano kampanii'
+    NO_CAMPAIGNS: 'Obecnie nie masz żadnych kampanii. Możesz edytować szczegóły kampanii później w sekcji Kampanie.'
+    NO_CREATE: 'O nie! Obecnie nie masz żadnych utworzonych kampanii. Twoje bieżące logowanie nie ma uprawnień do tworzenia kampanii. Kampanie mogą tworzyć tylko użytkownicy z uprawnieniami sekcji Kampanie.'
+    Success: 'Pomyślnie dodano <strong>{ObjectTitle}</strong> do <strong>{CampaignTitle}</strong>'
+  SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction:
+    ADDTOCAMPAIGN: 'Dodaj do kampanii'
+  SilverStripe\CampaignAdmin\AddToCampaignValidator:
+    NEW_TITLE_EMPTY: 'Wprowadź tytuł nowej kampanii'
+    SELECT_CAMPAIGN_EMPTY: 'Prosimy wybierz kampanię'
+  SilverStripe\CampaignAdmin\CampaignAdmin:
+    ACCESS_HELP: 'Zezwalaj na przeglądanie sekcji publikowanych kampanii.'
+    CANCEL: Anuluj
+    CREATE: Utwórz
+    ERROR_DUPLICATE_NAME: 'Nazwa "{Name}" już istnieje'
+    MENUTITLE: Kampanie
+    NOITEMSTEXT: 'Dodaj elementy z sekcji {section}'
+    SAVEDERROR: Błąd.
+    SAVEDUP: Zapisano.

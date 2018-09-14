@@ -1,1 +1,384 @@
-a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline}html{line-height:1}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0}caption,td,th{text-align:left;font-weight:400;vertical-align:middle}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:"";content:none}a img{border:none}elements-of-type(html5-block){display:block}a{text-decoration:none!important}.btn:focus,a:focus,input:focus{outline:none!important}.nascondi{display:none!important}.no-padding{padding:0}html{font-size:62.5%}html body{font-size:12px}@media (min-width:768px){html body{font-size:14px}}html body .container{display:-webkit-box;display:-ms-flexbox;display:flex;min-height:100vh;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}html body .container__wrapper{-webkit-box-flex:1;-ms-flex:1;flex:1}html body h6{display:none}
+/* PATH: '../fonts/<nomefile>' */
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+html {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+q, blockquote {
+  quotes: none; }
+  q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none; }
+
+a img {
+  border: none; }
+
+elements-of-type(html5-block) {
+  display: block; }
+
+.errore__container__articolo__logo {
+  background-attachment: scroll;
+  background-repeat: no-repeat; }
+
+.cookies__corpo, .errore__container__articolo {
+  text-align: center; }
+
+.errore__container__articolo__logo {
+  background-position: 0 0;
+  background-size: 100%; }
+
+a {
+  text-decoration: none !important; }
+
+input[type='submit'] {
+  -webkit-appearance: none !important;
+     -moz-appearance: none !important;
+          appearance: none !important;
+  border-radius: 0 !important; }
+
+a:focus,
+input:focus,
+.btn:focus {
+  outline: none !important; }
+
+.bloccato {
+  overflow: hidden !important; }
+
+.clear {
+  clear: both; }
+
+.disabilita {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+
+.disattiva {
+  pointer-events: none; }
+
+mark {
+  background-color: transparent !important;
+  padding: 0 !important; }
+
+.nascondi {
+  display: none !important; }
+
+.no-padding {
+  padding: 0; }
+
+.occulta {
+  opacity: 0 !important; }
+
+html {
+  font-size: 62.5%; }
+  html body {
+    font-size: 12px;
+    /* &::-webkit-scrollbar,
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-track-piece,
+    &::-webkit-scrollbar-corner,
+    &::-webkit-resizer {
+      background-color: $bianco;
+    }
+
+    &::-webkit-scrollbar-button,
+    &::-webkit-scrollbar-thumb {
+      background-color: $blu;
+    } */ }
+    @media (min-width: 768px) {
+      html body {
+        font-size: 14px; } }
+    html body .container {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      height: auto;
+      min-height: 100vh; }
+      html body .container__wrapper {
+        -webkit-box-flex: 1 0 0;
+        -ms-flex: 1 0 0;
+        flex: 1 0 0; }
+    html body h6 {
+      display: none; }
+
+.cookies {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* background-color: $blu-1; */
+  bottom: auto;
+  left: 0;
+  overflow: hidden;
+  padding: 1em 16px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999; }
+  .cookies.aperto {
+    bottom: 0 !important; }
+  .cookies.chiuso {
+    -webkit-box-align: start !important;
+        -ms-flex-align: start !important;
+            align-items: flex-start !important;
+    background-color: transparent !important;
+    bottom: 8em !important;
+    max-width: 50%;
+    padding: 0 !important;
+    top: auto !important; }
+    .cookies.chiuso.mobile {
+      bottom: 0 !important; }
+    @media (min-width: 576px) {
+      .cookies.chiuso {
+        bottom: 6.2em !important; } }
+    @media (min-width: 768px) {
+      .cookies.chiuso {
+        bottom: 5.7em !important; } }
+    @media (min-width: 992px) {
+      .cookies.chiuso {
+        bottom: 3.7em !important; } }
+  .cookies, .cookies__container, .cookies__corpo__chiudi, .cookies__corpo__link, .cookies__form__etichetta__checkbox {
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out; }
+  .cookies__corpo, .cookies__corpo__chiudi, .cookies__corpo__link, .cookies__form__etichetta {
+    /* color: $bianco; */ }
+  .cookies__corpo, .cookies__corpo__chiudi, .cookies__form__etichetta {
+    /* @extend %font-light; */ }
+  .cookies__corpo, .cookies__cta, .cookies__form__etichetta {
+    /* font-size: $font-size-footer; */ }
+  .cookies, .cookies__form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+  .cookies__container {
+    padding: 0 0 1em;
+    width: 100%; }
+    .cookies__container.aperto {
+      height: 100%;
+      text-align: center !important; }
+  .cookies__corpo {
+    /* line-height: $interlinea-footer; */
+    margin: 0 auto 2em;
+    width: 88%; }
+    .cookies__corpo__chiudi:hover, .cookies__corpo__link:hover {
+      opacity: .7; }
+    .cookies__corpo__chiudi {
+      /* font-size: $font-size-menu; */
+      position: absolute; }
+      .cookies__corpo__chiudi:hover {
+        cursor: pointer; }
+    .cookies__corpo__chiudi--avviso {
+      right: 16px;
+      top: 16px; }
+    .cookies__corpo__chiudi--impostazioni {
+      right: 0;
+      top: 0; }
+    .cookies__corpo__link {
+      /* @extend %font-bold; */ }
+  .cookies__cta {
+    /* @extend %cta-1;
+
+    background-color: $bianco;
+    color: $blu;*/
+    padding: .5em 16px; }
+    .cookies__cta.aperto {
+      margin: 2em 16px; }
+      @media (min-width: 576px) {
+        .cookies__cta.aperto {
+          margin: 0 16px; } }
+  .cookies__form {
+    margin: 0 auto 1em;
+    outline: none;
+    text-align: left; }
+    @media (min-width: 768px) {
+      .cookies__form {
+        max-width: 62%; } }
+    @media (min-width: 992px) {
+      .cookies__form {
+        max-width: 48%; } }
+    @media (min-width: 1200px) {
+      .cookies__form {
+        max-width: 38%; } }
+    @media (min-width: 1920px) {
+      .cookies__form {
+        max-width: 24%; } }
+    .cookies__form__etichetta {
+      margin: 0 0 1em;
+      position: relative;
+      text-indent: 32px; }
+      .cookies__form__etichetta:hover .cookies__form__etichetta__checkbox {
+        /* box-shadow: 0 0 0 2px $bianco; */ }
+      .cookies__form__etichetta, .cookies__form__etichetta__checkbox {
+        cursor: pointer; }
+      .cookies__form__etichetta__campo, .cookies__form__etichetta__checkbox, .cookies__form__etichetta__checkbox::after {
+        position: absolute; }
+      .cookies__form__etichetta__campo {
+        -webkit-appearance: none;
+           -moz-appearance: none;
+                appearance: none;
+        border: 0;
+        margin: 0;
+        opacity: 0;
+        /* &::-webkit-input-placeholder {
+          color: $grigio-2;
+        }
+
+        &::-moz-placeholder {
+          color: $grigio-2;
+        }
+
+        &:-ms-input-placeholder {
+          color: $grigio-2;
+        }
+
+        &:-moz-placeholder {
+          color: $grigio-2;
+        } */ }
+        .cookies__form__etichetta__campo:focus, .cookies__form__etichetta__campo:hover {
+          /* box-shadow: 0 0 0 2px $grigio; */ }
+      .cookies__form__etichetta__campo:checked + .cookies__form__etichetta__checkbox {
+        /* background-color: $celeste; */ }
+      .cookies__form__etichetta__checkbox {
+        /* background-color: $bianco; */
+        height: 12px;
+        left: 0;
+        top: 0;
+        width: 12px; }
+    .cookies__form__legenda {
+      display: none; }
+  .cookies--impostazioni {
+    overflow-x: hidden;
+    overflow-y: auto; }
+    .cookies--impostazioni::-webkit-scrollbar, .cookies--impostazioni::-webkit-scrollbar-track, .cookies--impostazioni::-webkit-scrollbar-track-piece, .cookies--impostazioni::-webkit-scrollbar-corner, .cookies--impostazioni::-webkit-resizer {
+      /* background-color: $bianco; */ }
+    .cookies--impostazioni::-webkit-scrollbar-button, .cookies--impostazioni::-webkit-scrollbar-thumb {
+      /* background-color: $blu; */ }
+
+.torna-su {
+  /* @extend %centro;
+    @extend %font; */
+  bottom: 0;
+  padding: 1em 22px 1em 18px;
+  position: fixed;
+  right: 0;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+  z-index: 8000; }
+  .torna-su:hover {
+    cursor: pointer; }
+  .torna-su.solleva {
+    bottom: 4em !important; }
+    @media (min-width: 992px) {
+      .torna-su.solleva {
+        bottom: 2.6em !important; } }
+
+.errore {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: auto;
+  min-height: 100vh; }
+  .errore, .errore__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+  .errore__container__articolo__corpo,
+  .errore__container__articolo p {
+    /* @extend %font-light; */
+    /* font-size: $font-size-footer;
+      line-height: $interlinea-footer; */
+    margin: 0;
+    padding: 0 16px; }
+    @media (min-width: 768px) {
+      .errore__container__articolo__corpo,
+      .errore__container__articolo p {
+        /* font-size: $font-size-menu;
+        line-height: $font-size-corpo-3; */ } }
+    @media (min-width: 992px) {
+      .errore__container__articolo__corpo,
+      .errore__container__articolo p {
+        /* font-size: $font-size-corpo;
+        line-height: $font-size-titolo-1; */
+        padding: 0; } }
+  .errore__container__articolo__logo {
+    background-image: url("/themes/stack/img/logo.svg");
+    height: auto;
+    margin: 0 auto 2em;
+    padding: 0 0 3.5em;
+    width: 223px; }
+    @media (min-width: 992px) {
+      .errore__container__articolo__logo {
+        padding: 0 0 3em; } }
+
+/* Inizio Browser Hacks */
+/* Internet Explorer */
+@media all and (-ms-high-contrast: none) {
+  /* IE11 */
+  *::-ms-backdrop, *::-ms-backdrop__container,
+  .errore,
+  .errore__container {
+    -ms-flex-line-pack: center;
+        align-content: center; }
+  *::-ms-backdrop__container,
+  .errore__container {
+    padding: 13em 0 0; }
+  /* Footer */
+  *::-ms-backdrop,
+  .footer {
+    -ms-flex-negative: 0;
+        flex-shrink: 0; }
+  /* IE10 */
+  /* Footer */
+  .footer {
+    -ms-flex-negative: 0;
+        flex-shrink: 0; } }
+
+/* Fine Browser Hacks */
