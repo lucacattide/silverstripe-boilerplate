@@ -50,6 +50,11 @@ class SSViewer implements Flushable
     const DEFAULT_THEME = '$default';
 
     /**
+     * Identifier for the public theme
+     */
+    const PUBLIC_THEME = '$public';
+
+    /**
      * A list (highest priority first) of themes to use
      * Only used when {@link $theme_enabled} is set to TRUE.
      *
@@ -267,7 +272,7 @@ class SSViewer implements Flushable
      */
     public static function get_themes()
     {
-        $default = [self::DEFAULT_THEME];
+        $default = [self::PUBLIC_THEME, self::DEFAULT_THEME];
 
         if (!SSViewer::config()->uninherited('theme_enabled')) {
             return $default;
@@ -284,7 +289,7 @@ class SSViewer implements Flushable
 
         // Support legacy behaviour
         if ($theme = SSViewer::config()->uninherited('theme')) {
-            return [$theme, self::DEFAULT_THEME];
+            return [self::PUBLIC_THEME, $theme, self::DEFAULT_THEME];
         }
 
         return $default;
@@ -740,14 +745,28 @@ PHP;
      * @param mixed $data Data context
      * @param array $arguments Additional arguments
      * @param Object $scope
+     * @param bool $globalRequirements
+     *
      * @return string Evaluated result
      */
-    public static function execute_template($template, $data, $arguments = null, $scope = null)
+    public static function execute_template($template, $data, $arguments = null, $scope = null, $globalRequirements = false)
     {
         $v = SSViewer::create($template);
-        $v->includeRequirements(false);
 
-        return $v->process($data, $arguments, $scope);
+        if ($globalRequirements) {
+            $v->includeRequirements(false);
+        } else {
+            //nest a requirements backend for our template rendering
+            $origBackend = Requirements::backend();
+            Requirements::set_backend(Requirements_Backend::create());
+        }
+        try {
+            return $v->process($data, $arguments, $scope);
+        } finally {
+            if (!$globalRequirements) {
+                Requirements::set_backend($origBackend);
+            }
+        }
     }
 
     /**
@@ -758,14 +777,28 @@ PHP;
      * @param string $content Input string
      * @param mixed $data Data context
      * @param array $arguments Additional arguments
+     * @param bool $globalRequirements
+     *
      * @return string Evaluated result
      */
-    public static function execute_string($content, $data, $arguments = null)
+    public static function execute_string($content, $data, $arguments = null, $globalRequirements = false)
     {
         $v = SSViewer::fromString($content);
-        $v->includeRequirements(false);
 
-        return $v->process($data, $arguments);
+        if ($globalRequirements) {
+            $v->includeRequirements(false);
+        } else {
+            //nest a requirements backend for our template rendering
+            $origBackend = Requirements::backend();
+            Requirements::set_backend(Requirements_Backend::create());
+        }
+        try {
+            return $v->process($data, $arguments);
+        } finally {
+            if (!$globalRequirements) {
+                Requirements::set_backend($origBackend);
+            }
+        }
     }
 
     /**

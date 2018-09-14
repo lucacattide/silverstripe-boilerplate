@@ -1,13 +1,12 @@
 # SilverStripe Campaign Admin Module
 
 [![Build Status](https://api.travis-ci.org/silverstripe/silverstripe-campaign-admin.svg?branch=master)](https://travis-ci.org/silverstripe/silverstripe-campaign-admin)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-campaign-admin/badges/quality-score.png?b=1)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-campaign-admin/?branch=1)
+[![codecov](https://codecov.io/gh/silverstripe/comment-notifications/branch/master/graph/badge.svg)](https://codecov.io/gh/silverstripe/comment-notifications)
 [![Latest Stable Version](https://poser.pugx.org/silverstripe/campaign-admin/version.svg)](http://www.silverstripe.org/stable-download/)
 [![Latest Unstable Version](https://poser.pugx.org/silverstripe/campaign-admin/v/unstable.svg)](https://packagist.org/packages/silverstripe/campaign-admin)
 [![Total Downloads](https://poser.pugx.org/silverstripe/campaign-admin/downloads.svg)](https://packagist.org/packages/silverstripe/campaign-admin)
 [![License](https://poser.pugx.org/silverstripe/campaign-admin/license.svg)](https://github.com/silverstripe/silverstripe-campaign-admin#license)
-[![Dependency Status](https://www.versioneye.com/php/silverstripe:campaign-admin/badge.svg)](https://www.versioneye.com/php/silverstripe:campaign-admin)
-[![Reference Status](https://www.versioneye.com/php/silverstripe:admin/reference_badge.svg?style=flat)](https://www.versioneye.com/php/silverstripe:admin/references)
-![helpfulrobot](https://helpfulrobot.io/silverstripe/campaign-admin/badge)
 
 ## Overview
 

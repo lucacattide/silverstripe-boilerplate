@@ -24,7 +24,7 @@
         "silverstripe/vendor-plugin": "^1.0"
     },
     "require-dev": {
-        "phpunit/PHPUnit": "~4.8"
+        "phpunit/PHPUnit": "^5.7"
     },
     "extra": {
         "expose": [
@@ -40,7 +40,8 @@
         }
     },
     "scripts": {
-        "lint": "phpcs code/ tests/php/"
+        "lint": "phpcs code/ tests/php/",
+        "lint-clean": "phpcbf code/ tests/php/"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

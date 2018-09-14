@@ -1,5 +1,6 @@
 <?php
 
+use SilverStripe\Core\Convert;
 use SilverStripe\Core\Environment;
 use SilverStripe\Core\EnvironmentLoader;
 use SilverStripe\Core\TempFolder;
@@ -60,10 +61,10 @@ if (!defined('BASE_PATH')) {
 
 // Set public webroot dir / path
 if (!defined('PUBLIC_DIR')) {
-    define('PUBLIC_DIR', '');
+    define('PUBLIC_DIR', is_dir(BASE_PATH . DIRECTORY_SEPARATOR . 'public') ? 'public' : '');
 }
 if (!defined('PUBLIC_PATH')) {
-    define('PUBLIC_PATH', BASE_PATH);
+    define('PUBLIC_PATH', PUBLIC_DIR ? BASE_PATH . DIRECTORY_SEPARATOR . PUBLIC_DIR : BASE_PATH);
 }
 
 // Allow a first class env var to be set that disables .env file loading
@@ -104,20 +105,50 @@ if (!defined('BASE_URL')) {
             return rtrim(parse_url($base, PHP_URL_PATH), '/');
         }
 
-        // Determine the base URL by comparing SCRIPT_NAME to SCRIPT_FILENAME and getting common elements
-        // This tends not to work on CLI
-        $path = realpath($_SERVER['SCRIPT_FILENAME']);
-        if (substr($path, 0, strlen(BASE_PATH)) == BASE_PATH) {
-            $urlSegmentToRemove = str_replace('\\', '/', substr($path, strlen(BASE_PATH)));
-            if (substr($_SERVER['SCRIPT_NAME'], -strlen($urlSegmentToRemove)) == $urlSegmentToRemove) {
-                $baseURL = substr($_SERVER['SCRIPT_NAME'], 0, -strlen($urlSegmentToRemove));
-                // ltrim('.'), normalise slashes to '/', and rtrim('/')
-                return rtrim(str_replace('\\', '/', ltrim($baseURL, '.')), '/');
-            }
+        // Unless specified, use empty string for base in CLI
+        if (in_array(php_sapi_name(), ['cli', 'phpdbg'])) {
+            return '';
         }
 
-        // Assume no base_url
-        return '';
+        // Determine the base URL by comparing SCRIPT_NAME to SCRIPT_FILENAME and getting common elements
+        // This tends not to work on CLI
+        $path = Convert::slashes($_SERVER['SCRIPT_FILENAME']);
+        $scriptName = Convert::slashes($_SERVER['SCRIPT_NAME'], '/');
+
+        // Ensure script is served from public folder (otherwise error)
+        if (stripos($path, PUBLIC_PATH) !== 0) {
+            return '';
+        }
+
+        // Get entire url following PUBLIC_PATH
+        $urlSegmentToRemove = Convert::slashes(substr($path, strlen(PUBLIC_PATH)), '/');
+        if (substr($scriptName, -strlen($urlSegmentToRemove)) !== $urlSegmentToRemove) {
+            return '';
+        }
+
+        // Remove this from end of SCRIPT_NAME to get url to base
+        $baseURL = substr($scriptName, 0, -strlen($urlSegmentToRemove));
+        $baseURL = rtrim(ltrim($baseURL, '.'), '/');
+
+        // When htaccess redirects from /base to /base/public folder, we need to only include /public
+        // in the BASE_URL if it's also present in the request
+        if ($baseURL
+            && PUBLIC_DIR
+            && isset($_SERVER['REQUEST_URI'])
+            && substr($baseURL, -strlen(PUBLIC_DIR)) === PUBLIC_DIR
+        ) {
+            $requestURI = $_SERVER['REQUEST_URI'];
+            // Check if /base/public or /base are in the request
+            foreach ([$baseURL, dirname($baseURL)] as $candidate) {
+                if (stripos($requestURI, $candidate) === 0) {
+                    return $candidate;
+                }
+            }
+            // Ambiguous
+            return '';
+        }
+
+        return $baseURL;
     }));
 }
 
@@ -139,7 +170,14 @@ if (!defined('ASSETS_DIR')) {
     define('ASSETS_DIR', 'assets');
 }
 if (!defined('ASSETS_PATH')) {
-    define('ASSETS_PATH', BASE_PATH . DIRECTORY_SEPARATOR . ASSETS_DIR);
+    call_user_func(function () {
+        $paths = [
+            BASE_PATH,
+            (PUBLIC_DIR ? PUBLIC_DIR : null),
+            ASSETS_DIR
+        ];
+        define('ASSETS_PATH', implode(DIRECTORY_SEPARATOR, array_filter($paths)));
+    });
 }
 
 // Custom include path - deprecated

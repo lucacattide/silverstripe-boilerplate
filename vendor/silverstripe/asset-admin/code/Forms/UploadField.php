@@ -10,6 +10,7 @@ use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Forms\FileHandleField;
 use SilverStripe\Forms\FileUploadReceiver;
 use SilverStripe\Forms\FormField;
+use SilverStripe\Forms\Validator;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\SS_List;
 
@@ -49,6 +50,29 @@ class UploadField extends FormField implements FileHandleField
      * @var int
      */
     private static $thumbnail_height = 60;
+
+    /**
+     * Set if uploading new files is enabled.
+     * If false, only existing files can be selected
+     *
+     * @var bool
+     */
+    protected $uploadEnabled = true;
+
+    /**
+     * Set if selecting existing files is enabled.
+     * If false, only new files can be selected.
+     *
+     * @var bool
+     */
+    protected $attachEnabled = true;
+
+    /**
+     * The number of files allowed for this field
+     *
+     * @var null|int
+     */
+    protected $allowedMaxFileNumber = null;
 
     protected $inputType = 'file';
 
@@ -90,8 +114,12 @@ class UploadField extends FormField implements FileHandleField
             'method' => 'post',
             'payloadFormat' => 'urlencoded',
         ];
+        $defaults['data']['maxFiles'] = $this->getAllowedMaxFileNumber();
         $defaults['data']['multi'] = $this->getIsMultiUpload();
         $defaults['data']['parentid'] = $this->getFolderID();
+        $defaults['data']['canUpload'] = $this->getUploadEnabled();
+        $defaults['data']['canAttach'] = $this->getAttachEnabled();
+
         return $defaults;
     }
 
@@ -163,7 +191,7 @@ class UploadField extends FormField implements FileHandleField
     {
         $state = parent::getSchemaStateDefaults();
         $state['data']['files'] = $this->getEncodedItems();
-        $state['value'] = $this->Value() ?: [ 'Files' => []];
+        $state['value'] = $this->Value() ?: ['Files' => []];
         return $state;
     }
 
@@ -215,6 +243,28 @@ class UploadField extends FormField implements FileHandleField
         return $this;
     }
 
+    /**
+     * Gets the number of files allowed for this field
+     *
+     * @return null|int
+     */
+    public function getAllowedMaxFileNumber()
+    {
+        return $this->allowedMaxFileNumber;
+    }
+
+    /**
+     * Sets the number of files allowed for this field
+     * @param $count
+     * @return $this
+     */
+    public function setAllowedMaxFileNumber($count)
+    {
+        $this->allowedMaxFileNumber = $count;
+
+        return $this;
+    }
+
     public function getAttributes()
     {
         $attributes = array(
@@ -250,5 +300,67 @@ class UploadField extends FormField implements FileHandleField
         $clone = clone $this;
         $clone->setDisabled(true);
         return $clone;
+    }
+
+    /**
+     * Checks if the number of files attached adheres to the $allowedMaxFileNumber defined
+     *
+     * @param Validator $validator
+     * @return bool
+     */
+    public function validate($validator)
+    {
+        $maxFiles = $this->getAllowedMaxFileNumber();
+        $count = count($this->getItems());
+
+        if ($maxFiles < 1 || $count <= $maxFiles) {
+            return true;
+        }
+        $validator->validationError($this->getName(), _t('', 'Bobby'));
+        return false;
+    }
+
+    /**
+     * Check if uploading files is enabled
+     *
+     * @return bool
+     */
+    public function getUploadEnabled()
+    {
+        return $this->uploadEnabled;
+    }
+
+    /**
+     * Set if uploading files is enabled
+     *
+     * @param bool $uploadEnabled
+     * @return $this
+     */
+    public function setUploadEnabled($uploadEnabled)
+    {
+        $this->uploadEnabled = $uploadEnabled;
+        return $this;
+    }
+
+    /**
+     * Check if attaching files is enabled
+     *
+     * @return bool
+     */
+    public function getAttachEnabled()
+    {
+        return $this->attachEnabled;
+    }
+
+    /**
+     * Set if attaching files is enabled
+     *
+     * @param bool $attachEnabled
+     * @return UploadField
+     */
+    public function setAttachEnabled($attachEnabled)
+    {
+        $this->attachEnabled = $attachEnabled;
+        return $this;
     }
 }

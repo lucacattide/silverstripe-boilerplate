@@ -2,17 +2,16 @@
 
 namespace SilverStripe\GraphQL\Scaffolding\Scaffolders;
 
-use InvalidArgumentException;
-use SilverStripe\GraphQL\Scaffolding\Interfaces\ResolverInterface;
-use SilverStripe\Core\Injector\Injector;
-use SilverStripe\GraphQL\Scaffolding\Traits\Chainable;
-use SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD\Read;
-use SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD\Create;
-use SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD\Update;
-use SilverStripe\GraphQL\Scaffolding\Scaffolders\CRUD\Delete;
-use SilverStripe\GraphQL\Scaffolding\Interfaces\ConfigurationApplier;
-use SilverStripe\ORM\ArrayList;
 use Exception;
+use InvalidArgumentException;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Extensible;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\GraphQL\Manager;
+use SilverStripe\GraphQL\OperationResolver;
+use SilverStripe\GraphQL\Scaffolding\Interfaces\ConfigurationApplier;
+use SilverStripe\GraphQL\Scaffolding\Traits\Chainable;
+use SilverStripe\ORM\ArrayList;
 
 /**
  * Provides functionality common to both operation scaffolders. Cannot
@@ -21,24 +20,31 @@ use Exception;
 abstract class OperationScaffolder implements ConfigurationApplier
 {
     use Chainable;
+    use Extensible;
 
     /**
+     * Type backing this operation
+     *
      * @var string
      */
-    protected $typeName;
+    private $typeName;
 
     /**
+     * Name of operation
+     *
      * @var string
      */
-    protected $operationName;
+    private $operationName;
 
     /**
-     * @var ResolverInterface|callable
+     * @var OperationResolver|callable
      */
-    protected $resolver;
+    private $resolver;
 
     /**
-     * @var array
+     * List of argument scaffolders
+     *
+     * @var ArrayList|ArgumentScaffolder[]
      */
     protected $args = [];
 
@@ -46,20 +52,42 @@ abstract class OperationScaffolder implements ConfigurationApplier
      * @param string $name
      * @return  string|null
      */
-    public static function getOperationScaffoldFromIdentifier($name)
+    public static function getClassFromIdentifier($name)
     {
-        switch ($name) {
-            case SchemaScaffolder::CREATE:
-                return Create::class;
-            case SchemaScaffolder::READ:
-                return Read::class;
-            case SchemaScaffolder::UPDATE:
-                return Update::class;
-            case SchemaScaffolder::DELETE:
-                return Delete::class;
+        $operations = static::getOperations();
+
+        return isset($operations[$name]) ? $operations[$name] : null;
+    }
+
+    /**
+     * @param string|OperationScaffolder $instOrClass
+     * @return  string|null
+     */
+    public static function getIdentifier($instOrClass)
+    {
+        $class = ($instOrClass instanceof OperationScaffolder) ? get_class($instOrClass) : $instOrClass;
+        $operations = static::getOperations();
+        $operations = array_flip($operations);
+
+        return isset($operations[$class]) ? $operations[$class] : null;
+    }
+
+    /**
+     * Gets a map of operation identifiers to their classes
+     * @return array
+     */
+    public static function getOperations()
+    {
+        $operations = Config::inst()->get(__CLASS__, 'operations', Config::UNINHERITED);
+        $validOperations = [];
+        foreach ($operations as $identifier => $class) {
+            if (!$class) {
+                continue;
+            }
+            $validOperations[$identifier] = $class;
         }
 
-        return null;
+        return $validOperations;
     }
 
     /**
@@ -67,12 +95,12 @@ abstract class OperationScaffolder implements ConfigurationApplier
      *
      * @param string $operationName
      * @param string $typeName
-     * @param ResolverInterface|callable|null $resolver
+     * @param OperationResolver|callable|null $resolver
      */
-    public function __construct($operationName, $typeName, $resolver = null)
+    public function __construct($operationName = null, $typeName = null, $resolver = null)
     {
-        $this->operationName = $operationName;
-        $this->typeName = $typeName;
+        $this->setName($operationName);
+        $this->setTypeName($typeName);
         $this->args = ArrayList::create([]);
 
         if ($resolver) {
@@ -134,7 +162,7 @@ abstract class OperationScaffolder implements ConfigurationApplier
                 throw new InvalidArgumentException(sprintf(
                     'Tried to set description for %s, but it was not added to %s',
                     $argName,
-                    $this->operationName
+                    $this->operationName ?: '(unnamed operation)'
                 ));
             }
 
@@ -172,7 +200,7 @@ abstract class OperationScaffolder implements ConfigurationApplier
                 throw new InvalidArgumentException(sprintf(
                     'Tried to set default for %s, but it was not added to %s',
                     $argName,
-                    $this->operationName
+                    $this->operationName ?: '(unnamed operation)'
                 ));
             }
 
@@ -203,11 +231,42 @@ abstract class OperationScaffolder implements ConfigurationApplier
     }
 
     /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->operationName = $name;
+
+        return $this;
+    }
+
+    /**
      * @return ArrayList
      */
     public function getArgs()
     {
         return $this->args;
+    }
+
+    /**
+     * Type name
+     *
+     * @param string $typeName
+     * @return $this
+     */
+    public function setTypeName($typeName)
+    {
+        $this->typeName = $typeName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeName()
+    {
+        return $this->typeName;
     }
 
     /**
@@ -231,27 +290,34 @@ abstract class OperationScaffolder implements ConfigurationApplier
     }
 
     /**
-     * @param callable|ResolverInterface $resolver
+     * @return callable|OperationResolver
+     */
+    public function getResolver()
+    {
+        return $this->resolver;
+    }
+
+    /**
+     * @param callable|OperationResolver|string $resolver Callable, instance of (or classname of) a OperationResolver
      * @return $this
      * @throws InvalidArgumentException
      */
     public function setResolver($resolver)
     {
-        if (is_callable($resolver) || $resolver instanceof ResolverInterface) {
+        if (is_callable($resolver) || $resolver instanceof OperationResolver) {
             $this->resolver = $resolver;
-        } else {
-            if (is_subclass_of($resolver, ResolverInterface::class)) {
-                $this->resolver = Injector::inst()->create($resolver);
-            } else {
-                throw new InvalidArgumentException(sprintf(
-                    '%s::setResolver() accepts closures, instances of %s or names of resolver subclasses.',
-                    __CLASS__,
-                    ResolverInterface::class
-                ));
-            }
+            return $this;
+        }
+        if (is_subclass_of($resolver, OperationResolver::class)) {
+            $this->resolver = Injector::inst()->create($resolver);
+            return $this;
         }
 
-        return $this;
+        throw new InvalidArgumentException(sprintf(
+            '%s::setResolver() accepts closures, instances of %s or names of resolver subclasses.',
+            __CLASS__,
+            OperationResolver::class
+        ));
     }
 
     /**
@@ -265,7 +331,7 @@ abstract class OperationScaffolder implements ConfigurationApplier
             if (!is_array($config['args'])) {
                 throw new Exception(sprintf(
                     'args must be an array on %s',
-                    $this->operationName
+                    $this->operationName ?: '(unnamed operation)'
                 ));
             }
             foreach ($config['args'] as $argName => $argData) {
@@ -294,6 +360,9 @@ abstract class OperationScaffolder implements ConfigurationApplier
         if (isset($config['resolver'])) {
             $this->setResolver($config['resolver']);
         }
+        if (isset($config['name'])) {
+            $this->setName($config['name']);
+        }
 
         return $this;
     }
@@ -312,13 +381,13 @@ abstract class OperationScaffolder implements ConfigurationApplier
             if (is_callable($resolver)) {
                 return call_user_func_array($resolver, $args);
             } else {
-                if ($resolver instanceof ResolverInterface) {
+                if ($resolver instanceof OperationResolver) {
                     return call_user_func_array([$resolver, 'resolve'], $args);
                 } else {
                     throw new \Exception(sprintf(
                         '%s resolver must be a closure or implement %s',
                         __CLASS__,
-                        ResolverInterface::class
+                        OperationResolver::class
                     ));
                 }
             }
@@ -326,17 +395,29 @@ abstract class OperationScaffolder implements ConfigurationApplier
     }
 
     /**
-     * Parses the args to proper graphql-php spec.
+     * Helper for scaffolding args that require more work than ArgumentScaffolder::toArray()
      *
+     * @param Manager $manager
      * @return array
      */
-    protected function createArgs()
+    protected function createDefaultArgs(Manager $manager)
     {
-        $args = [];
+        return [];
+    }
+
+    /**
+     * Parses the args to proper graphql-php spec.
+     *
+     * @param Manager $manager
+     * @return array
+     */
+    protected function createArgs(Manager $manager)
+    {
+        $args = $this->createDefaultArgs($manager);
         foreach ($this->args as $scaffolder) {
             $args[$scaffolder->argName] = $scaffolder->toArray();
         }
-
+        $this->extend('updateArgs', $args, $manager);
         return $args;
     }
 }

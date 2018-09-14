@@ -131,7 +131,7 @@ class LeftAndMain extends Controller implements PermissionProvider
      * @config
      * @var string
      */
-    private static $help_link = '//userhelp.silverstripe.org/framework/en/3.5';
+    private static $help_link = '//userhelp.silverstripe.org/en/4';
 
     /**
      * @var array
@@ -742,8 +742,11 @@ class LeftAndMain extends Controller implements PermissionProvider
         // Assign default cms theme and replace user-specified themes
         SSViewer::set_themes(LeftAndMain::config()->uninherited('admin_themes'));
 
-        //set the reading mode for the admin to stage
+        // Set the current reading mode
         Versioned::set_stage(Versioned::DRAFT);
+
+        // Set default reading mode to suppress ?stage=Stage querystring params in CMS
+        Versioned::set_default_reading_mode(Versioned::get_reading_mode());
     }
 
     public function handleRequest(HTTPRequest $request)
@@ -960,23 +963,22 @@ class LeftAndMain extends Controller implements PermissionProvider
     public function getResponseNegotiator()
     {
         if (!$this->responseNegotiator) {
-            $controller = $this;
             $this->responseNegotiator = new PjaxResponseNegotiator(
                 array(
-                    'CurrentForm' => function () use (&$controller) {
-                        return $controller->getEditForm()->forTemplate();
+                    'CurrentForm' => function () {
+                        return $this->getEditForm()->forTemplate();
                     },
-                    'Content' => function () use (&$controller) {
-                        return $controller->renderWith($controller->getTemplatesWithSuffix('_Content'));
+                    'Content' => function () {
+                        return $this->renderWith($this->getTemplatesWithSuffix('_Content'));
                     },
-                    'Breadcrumbs' => function () use (&$controller) {
-                        return $controller->renderWith([
+                    'Breadcrumbs' => function () {
+                        return $this->renderWith([
                             'type' => 'Includes',
                             'SilverStripe\\Admin\\CMSBreadcrumbs'
                         ]);
                     },
-                    'default' => function () use (&$controller) {
-                        return $controller->renderWith($controller->getViewer('show'));
+                    'default' => function () {
+                        return $this->renderWith($this->getViewer('show'));
                     }
                 ),
                 $this->getResponse()

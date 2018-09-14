@@ -15,14 +15,21 @@ class VersionedGridFieldDetailForm extends Extension
     /**
      * @param string $class
      * @param GridField $gridField
-     * @param DataObject $record
+     * @param DataObject|Versioned $record
      * @param RequestHandler $requestHandler
+     * @param string $assignedClass Name of class explicitly assigned to this component
      */
-    public function updateItemRequestClass(&$class, $gridField, $record, $requestHandler)
+    public function updateItemRequestClass(&$class, $gridField, $record, $requestHandler, $assignedClass = null)
     {
+        // Avoid overriding explicitly assigned class name if set using setItemRequestClass()
+        if ($assignedClass) {
+            return;
+        }
+        $isVersioned = $record && $record->hasExtension(Versioned::class);
+        $isPublishable = $record && $record->hasExtension(RecursivePublishable::class);
         // Conditionally use a versioned item handler if it doesn't already have one.
         if ($record
-            && $record->has_extension(Versioned::class)
+            && ($isVersioned || $isPublishable)
             && $record->config()->get('versioned_gridfield_extensions')
             && (!$class || !is_subclass_of($class, VersionedGridFieldItemRequest::class))
         ) {

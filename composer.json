@@ -3,9 +3,9 @@
     "type": "silverstripe-recipe",
     "description": "The SilverStripe Framework Installer",
     "require": {
-        "php": ">=5.6.0",
-        "silverstripe/recipe-plugin": "^1",
-        "silverstripe/recipe-cms": "^1.0@stable"
+        "php": ">=5.6",
+        "silverstripe/recipe-plugin": "^1.3",
+        "silverstripe/recipe-cms": "^4"
     },
     "require-dev": {
         "phpunit/PHPUnit": "^5.7"
@@ -13,14 +13,21 @@
     "extra": {
         "project-files-installed": [
             ".htaccess",
+            "app/.htaccess",
+            "app/_config.php",
+            "app/_config/mysite.yml",
+            "app/src/Page.php",
+            "app/src/PageController.php",
             "index.php",
             "install-frameworkmissing.html",
             "install.php",
-            "mysite/.htaccess",
-            "mysite/_config.php",
-            "mysite/_config/mysite.yml",
-            "mysite/code/Page.php",
-            "mysite/code/PageController.php",
+            "web.config"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "install-frameworkmissing.html",
+            "install.php",
             "web.config"
         ]
     },

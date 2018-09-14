@@ -11,6 +11,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 // Esportazione modulo
 module.exports = {
+  mode: 'production',
   // Sorgenti
   entry: [
     './js/index.js',

@@ -37,8 +37,6 @@ fr:
   SilverStripe\Forms\CurrencyField:
     CURRENCYSYMBOL: $
   SilverStripe\Forms\DateField:
-    NOTSET: 'non renseigné'
-    TODAY: 'aujourd''hui'
     VALIDDATEFORMAT2: 'Saisissez une date au format valide ({format})'
     VALIDDATEMAXDATE: 'La date doit être antérieure ou égale à celle autorisée ({date})'
     VALIDDATEMINDATE: 'La date doit être postérieure ou égale à celle autorisée ({date})'
@@ -99,22 +97,13 @@ fr:
     Deleted: '{type} {name} supprimés'
     Save: Enregistrer
   SilverStripe\Forms\GridField\GridFieldEditButton_ss:
-    EDIT: Editer
+    EDIT: Éditer
   SilverStripe\Forms\GridField\GridFieldGroupDeleteAction:
     UnlinkSelfFailure: 'Impossible de retirer votre propre profil de ce groupe, vous perdriez vos droits d''administration'
   SilverStripe\Forms\GridField\GridFieldPaginator:
     OF: de
     Page: Page
     View: Vue
-  SilverStripe\Forms\GridField\GridFieldVersionedState:
-    ADDEDTODRAFTHELP: 'L''élément n''a pas encore été publié'
-    ADDEDTODRAFTSHORT: Brouillon
-    ARCHIVEDPAGEHELP: 'Elément retiré du brouillon et du site public'
-    ARCHIVEDPAGESHORT: Archivé
-    MODIFIEDONDRAFTHELP: 'L''élément comporte des modifications non sauvegardées'
-    MODIFIEDONDRAFTSHORT: Modifié
-    ONLIVEONLYSHORT: 'Site public uniquement'
-    ONLIVEONLYSHORTHELP: 'L''élément a été publié, mais sa version brouillon a été supprimée'
   SilverStripe\Forms\MoneyField:
     FIELDLABELAMOUNT: Quantité
     FIELDLABELCURRENCY: Devise
@@ -211,6 +200,7 @@ fr:
     many_many_Members: Membres
   SilverStripe\Security\LoginAttempt:
     Email: 'Adresse email'
+    EmailHashed: 'Adresse Email (hashed)'
     IP: 'Adresse IP'
     PLURALNAME: 'Tentatives de connexion'
     PLURALS:
@@ -269,6 +259,8 @@ fr:
   SilverStripe\Security\MemberAuthenticator\MemberAuthenticator:
     ERRORWRONGCRED: 'Les renseignements fournis semblent incorrects. Merci de réessayer.'
     NoPassword: 'Ce membre n''a pas de mot de passe'
+  SilverStripe\Security\MemberAuthenticator\MemberLoginForm:
+    AUTHENTICATORNAME: 'Email & Mot de passe'
   SilverStripe\Security\MemberPassword:
     PLURALNAME: 'Mots de passe utilisateur'
     PLURALS:
