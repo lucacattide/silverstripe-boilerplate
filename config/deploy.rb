@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.10"
+lock "3.11"
 
 set :application, ""
 set :repo_url, ""
