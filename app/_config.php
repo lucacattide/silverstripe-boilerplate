@@ -12,8 +12,6 @@
     // Admin
     LeftAndMain::add_extension(mySiteAdmin::class);
     // Forms - TinyMCE
-    TinyMCEConfig::get('cms')->setOption('forced_root_block', '');
-    TinyMCEConfig::get('cms')->setOption('selector', 'textarea');
     TinyMCEConfig::get('cms')->setButtonsForLine(1, 'bold', 'italic', 'underline', 'link', 'unlink', 'code');
     TinyMCEConfig::get('cms')->setButtonsForLine(2, 'cut', 'copy', 'paste', 'undo', 'redo');
     TinyMCEConfig::get('cms')->removeButtons('advhr', 'media', 'emotions', 'fullpage', 'fullscreen', 'iespell', 'nonbreaking', 'pagebreak', 'preview', 'print', 'spellchecker', 'visualchars', 'advlink', 'advimage', 'searchreplace', 'insertdatetime', 'table', 'directionality', 'layer', 'save', 'style', 'xhtmlxtras', 'template');

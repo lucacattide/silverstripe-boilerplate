@@ -78,7 +78,7 @@ class PageController extends ContentController
 			return $this->httpError(400, 'Metodo POST richiesto');
 		} else {
             $emailCorpo = 'Accettazione Cookie Policy:<br /><br />';
-            $emailCorpo .= 'Sito Web: '. Director::absoluteURL() .'<br />';
+            $emailCorpo .= 'Sito Web: '. Director::absoluteURL($request->getURL) .'<br />';
             $emailCorpo .= 'Data: '. @date('d/m/Y \- \h\. H:i:s') .'<br />';
             $emailCorpo .= 'Utente: '. $utente .'<br />';
             $mail = Email::create();
