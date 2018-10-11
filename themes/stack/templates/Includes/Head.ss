@@ -4,16 +4,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 $MetaTags
-<meta property="og:url" content="$AbsoluteLink.ATT" />
-<meta property="og:type" content="" />
-<meta property="og:title" content="$Title.ATT" />
-<meta property="og:description" content="$SiteConfig.Tagline" />
-<meta property="og:image" content="{$AbsoluteLink.ATT}themes/corporate/img/logo.png" />
-<meta property="og:audio" content="" />
-<meta property="og:video" content="" />
-<meta property="og:locale" content="$ContentLocale.ATT" />
-<meta property="og:locale:alternate" content="" />
-<meta property="og:site_name" content="$SiteConfig.Title.ATT" />
+<meta name="og:url" property="og:url" content="$AbsoluteLink.ATT" />
+<meta name="og:type" property="og:type" content="" />
+<meta name="og:title" property="og:title" content="$Title.ATT" />
+<meta name="og:description" property="og:description" content="$SiteConfig.Tagline" />
+<meta name="og:image" property="og:image" content="{$AbsoluteLink.ATT}themes/corporate/img/logo.png" />
+<meta name="og:audio" property="og:audio" content="" />
+<meta name="og:video" property="og:video" content="" />
+<meta name="og:locale" property="og:locale" content="$ContentLocale.ATT" />
+<meta name="og:locale:alternate" property="og:locale:alternate" content="" />
+<meta name="og:site_name" property="og:site_name" content="$SiteConfig.Title.ATT" />
 <!--Fine Meta Tags-->
 <!--Localizzazione-->
 <link rel="alternate" hreflang="$ContentLocale" href="$AbsoluteLink.ATT?locale=$ContentLocale" />
