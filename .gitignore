@@ -4,5 +4,5 @@
 /silverstripe-cache/
 /themes/simple/
 /themes/stack/node_modules/
-/themes/stack/package-lock.json
-.vscode
+/.editorconfig
+/.vscode
