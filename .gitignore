@@ -8,6 +8,7 @@
 /themes/stack/js/**/*
 !/themes/stack/js/dist/
 !/themes/stack/js/lib/
+/themes/stack/node_modules/
 /themes/stack/sass/
 /themes/stack/_.browserlistrc
 !/themes/stack/.gitignore
@@ -18,7 +19,6 @@
 /themes/stack/package-lock.json
 /themes/stack/postcss.config.js
 /themes/stack/webpack.*.js
-/.editorconfig
 /Capfile
 /Gemfile
 node_modules/

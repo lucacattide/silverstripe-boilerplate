@@ -1,5 +1,5 @@
 # Repository - Configurazione
 
-/node_modules/
-/.editorconfig
-/package-lock.json
+/themes/stack/node_modules/
+/themes/stack/.editorconfig
+/themes/stack/.vscode
