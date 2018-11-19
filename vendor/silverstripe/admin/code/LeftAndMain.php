@@ -13,6 +13,7 @@ use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\HTTPResponse_Exception;
+use SilverStripe\Control\Middleware\HTTPCacheControlMiddleware;
 use SilverStripe\Control\PjaxResponseNegotiator;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Config\Config;
@@ -263,6 +264,18 @@ class LeftAndMain extends Controller implements PermissionProvider
     private static $frame_options = 'SAMEORIGIN';
 
     /**
+     * The configuration passed to the supporting JS for each CMS section includes a 'name' key
+     * that by default matches the FQCN of the current class. This setting allows you to change
+     * the key if necessary (for example, if you are overloading CMSMain or another core class
+     * and want to keep the core JS - which depends on the core class names - functioning, you
+     * would need to set this to the FQCN of the class you are overloading).
+     *
+     * @config
+     * @var string|null
+     */
+    private static $section_name = null;
+
+    /**
      * @var PjaxResponseNegotiator
      */
     protected $responseNegotiator;
@@ -273,7 +286,7 @@ class LeftAndMain extends Controller implements PermissionProvider
     protected $versionProvider;
 
     /**
-     * Gets the combined configuration of all LeafAndMain subclasses required by the client app.
+     * Gets the combined configuration of all LeftAndMain subclasses required by the client app.
      *
      * @return string
      *
@@ -315,10 +328,17 @@ class LeftAndMain extends Controller implements PermissionProvider
      */
     public function getClientConfig()
     {
+        // Allows the section name to be overridden in config
+        $name = $this->config()->get('section_name');
+
+        if (!$name) {
+            $name = static::class;
+        }
+
         $clientConfig = [
             // Trim leading/trailing slash to make it easier to concatenate URL
             // and use in routing definitions.
-            'name' => static::class,
+            'name' => $name,
             'url' => trim($this->Link(), '/'),
             'form' => [
                 'EditorExternalLink' => [
@@ -582,6 +602,8 @@ class LeftAndMain extends Controller implements PermissionProvider
     protected function init()
     {
         parent::init();
+
+        HTTPCacheControlMiddleware::singleton()->disableCache();
 
         SSViewer::setRewriteHashLinksDefault(false);
         ContentNegotiator::setEnabled(false);
