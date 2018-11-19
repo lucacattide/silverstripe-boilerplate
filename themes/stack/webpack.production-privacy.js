@@ -13,16 +13,15 @@ const HtmlMinifierPlugin = require('html-minifier-webpack-plugin');
 // Esportazione modulo
 module.exports = merge(commonConfig, privacyConfig, {
   module: {
-    loaders: [{
-        // HTML
-        test: /\/html\/dist\/\.html$/,
-        loaders: [
-          'file-loader?name=[name].html',
-          'extract-loader',
-          'html-loader',
-        ],
-      },
-    ],
+    rules: [{
+      // HTML
+      test: /\/html\/dist\/\.html$/,
+      loaders: [
+        'file-loader?name=[name].html',
+        'extract-loader',
+        'html-loader',
+      ],
+    }, ],
   },
   plugins: [
     // Definizione Ambiente

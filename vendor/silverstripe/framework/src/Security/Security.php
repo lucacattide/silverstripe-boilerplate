@@ -11,6 +11,7 @@ use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\HTTPResponse_Exception;
+use SilverStripe\Control\Middleware\HTTPCacheControlMiddleware;
 use SilverStripe\Control\RequestHandler;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Convert;
@@ -494,6 +495,7 @@ class Security extends Controller implements TemplateGlobalProvider
      */
     public function ping()
     {
+        HTTPCacheControlMiddleware::singleton()->disableCache();
         Requirements::clear();
         return 1;
     }
@@ -577,8 +579,8 @@ class Security extends Controller implements TemplateGlobalProvider
         $holderPage->ID = -1 * random_int(1, 10000000);
 
         $controller = ModelAsController::controller_for($holderPage);
-        $controller->doInit();
         $controller->setRequest($this->getRequest());
+        $controller->doInit();
 
         return $controller;
     }

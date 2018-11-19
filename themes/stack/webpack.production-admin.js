@@ -13,16 +13,15 @@ const HtmlMinifierPlugin = require('html-minifier-webpack-plugin');
 // Esportazione modulo
 module.exports = merge(commonConfig, adminConfig, {
   module: {
-    loaders: [{
-        // HTML
-        test: /\/html\/dist\/\.html$/,
-        loaders: [
-          'file-loader?name=[name].html',
-          'extract-loader',
-          'html-loader',
-        ],
-      },
-    ],
+    rules: [{
+      // HTML
+      test: /\/html\/dist\/\.html$/,
+      loaders: [
+        'file-loader?name=[name].html',
+        'extract-loader',
+        'html-loader',
+      ],
+    }],
   },
   plugins: [
     // Definizione Ambiente
@@ -44,17 +43,17 @@ module.exports = merge(commonConfig, adminConfig, {
     }),
     // Versioni Prodzione
     new CopyWebpackPlugin([{
-        from: 'html/**/*',
-        to: './html/dist',
-      },
-      {
-        from: 'php/**/*',
-        to: './php/dist',
-      },
-      {
-        from: 'templates/**/*',
-        to: 'dist',
-      },
+      from: 'html/**/*',
+      to: './html/dist',
+    },
+    {
+      from: 'php/**/*',
+      to: './php/dist',
+    },
+    {
+      from: 'templates/**/*',
+      to: 'dist',
+    },
     ], {
       copyUnmodified: true,
     }),
