@@ -52,12 +52,23 @@ ErrorDocument 500 /assets/error-500.html
     RewriteRule .* index.php
 </IfModule>
 ### SILVERSTRIPE END ###
+# Fuso Orario
+SetEnv TZ Europe/Rome
+
+# URLS
+RewriteEngine On
 #SSL
 #RewriteCond %{HTTPS} off
 #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^/?$ index.php [L]
+#RewriteRule ^privacy/?$ index.php?pag=privacy [L]
+#Hot Linking
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http://(www.)?prova.com/.*$ [NC]
+RewriteRule .(gif|jpg|jpeg|png|svg)$ /test.jpg [R=302,L]
 
 # Content Security Policy
-Header set Content-Security-Policy-Report-Only "default-src 'none'; script-src 'self' code.jquery.com cdnjs.cloudflare.com www.googletagmanager.com tagmanager.google.com www.google-analytics.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' fonts.googleapis.com tagmanager.google.com cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' www.google-analytics.com stats.g.doubleclick.net ssl.gstatic.com data: 'unsafe-inline'; connect-src 'self' ws: localhost www.googletagmanager.com stats.g.doubleclick.net cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' fonts.googleapis.com; form-action 'self'; report-uri /csp_report.php;"
+Header set Content-Security-Policy-Report-Only "default-src 'none'; script-src 'self' code.jquery.com cdnjs.cloudflare.com www.googletagmanager.com tagmanager.google.com www.google-analytics.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' fonts.googleapis.com tagmanager.google.com cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' www.google-analytics.com stats.g.doubleclick.net ssl.gstatic.com data: 'unsafe-inline'; connect-src 'self' www.googletagmanager.com www.google-analytics.com stats.g.doubleclick.net cdnjs.cloudflare.com ws: 'unsafe-inline'; font-src 'self' fonts.googleapis.com; form-action 'self'; report-uri /csp_report.php;"
 
 # Compressione
 #FileETag MTime Size
@@ -90,3 +101,14 @@ Header set Content-Security-Policy-Report-Only "default-src 'none'; script-src '
 #ExpiresByType image/vnd.wap.wbmp "now plus 1 month"
 #ExpiresByType application/vnd.wap.wbxml "now plus 1 month"
 #ExpiresByType application/ico "now plus 1 month"
+
+#Restrizioni
+#Scripts
+AddHandler cgi-script .pl .py .jsp .asp .cgi
+Options -ExecCGI
+
+#Files
+<FilesMatch “.(htaccess|htpasswd|php|js|html|xml|css|txt)$”>
+Order Allow,Deny
+Deny from all
+</FilesMatch>
