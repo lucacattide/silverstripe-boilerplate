@@ -52,6 +52,8 @@ ErrorDocument 500 /assets/error-500.html
     RewriteRule .* index.php
 </IfModule>
 ### SILVERSTRIPE END ###
+# Autorizzazione
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 # Fuso Orario
 SetEnv TZ Europe/Rome
 
