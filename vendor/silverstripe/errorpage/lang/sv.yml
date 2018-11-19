@@ -18,6 +18,7 @@ sv:
     DEFAULTERRORPAGETITLE: 'Sidan hittades inte'
     DEFAULTSERVERERRORPAGECONTENT: '<p>Tyvärr, det var ett problem att hantera din förfrågan.</p>'
     DEFAULTSERVERERRORPAGETITLE: Serverfel
+    DESCRIPTION: 'Anpassat innehåll för olika fel (t. ex "Sidan hittades inte")'
     PLURALNAME: Felsidor
     PLURALS:
       one: 'En felsida'

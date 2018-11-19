@@ -1,0 +1,18 @@
+nl_NL:
+  SilverStripe\SiteConfig\SiteConfig:
+    EDITHEADER: 'Wie mag deze pagina bewerken?'
+    EDIT_PERMISSION: 'Website instellingen aanpassen'
+    EDIT_PERMISSION_HELP: 'Bevoegdheid om globale toegangsinstellingen/hoogste niveau pagina rechten te bewerken.'
+    PLURALNAME: 'Website instellingen'
+    SINGULARNAME: 'Website instellingen'
+    SITENAMEDEFAULT: 'Jouw Site Naam'
+    SITETAGLINE: 'Site Slagzin/Slogan'
+    SITETITLE: 'Site Titel'
+    TABACCESS: Toegang
+    TABMAIN: Hoofd
+    TAGLINEDEFAULT: 'jouw slagzin hier'
+    TOPLEVELCREATE: 'Wie kan pagina''s op het hoogste niveau van de site aanmaken?'
+    TOPLEVELCREATORGROUPS: 'Hoogste niveau auteurs'
+    VIEWHEADER: 'Wie kan pagina''s op de site bekijken?'
+  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
+    MENUTITLE: Instellingen

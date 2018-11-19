@@ -73,7 +73,6 @@ pl:
     SAVE: Zapisz
     VIEWERGROUPS: 'Kto może zobaczyć (grupy)'
   SilverStripe\AssetAdmin\Forms\FileFormFactory:
-    INSERT_FILE: 'Wstaw plik'
     INSERT_LINK: 'Link do pliku'
     LINKDESCR: 'Opis linku'
     LINKOPENNEWWIN: 'Otwórz w nowym oknie/zakładce'
@@ -92,8 +91,6 @@ pl:
     AddMedia: 'Dodaj media'
     Cancel: Anuluj
     ERROR_ABSOLUTE: 'Tylko bezwzględne adresy URL mogą być osadzone'
-    ERROR_HOSTNAME: 'Ta nazwa pliku (hosta) nie znajduje się na białej liście'
-    ERROR_SCHEME: 'Ten schemat plików nie znajduje się na białej liście'
     InsertMedia: 'Wstaw media'
     UrlDescription: 'Umieszczaj filmy, zdjęcia i inne materiały wideo z serwisu Youtube i Vimeo bezpośrednio z internetu.'
   SilverStripe\AssetAdmin\GraphQL\FileFilterInputTypeCreator:

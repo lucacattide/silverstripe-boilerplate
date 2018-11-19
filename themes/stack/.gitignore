@@ -1,5 +1,5 @@
 # Repository - Configurazione
 
-/themes/stack/node_modules/
-/themes/stack/.editorconfig
-/themes/stack/.vscode
+/node_modules/
+/.editorconfig
+/.vscode
