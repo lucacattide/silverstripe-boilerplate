@@ -1,6 +1,0 @@
-mappings:
-  AddToCampaignHandler: SilverStripe\CampaignAdmin\AddToCampaignHandler
-  AddToCampaignHandler_FormAction: SilverStripe\CampaignAdmin\AddToCampaignHandler_FormAction
-  CampaignAdmin: SilverStripe\CampaignAdmin\CampaignAdmin
-  CampaignAdminTest: SilverStripe\CampaignAdmin\Tests\CampaignAdminTest
-  CampaignAdminTest_InvalidChangeSet: SilverStripe\CampaignAdmin\Tests\CampaignAdminTest\InvalidChangeSet

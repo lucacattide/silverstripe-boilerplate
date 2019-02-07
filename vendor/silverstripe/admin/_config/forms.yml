@@ -1,6 +1,0 @@
----
-Name: adminforms
----
-SilverStripe\Forms\GridField\GridFieldPrintButton:
-  extensions:
-    - SilverStripe\Admin\Forms\GridFieldPrintButtonExtension

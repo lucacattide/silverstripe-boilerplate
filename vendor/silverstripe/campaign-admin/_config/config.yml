@@ -1,6 +1,0 @@
----
-Name: campaignadmin
----
-SilverStripe\Admin\LeftAndMain:
-  extensions:
-    - SilverStripe\CampaignAdmin\CampaignAdminExtension

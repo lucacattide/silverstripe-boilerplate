@@ -1,7 +1,8 @@
 User-agent: *
 #Sitemap: https://<dominio>/sitemap.xml
 Allow: /assets/
-Allow: /mysite/
+Allow: /app/
+Allow: /public/
 Allow: /themes/stack/css/
 Allow: /themes/stack/fonts/
 Allow: /themes/stack/html/

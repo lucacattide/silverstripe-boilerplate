@@ -3,6 +3,7 @@
 /config/
 /lib/
 /log/
+/public/assets/.htaccess
 /silverstripe-cache/
 /themes/simple/
 /themes/stack/js/**/*
@@ -22,9 +23,9 @@
 /Capfile
 /Gemfile
 node_modules/
+/vendor/
 .DS_Store
 ._*
-!.env
 !.gitignore
 !.htaccess
 .*
