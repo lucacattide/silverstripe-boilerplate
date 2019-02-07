@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/silverstripe/silverstripe-graphql.svg?branch=master)](https://travis-ci.org/silverstripe/silverstripe-graphql)
 [![codecov](https://codecov.io/gh/silverstripe/silverstripe-graphql/branch/master/graph/badge.svg)](https://codecov.io/gh/silverstripe/silverstripe-graphql)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-graphql/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-graphql/?branch=master)
+[![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 
 This modules serves SilverStripe data as
 [GraphQL](http://facebook.github.io/react/blog/2015/05/01/graphql-introduction.html)
@@ -65,9 +66,12 @@ composer require silverstripe/graphql
    - [HTTP basic authentication](#http-basic-authentication)
      - [In GraphiQL](#in-graphiql)
    - [Defining your own authenticators](#defining-your-own-authenticators)
+ - [CSRF tokens (required for mutations)](#csrf-tokens-required-for-mutations)
  - [Cross-Origin Resource Sharing (CORS)](#cross-origin-resource-sharing-cors)
    - [Sample Custom CORS Config](#sample-custom-cors-config)
  - [Schema introspection](#schema-introspection)
+ - [Setting up a new GraphQL endpoint](#setting-up-a-new-graphql-endpoint)
+ - [Strict HTTP Method Checking](#strict-http-method-checking)
  - [TODO](#todo)
 
 
@@ -76,11 +80,24 @@ composer require silverstripe/graphql
 
 ## Usage
 
-GraphQL is used through a single route which defaults to `/graphql`. You need
-to define *Types* and *Queries* to expose your data via this endpoint.
+GraphQL is used through a single route, typically `/graphql`. You need
+to define *Types* and *Queries* to expose your data via this endpoint. While this recommended
+route is left open for you to configure on your own, the modules contained in the [CMS recipe](https://github.com/silverstripe/recipe-cms),
+ (e.g. `asset-admin`, `campaign-admin`) run off a separate GraphQL server with its own endpoint
+ (`admin/graphql`) with its own permissions and schema.
 
-Currently, the default endpoint (`/graphql`) is protected against access unless the
-current user has CMS Access.
+These separate endpoints have their own identifiers. `default` refers to the GraphQL server
+in the user space (e.g. `/graphql`) while `admin` refers to the GraphQL server used by CMS modules
+(`admin/graphql`). You can also [set up a new schema](#setting-up-a-new-graphql-schema) if you wish.
+
+By default, this module does not route any GraphQL servers. To activate the default,
+public-facing GraphQL server that ships with the module, just add a rule to `Director`.
+
+```yaml
+SilverStripe\Control\Director:
+  rules:
+    'graphql': '%$SilverStripe\GraphQL\Controller.default'
+```
 
 ## Examples
 
@@ -88,6 +105,13 @@ Code examples can be found in the `examples/` folder (built out from the
 configuration docs below).
 
 ## Configuration
+
+### The manager
+
+The primary class used to define your schema is `SilverStripe\GraphQL\Manager`, which is a container
+for types and queries which get negotiated and transformed into a schema on a just-in-time
+basis for every request. All types, queries, mutations, interfaces, and fragments must be
+registered in a `Manager` instance.
 
 ### Define types
 
@@ -97,7 +121,7 @@ GraphQL uses this information to validate queries and allow GraphQL clients to
 introspect your API capabilities. The GraphQL type system is hierarchical, so
 the `fields()` definition declares object properties as scalar types within
 your complex type. Refer to the
-[graphql-php type definitions](https://github.com/webonyx/graphql-php#type-system)
+[graphql-php type definitions](http://webonyx.github.io/graphql-php/type-system/)
 for available types.
 
 ```php
@@ -135,10 +159,11 @@ Each type class needs to be registered with a unique name against the schema
 through YAML configuration:
 
 ```yml
-SilverStripe\GraphQL\Controller:
-  schema:
-    types:
-      member: 'MyProject\GraphQL\MemberTypeCreator'
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      types:  
+        member: 'MyProject\GraphQL\MemberTypeCreator'
 ```
 
 
@@ -207,10 +232,11 @@ class ReadMembersQueryCreator extends QueryCreator implements OperationResolver
 We'll register the query with a unique name through YAML configuration:
 
 ```yml
-SilverStripe\GraphQL\Controller:
-  schema:
-    queries:
-      readMembers: 'MyProject\GraphQL\ReadMembersQueryCreator'
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      queries:
+        readMembers: 'MyProject\GraphQL\ReadMembersQueryCreator'
 ```
 
 You can query data with the following URL:
@@ -334,10 +360,11 @@ class PaginatedReadMembersQueryCreator extends PaginatedQueryCreator
 You will need to add a new unique query alias to your configuration:
 
 ```yml
-SilverStripe\GraphQL\Controller:
-  schema:
-    queries:
-      paginatedReadMembers: 'MyProject\GraphQL\PaginatedReadMembersQueryCreator'
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      queries:
+        paginatedReadMembers: 'MyProject\GraphQL\PaginatedReadMembersQueryCreator'
 ```
 
 Using a `Connection` the GraphQL server will return the results wrapped under
@@ -543,10 +570,11 @@ class CreateMemberMutationCreator extends MutationCreator implements OperationRe
 We'll register this mutation through YAML configuration:
 
 ```yml
-SilverStripe\GraphQL\Controller:
-  schema:
-    mutations:
-      createMember: 'MyProject\GraphQL\CreateMemberMutationCreator'
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      mutations:
+        createMember: 'MyProject\GraphQL\CreateMemberMutationCreator'
 ```
 
 You can run a mutation with the following query:
@@ -616,12 +644,13 @@ class Post extends DataObject
 Many of the declarations you make through procedural code can be done via YAML. If you don't have any logic in your
 scaffolding, using YAML is a simple approach to adding scaffolding.
 
-We'll need to define a `scaffolding` node in the `SilverStripe\GraphQL\Controller.schema` setting.
+We'll need to define a `scaffolding` node in the `SilverStripe\GraphQL\Manager.schemas.mySchemaKey` setting.
 
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
       ## scaffolding will go here
 
 ```
@@ -654,10 +683,11 @@ class Post extends DataObject implements ScaffoldingProvider
 In order to register the scaffolding provider with the manager, we'll need to make an update to the config.
 
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding_providers:
-      - MyProject\Post
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding_providers:
+        - MyProject\Post
 ```
 
 ### Exposing a DataObject to GraphQL
@@ -668,15 +698,16 @@ must implement the `SilverStripe\GraphQL\OperationResolver`. (More on this below
 
 **Via YAML**:
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          fields: [ID, Title, Content]
-          operations:
-            read: true
-            create: true
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            fields: [ID, Title, Content]
+            operations:
+              read: true
+              create: true
 ```
 
 
@@ -784,18 +815,19 @@ use a map of `FieldName: 'Your description'` instead of an enumerated list of fi
 
 **Via YAML**:
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          fields:
-            ID: The unique identifier of the post
-            Title: The title of the post
-            Content: The main body of the post (HTML)
-          operations:
-            read: true
-            create: true
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            fields:
+              ID: The unique identifier of the post
+              Title: The title of the post
+              Content: The main body of the post (HTML)
+            operations:
+              read: true
+              create: true
 ```
 
 **...Or with code**:
@@ -839,13 +871,14 @@ If you have specific fields you want omitted from that list, you can use
 
 **Via YAML**:
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          fields: *
-          excludeFields: [SecretThing]
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            fields: *
+            excludeFields: [SecretThing]
 ```
 
 **... Or with code**:
@@ -866,18 +899,19 @@ Using YAML, simply use a map of options instead of `true`.
 
 **Via YAML**
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          fields: [ID, Title, Content]
-          operations:
-            read:
-              args:
-                Title: String
-              resolver: MyProject\ReadPostResolver
-            create: true
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            fields: [ID, Title, Content]
+            operations:
+              read:
+                args:
+                  Title: String
+                resolver: MyProject\ReadPostResolver
+              create: true
 ```
 
 **... Or with code**
@@ -890,7 +924,7 @@ $scaffolder
                 'Title' => 'String'
             ])
             ->setResolver(function($object, array $args, $context, ResolveInfo $info) {
-                if (!singleton(Post::class)->canView($context['currentMember'])) {
+                if (!singleton(Post::class)->canView($context['currentUser'])) {
                     throw new \Exception('Cannot view Post');
                 }
                 $list = Post::get();
@@ -935,22 +969,23 @@ you can use a more long-form syntax.
 
 **Via YAML**
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          fields: [ID, Title, Content]
-          operations:
-            read:
-              args:
-                Title: String!
-                MinimumCommentCount:
-                  type: Int
-                  default: 5
-                  description: 'Use this parameter to specify the minimum number of comments per post'
-              resolver: MyProject\ReadPostResolver
-            create: true
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            fields: [ID, Title, Content]
+            operations:
+              read:
+                args:
+                  Title: String!
+                  MinimumCommentCount:
+                    type: Int
+                    default: 5
+                    description: 'Use this parameter to specify the minimum number of comments per post'
+                resolver: MyProject\ReadPostResolver
+              create: true
 ```
 
 **... Or with code**
@@ -970,7 +1005,7 @@ $scaffolder
                 'MinimumCommentCount' => 'Use this parameter to specify the minimum number of comments per post'
             ])
             ->setResolver(function($object, array $args, $context, ResolveInfo $info) {
-                if (!singleton(Post::class)->canView($context['currentMember'])) {
+                if (!singleton(Post::class)->canView($context['currentUser'])) {
                     throw new \Exception('Cannot view Post');
                 }
                 $list = Post::get();
@@ -1031,24 +1066,25 @@ configurable.
 
 **Via YAML**
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          fields: [ID, Title, Content]
-          operations:
-            read:
-              args:
-                Title: String
-              resolver: MyProject\ReadPostResolver
-              sortableFields: [Title]
-            create: true
-        MyProject\Comment:
-          fields: [Comment, Author]
-          operations:
-            read:
-              paginate: false
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            fields: [ID, Title, Content]
+            operations:
+              read:
+                args:
+                  Title: String
+                resolver: MyProject\ReadPostResolver
+                sortableFields: [Title]
+              create: true
+          MyProject\Comment:
+            fields: [Comment, Author]
+            operations:
+              read:
+                paginate: false
 ```
 
 **... Or with code**
@@ -1061,7 +1097,7 @@ $scaffolder
                 'Title' => 'String'
             ])
             ->setResolver(function ($object, array $args, $context, ResolveInfo $info) {
-                if (!singleton(Post::class)->canView($context['currentMember'])) {
+                if (!singleton(Post::class)->canView($context['currentUser'])) {
                     throw new \Exception('Cannot view Post');
                 }
                 $list = Post::get();
@@ -1116,27 +1152,28 @@ and any custom getter that returns a `DataList`, we can set up a nested query.
 
 **Via YAML**:
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          fields: [ID, Title, Content, Author]
-          operations:
-            read:
-              args:
-                Title: String
-              resolver: MyProject\ReadPostResolver
-              sortableFields: [Title]
-            create: true
-          nestedQueries:
-            Comments: true
-            Files: true
-        MyProject\Comment:
-          fields: [Comment, Author]
-          operations:
-            read:
-              paginate: false
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            fields: [ID, Title, Content, Author]
+            operations:
+              read:
+                args:
+                  Title: String
+                resolver: MyProject\ReadPostResolver
+                sortableFields: [Title]
+              create: true
+            nestedQueries:
+              Comments: true
+              Files: true
+          MyProject\Comment:
+            fields: [Comment, Author]
+            operations:
+              read:
+                paginate: false
 
 ```
 
@@ -1150,7 +1187,7 @@ $scaffolder
                 'Title' => 'String'
             ])
             ->setResolver(function ($object, array $args, $context, ResolveInfo $info) {
-                if (!singleton(Post::class)->canView($context['currentMember'])) {
+                if (!singleton(Post::class)->canView($context['currentUser'])) {
                     throw new \Exception('Cannot view Post');
                 }
                 $list = Post::get();
@@ -1218,18 +1255,19 @@ Let's add some more fields.
 
 **Via YAML*:
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          ## ...
-        MyProject\Comment:
-          ## ...
-        SilverStripe\Security\Member
-          fields: [FirstName, Surname, Name, Email]
-        SilverStripe\Assets\File:
-          fields: [Filename, URL]
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            ## ...
+          MyProject\Comment:
+            ## ...
+          SilverStripe\Security\Member:
+            fields: [FirstName, Surname, Name, Email]
+          SilverStripe\Assets\File:
+            fields: [Filename, URL]
 ```
 
 **... Or with code**
@@ -1251,19 +1289,20 @@ Nested queries can be configured just like operations.
 
 **Via YAML*:
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          ## ...
-          nestedQueries:
-            Comments:
-              args:
-                OnlyToday: Boolean
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            ## ...
+            nestedQueries:
+              Comments:
+                args:
+                  OnlyToday: Boolean
                 resolver: MyProject\CommentResolver
+            ##...
           ##...
-        ##...
 ```
 
 **... Or with code**
@@ -1275,7 +1314,7 @@ $scaffolder
                 'OnlyToday' => 'Boolean'
             ])
             ->setResolver(function($object, array $args, $context, ResolveInfo $info) {
-                if (!singleton(Comment::class)->canView($context['currentMember'])) {
+                if (!singleton(Comment::class)->canView($context['currentUser'])) {
                     throw new \Exception('Cannot view Comment');
                 }
                 $comments = $obj->Comments();
@@ -1333,24 +1372,25 @@ in your schema, so long as they map to an existing type.
 
 **Via YAML**
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          ##...
-      mutations:
-        updatePostTitle:
-          type: MyProject\Post
-          args:
-            ID: ID!
-            NewTitle: String!
-          resolver: MyProject\UpdatePostResolver
-      queries:
-        latestPost:
-          type: MyProject\Post
-          paginate: false
-          resolver: MyProject\LatestPostResolver
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            ##...
+        mutations:
+          updatePostTitle:
+            type: MyProject\Post
+            args:
+              ID: ID!
+              NewTitle: String!
+            resolver: MyProject\UpdatePostResolver
+        queries:
+          latestPost:
+            type: MyProject\Post
+            paginate: false
+            resolver: MyProject\LatestPostResolver
 ```
 
 **... Or with code**:
@@ -1365,7 +1405,7 @@ $scaffolder
         ])
         ->setResolver(function ($object, array $args, $context, ResolveInfo $info) {
             $post = Post::get()->byID($args['ID']);
-            if ($post->canEdit($context['currentMember'])) {
+            if ($post->canEdit($context['currentUser'])) {
                 $post->Title = $args['NewTitle'];
                 $post->write();
             }
@@ -1376,7 +1416,7 @@ $scaffolder
     ->query('latestPost', Post::class)
         ->setUsePagination(false)
         ->setResolver(function ($object, array $args, $context, ResolveInfo $info) {
-            if (singleton(Post::class)->canView($context['currentMember'])) {
+            if (singleton(Post::class)->canView($context['currentUser'])) {
                 return Post::get()->sort('Date', 'DESC')->first();
             }
         })
@@ -1450,19 +1490,20 @@ the return type is a *union* of the base type and all exposed descendants. This 
 
 **Via YAML**:
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    scaffolding:
-      types:
-        MyProject\Post:
-          ##...
-        SilverStripe\CMS\Model\RedirectorPage:
-          fields: [ID, ExternalURL, Content]
-          operations:
-            read: true
-            create: true
-        Page:
-          fields: [MyCustomField]
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      scaffolding:
+        types:
+          MyProject\Post:
+            ##...
+          SilverStripe\CMS\Model\RedirectorPage:
+            fields: [ID, ExternalURL, Content]
+            operations:
+              read: true
+              create: true
+          Page:
+            fields: [MyCustomField]
 ```
 
 **... Or with code**:
@@ -1586,10 +1627,11 @@ a canonical name, e.g. `readMy_Really_Long_NameSpaced_BlogPosts`. To customise t
 class.
 
 ```yaml
-SilverStripe\GraphQL\Controller:
-  schema:
-    typeNames:
-      My\Really\Long\Namespaced\BlogPost: Blog
+SilverStripe\GraphQL\Manager:
+  schemas:
+    default:
+      typeNames:
+        My\Really\Long\Namespaced\BlogPost: Blog
 ```
 
 Note that `typeNames` is the mapping of dataobjects to the graphql types, whereas the `types`
@@ -1973,7 +2015,30 @@ SilverStripe\GraphQL\Auth\Handler:
     - class: SilverStripe\GraphQL\Auth\BasicAuthAuthenticator
       priority: 10
 ```
+## CSRF tokens (required for mutations)
 
+Even if your graphql endpoints are behind authentication, it is still possible for unauthorised
+users to access that endpoint through a [CSRF exploitation](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)). This involves
+forcing an already authenticated user to access an HTTP resource unknowingly (e.g. through a fake image), thereby hijacking the user's
+session.
+
+In the absence of a token-based authentication system, like OAuth, the best countermeasure to this
+is the use of a CSRF token for any requests that destroy or mutate data.
+
+By default, this module comes with a `CSRFMiddleware` implementation that forces all mutations to check 
+for the presence of a CSRF token in the request. That token must be applied to a header named` X-CSRF-TOKEN`.
+
+In SilverStripe, CSRF tokens are most commonly stored in the session as `SecurityID`, or accessed through
+the `SecurityToken` API, using `SecurityToken::inst()->getValue()`.
+
+Queries do not require CSRF tokens.
+
+```yaml
+  SilverStripe\GraphQL\Manager:
+    properties:
+      Middlewares:
+        CSRFMiddleware: false
+```
 ## Cross-Origin Resource Sharing (CORS)
 
 By default [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) is disabled in the GraphQL Server. This can be easily enabled via YAML:
@@ -2060,8 +2125,21 @@ Once you have enabled CORS you can then control four new headers in the HTTP Res
  ```yaml
  Max-Age: 600
  ```
+ 
+### Sample Custom CORS Config
 
-### Schema introspection
+```yaml
+## CORS Config
+SilverStripe\GraphQL\Controller:
+  cors:
+    Enabled: true
+    Allow-Origin: 'silverstripe.org'
+    Allow-Headers: 'Authorization, Content-Type'
+    Allow-Methods:  'GET, POST, OPTIONS'
+    Max-Age:  600  # 600 seconds = 10 minutes.
+``` 
+
+## Schema introspection
 Some GraphQL clients such as [Apollo](http://apollographql.com) require some level of introspection 
 into the schema. While introspection is [part of the GraphQL spec](http://graphql.org/learn/introspection/), 
 this module provides a limited API for fetching it via non-graphql endpoints. By default, the `graphql/`
@@ -2101,17 +2179,67 @@ use SilverStripe\GraphQL\Extensions\IntrospectionProvider;
 Controller::remove_extension(IntrospectionProvider::class);
 ```
 
-### Sample Custom CORS Config
+## Setting up a new GraphQL schema
+
+In addition to the default `/graphql` endpoint provided by this module by default,
+along with the `admin/graphql` endpoint provided by the CMS modules (if they're installed),
+you may want to set up another GraphQL server running on the same installation of SilverStripe.
+
+First, set up a new `Manager` implementation for your custom server.
+
+*app/_config/graphql.yml*
+```yaml
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\GraphQL\Manager.myApp:
+    class: SilverStripe\GraphQL\Manager
+    constructor:
+      schemaKey: mySchema
+```
+
+The `schemaKey` setting is a bit of meta-configuration used to tell the Manager where to 
+look in the `SilverStripe\GraphQL\Manager.schemas` config for the schema information.
+
+Now let's setup a new controller to handle the requests. It will use our custom Manager instance.
 
 ```yaml
-## CORS Config
-SilverStripe\GraphQL\Controller:
-  cors:
-    Enabled: true
-    Allow-Origin: 'silverstripe.org'
-    Allow-Headers: 'Authorization, Content-Type'
-    Allow-Methods:  'GET, POST, OPTIONS'
-    Max-Age:  600  # 600 seconds = 10 minutes.
+SilverStripe\Core\Injector\Injector:
+  # ...
+  SilverStripe\GraphQL\Controller.myApp:
+    class: SilverStripe\GraphQL\Controller
+    constructor:
+      manager: %$SilverStripe\GraphQL\Manager.myApp
+
+```
+
+Lastly, we'll need to route the controller.
+
+```yaml
+SilverStripe\Control\Director:
+  rules:
+    'my-graphql': '%$SilverStripe\GraphQL\Controller.myApp'
+```
+
+Now, configure your schema.
+
+```yaml
+SilverStripe\GraphQL\Manager:
+  schemas:
+    myApp:
+      # Your config will go here..
+```
+
+## Strict HTTP Method Checking
+
+According to GraphQL best practices, mutations should be done over `POST`, while queries have the option
+to use either `GET` or `POST`. By default, this module enforces the `POST` request method for all mutations.
+
+To disable that requirement, you can remove the `HTTPMethodMiddleware` from your `Manager` implementation.
+
+```yaml
+  SilverStripe\GraphQL\Manager:
+    properties:
+      Middlewares:
+        HTTPMethodMiddleware: false
 ```
 
 ## TODO

@@ -3,12 +3,9 @@
 namespace SilverStripe\Core;
 
 use InvalidArgumentException;
-use SilverStripe\Control\RequestHandler;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\Deprecation;
-use SilverStripe\ORM\DataExtension;
-use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ViewableData;
 
 /**
@@ -108,7 +105,7 @@ trait Extensible
     }
 
     /**
-     * @deprecated 4.0..5.0 Extensions and methods are now lazy-loaded
+     * @deprecated 4.0.0:5.0.0 Extensions and methods are now lazy-loaded
      */
     protected function constructExtensions()
     {
@@ -138,6 +135,10 @@ trait Extensible
                 $this->addCallbackMethod($method, function ($inst, $args) use ($method, $extensionClass) {
                     /** @var Extensible $inst */
                     $extension = $inst->getExtensionInstance($extensionClass);
+                    if (!$extension) {
+                        return null;
+                    }
+
                     try {
                         $extension->setOwner($inst);
                         return call_user_func_array([$extension, $method], $args);
@@ -212,6 +213,14 @@ trait Extensible
 
         Injector::inst()->unregisterNamedObject($class);
         return true;
+    }
+
+    /**
+     * Clears all cached extra_methods cache data
+     */
+    public static function flush_extra_methods_cache()
+    {
+        self::$extra_methods = [];
     }
 
 

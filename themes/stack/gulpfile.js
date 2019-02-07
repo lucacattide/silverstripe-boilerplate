@@ -17,7 +17,12 @@ gulp.task('html', () => gulp.src('./html/dist/**/*.html')
     .pipe(gulp.dest('./html/dist'))
 );
 // PHP
-gulp.task('php', () => gulp.src('./php/dist/**/*.php')
+gulp.task('php', () => gulp.src('./php/dist/**/*.php', {
+  read: false,
+})
+    .pipe(phpMinify({
+      silent: true,
+    }))
     .pipe(htmlmin({
       removeComments: true,
       collapseWhitespace: true,
@@ -26,7 +31,12 @@ gulp.task('php', () => gulp.src('./php/dist/**/*.php')
     .pipe(gulp.dest('./php/dist'))
 );
 // Index
-gulp.task('index', () => gulp.src(['./*.html', './*.php'])
+gulp.task('index', () => gulp.src(['./*.html', './*.php'], {
+  read: false,
+})
+    .pipe(phpMinify({
+      silent: true,
+    }))
     .pipe(htmlmin({
       removeComments: true,
       collapseWhitespace: true,

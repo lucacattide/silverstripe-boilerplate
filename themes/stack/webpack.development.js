@@ -5,7 +5,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer')
-.WebpackBundleSizeAnalyzerPlugin;
+  .WebpackBundleSizeAnalyzerPlugin;
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 // Esportazione modulo
@@ -13,17 +13,16 @@ module.exports = {
   mode: 'development',
   module: {
     rules: [{
-        // Immagini
-        test: /\.(png|svg|jpg|gif)$/,
-        include: path.resolve(__dirname, './img'),
-        use: [{
-          loader: 'file-loader',
-          options: {
-            useRelativePath: true,
-          },
-        }],
-      },
-    ],
+      // Immagini
+      test: /\.(png|svg|jpg|gif)$/,
+      include: path.resolve(__dirname, './img'),
+      use: [{
+        loader: 'file-loader',
+        options: {
+          useRelativePath: true,
+        },
+      }],
+    }],
   },
   plugins: [
     // Definizione Ambiente
@@ -45,7 +44,6 @@ module.exports = {
           '**/*.js',
           '**/*.html',
           '**/*.php',
-          '**/*.ss',
         ],
         fn: function(event, file) {
           if (event === 'change') {
@@ -58,8 +56,4 @@ module.exports = {
       }],
     }),
   ],
-  externals: {
-    // jQuery
-    jquery: 'jQuery',
-  },
 };

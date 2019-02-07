@@ -644,7 +644,7 @@ class Versioned extends DataExtension implements TemplateGlobalProvider, Resetta
             WHERE "{$baseTable}_Versions"."LastEdited" <= ?
                 {$stageCondition}
             GROUP BY "{$baseTable}_Versions"."RecordID"
-            )                                
+            )
 SQL
             ,
             <<<SQL
@@ -682,7 +682,7 @@ SQL
             FROM "{$baseTable}_Versions"
             WHERE "{$baseTable}_Versions"."WasDeleted" = 0
             GROUP BY "{$baseTable}_Versions"."RecordID"
-            )                                
+            )
 SQL
             ,
             <<<SQL
@@ -1444,6 +1444,39 @@ SQL
     }
 
     /**
+     * Check if the user can restore this record to draft
+     *
+     * @param Member $member
+     * @return bool
+     */
+    public function canRestoreToDraft($member = null)
+    {
+        $owner = $this->owner;
+
+        // Skip if invoked by extendedCan()
+        if (func_num_args() > 4) {
+            return null;
+        }
+
+        if (!$member) {
+            $member = Security::getCurrentUser();
+        }
+
+        if (Permission::checkMember($member, "ADMIN")) {
+            return true;
+        }
+
+        // Standard mechanism for accepting permission changes from extensions
+        $extended = $owner->extendedCan('canRestoreToDraft', $member);
+        if ($extended !== null) {
+            return $extended;
+        }
+
+        // Default to canEdit
+        return $owner->canEdit($member);
+    }
+
+    /**
      * Extend permissions to include additional security for objects that are not published to live.
      *
      * @param Member $member
@@ -1876,6 +1909,19 @@ SQL
     }
 
     /**
+     * NOTE: Versions() will be replaced with this method in SilverStripe 5.0
+     *
+     * @internal
+     * @return DataList
+     */
+    public function VersionsList()
+    {
+        $id = $this->owner->ID ?: $this->owner->OldID;
+        $class = get_class($this->owner);
+        return Versioned::get_all_versions($class, $id);
+    }
+
+    /**
      * Return a list of all the versions available.
      *
      * @param  string $filter
@@ -2250,8 +2296,14 @@ SQL
         }
 
         // cached call
-        if ($cache && isset(self::$cache_versionnumber[$baseClass][$stage][$id])) {
-            return self::$cache_versionnumber[$baseClass][$stage][$id] ?: null;
+        if ($cache) {
+            if (isset(self::$cache_versionnumber[$baseClass][$stage][$id])) {
+                return self::$cache_versionnumber[$baseClass][$stage][$id] ?: null;
+            } elseif (isset(self::$cache_versionnumber[$baseClass][$stage]['_complete'])) {
+                // if the cache was marked as "complete" then we know the record is missing, just return null
+                // this is used for treeview optimisation to avoid unnecessary re-requests for draft pages
+                return null;
+            }
         }
 
         // get version as performance-optimized SQL query (gets called for each record in the sitetree)
@@ -2278,6 +2330,21 @@ SQL
     }
 
     /**
+     * Hook into {@link Hierarchy::prepopulateTreeDataCache}.
+     *
+     * @param DataList|array $recordList The list of records to prepopulate caches for. Null for all records.
+     * @param array $options A map of hints about what should be cached. "numChildrenMethod" and
+     *                       "childrenMethod" are allowed keys.
+     */
+    public function onPrepopulateTreeDataCache($recordList = null, array $options = [])
+    {
+        $idList = is_array($recordList) ? $recordList :
+            ($recordList instanceof DataList ? $recordList->column('ID') : null);
+        self::prepopulate_versionnumber_cache($this->owner->baseClass(), Versioned::DRAFT, $idList);
+        self::prepopulate_versionnumber_cache($this->owner->baseClass(), Versioned::LIVE, $idList);
+    }
+
+    /**
      * Pre-populate the cache for Versioned::get_versionnumber_by_stage() for
      * a list of record IDs, for more efficient database querying.  If $idList
      * is null, then every record will be pre-cached.
@@ -2292,6 +2359,13 @@ SQL
         if (!Config::inst()->get(static::class, 'prepopulate_versionnumber_cache')) {
             return;
         }
+
+        /** @var Versioned|DataObject $singleton */
+        $singleton = DataObject::singleton($class);
+        $baseClass = $singleton->baseClass();
+        $baseTable = $singleton->baseTable();
+        $stageTable = $singleton->stageTable($baseTable, $stage);
+
         $filter = "";
         $parameters = [];
         if ($idList) {
@@ -2306,13 +2380,12 @@ SQL
             }
             $filter = 'WHERE "ID" IN (' . DB::placeholders($idList) . ')';
             $parameters = $idList;
-        }
 
-        /** @var Versioned|DataObject $singleton */
-        $singleton = DataObject::singleton($class);
-        $baseClass = $singleton->baseClass();
-        $baseTable = $singleton->baseTable();
-        $stageTable = $singleton->stageTable($baseTable, $stage);
+        // If we are caching IDs for _all_ records then we can mark this cache as "complete" and in the case of a cache-miss
+        // no subsequent call is necessary
+        } else {
+            self::$cache_versionnumber[$baseClass][$stage] = [ '_complete' => true ];
+        }
 
         $versions = DB::prepared_query("SELECT \"ID\", \"Version\" FROM \"$stageTable\" $filter", $parameters)->map();
 
@@ -2794,5 +2867,36 @@ SQL
         } finally {
             static::set_reading_mode($origReadingMode);
         }
+    }
+
+    /**
+     * Get author of this record.
+     * Note: Only works on records selected via Versions()
+     *
+     * @return Member|null
+     */
+    public function Author()
+    {
+        if (!$this->owner->AuthorID) {
+            return null;
+        }
+        /** @var Member $member */
+        $member = DataObject::get_by_id(Member::class, $this->owner->AuthorID);
+        return $member;
+    }
+    /**
+     * Get publisher of this record.
+     * Note: Only works on records selected via Versions()
+     *
+     * @return Member|null
+     */
+    public function Publisher()
+    {
+        if (!$this->owner->PublisherID) {
+            return null;
+        }
+        /** @var Member $member */
+        $member = DataObject::get_by_id(Member::class, $this->owner->PublisherID);
+        return $member;
     }
 }

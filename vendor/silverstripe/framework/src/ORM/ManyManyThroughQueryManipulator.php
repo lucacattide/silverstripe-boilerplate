@@ -3,6 +3,7 @@
 
 namespace SilverStripe\ORM;
 
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\Deprecation;
@@ -53,7 +54,7 @@ class ManyManyThroughQueryManipulator implements DataQueryManipulator
 
     /**
      * Build query manipulator for a given join table. Additional parameters (foreign key, etc)
-     * will be infered at evaluation from query parameters set via the ManyManyThroughList
+     * will be inferred at evaluation from query parameters set via the ManyManyThroughList
      *
      * @param string $joinClass Class name of the joined dataobject record
      * @param string $localKey The key in the join table that maps to the dataClass' PK.

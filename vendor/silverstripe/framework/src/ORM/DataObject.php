@@ -139,7 +139,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
     private static $default_classname = null;
 
     /**
-     * @deprecated 4.0..5.0
+     * @deprecated 4.0.0:5.0.0
      * @var bool
      */
     public $destroyed = false;
@@ -210,11 +210,14 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
     protected $brokenOnWrite = false;
 
     /**
-     * @config
-     * @var boolean Should dataobjects be validated before they are written?
+     * Should dataobjects be validated before they are written?
+     *
      * Caution: Validation can contain safeguards against invalid/malicious data,
      * and check permission levels (e.g. on {@link Group}). Therefore it is recommended
      * to only disable validation for very specific use cases.
+     *
+     * @config
+     * @var boolean
      */
     private static $validation_enabled = true;
 
@@ -495,7 +498,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
     /**
      * Copies the many_many and belongs_many_many relations from one object to another instance of the name of object.
      *
-     * @deprecated 4.1...5.0 Use duplicateRelations() instead
+     * @deprecated 4.1.0:5.0.0 Use duplicateRelations() instead
      * @param DataObject $sourceObject the source object to duplicate from
      * @param DataObject $destinationObject the destination object to populate with the duplicated relations
      * @param bool|string $filter
@@ -2048,6 +2051,12 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
             $query->setQueryParam('Component.ExtraFields', $extraFields);
         });
 
+        // If we have a default sort set for our "join" then we should overwrite any default already set.
+        $joinSort = Config::inst()->get($manyManyComponent['join'], 'default_sort');
+        if (!empty($joinSort)) {
+            $result = $result->sort($joinSort);
+        }
+
         $this->extend('updateManyManyComponents', $result);
 
         // If this is called on a singleton, then we return an 'orphaned relation' that can have the
@@ -3109,9 +3118,9 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 
         if ($cache) {
             return self::$_cache_get_one[$callerClass][$cacheKey] ?: null;
-        } else {
-            return $item;
         }
+
+        return $item;
     }
 
     /**
@@ -3497,7 +3506,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
      *
      * @param boolean $includerelations a boolean value to indicate if the labels returned include relation fields
      *
-     * @return array|string Array of all element labels if no argument given, otherwise the label of the field
+     * @return array Array of all element labels
      */
     public function fieldLabels($includerelations = true)
     {
@@ -3736,7 +3745,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 
     /**
      * Inserts standard column-values when a DataObject
-     * is instanciated. Does not insert default records {@see $default_records}.
+     * is instantiated. Does not insert default records {@see $default_records}.
      * This is a map from fieldname to default value.
      *
      *  - If you would like to change a default value in a sub-class, just specify it.
@@ -3878,6 +3887,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
      *  );
      * </code>
      * @config
+     * @var array
      */
     private static $searchable_fields = null;
 
@@ -3885,6 +3895,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
      * User defined labels for searchable_fields, used to override
      * default display in the search form.
      * @config
+     * @var array
      */
     private static $field_labels = [];
 
@@ -3892,6 +3903,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
      * Provides a default list of fields to be used by a 'summary'
      * view of this object.
      * @config
+     * @var array
      */
     private static $summary_fields = [];
 

@@ -23,6 +23,8 @@ return array(
     'SilverStripe\\View\\' => array($vendorDir . '/silverstripe/framework/src/View'),
     'SilverStripe\\Versioned\\Tests\\' => array($vendorDir . '/silverstripe/versioned/tests/php'),
     'SilverStripe\\Versioned\\' => array($vendorDir . '/silverstripe/versioned/src'),
+    'SilverStripe\\VersionedAdmin\\Tests\\' => array($vendorDir . '/silverstripe/versioned-admin/tests'),
+    'SilverStripe\\VersionedAdmin\\' => array($vendorDir . '/silverstripe/versioned-admin/src'),
     'SilverStripe\\VendorPlugin\\Tests\\' => array($vendorDir . '/silverstripe/vendor-plugin/tests'),
     'SilverStripe\\VendorPlugin\\' => array($vendorDir . '/silverstripe/vendor-plugin/src'),
     'SilverStripe\\SiteConfig\\Tests\\' => array($vendorDir . '/silverstripe/siteconfig/tests/php'),

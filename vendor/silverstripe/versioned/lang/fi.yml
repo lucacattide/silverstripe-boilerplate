@@ -42,6 +42,7 @@ fi:
     BUTTONUNPUBLISHDESC: 'Poista tämä tietue julkaistulta sivustolta'
     DRAFT: Vedos
     MODIFIED: Muokattu
+    PUBLISHITEMSWARNING: 'Vedokset/muokatut kohteet julkaistaan'
     Published: 'Julkaistiin {name} {link}'
     Unpublished: 'Poistettiin julkaisusta {name} {title}'
   SilverStripe\Versioned\VersionedGridFieldState\VersionedGridFieldState:

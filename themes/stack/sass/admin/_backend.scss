@@ -1,7 +1,7 @@
 // Inizio SCSS
 // Admin
 html {
-  
+
   @extend %font;
 
   .cms {
@@ -24,13 +24,13 @@ html {
     &#{-panel-content} {
       box-shadow: inset -1px 0 0 $blu-1;
     }
-  
+
     &#{-login-status__logout-link},
     &#{-login-status__profile-link},
     &#{-sitename},
     .grid-field__icon-action,
     tbody tr {
-      
+
       &:hover {
         background-color: $blu-1 !important;
       }
@@ -102,8 +102,7 @@ html {
     .grid-field__sort,
     .non-sortable,
     .ss-loading-screen,
-    #tab-ActionMenus_MoreOptions
-    td,
+    #tab-ActionMenus_MoreOptions td,
     td a,
     td .griedfield-button-delete {
       color: $blu;
@@ -117,7 +116,7 @@ html {
     .page-view-link,
     .switch-states .switch a.active,
     #tab-ActionMenus_MoreOptions {
-      
+
       &:hover {
         background-color: $grigio;
       }
@@ -173,8 +172,7 @@ html {
     input[type="date"],
     input[type="datetime-local"],
     input[type="text"],
-    select
-    textarea {
+    select textarea {
       border: 1px solid $blu;
       margin: 1em 0;
 
@@ -196,7 +194,7 @@ html {
     .cms-content-header,
     .cms-content-header-info,
     .toolbar--north {
-      
+
       &,
       a,
       button,
@@ -205,7 +203,7 @@ html {
       }
 
       button {
-       
+
         &.active,
         &:hover {
           background-color: $bianco;
@@ -228,7 +226,7 @@ html {
     }
 
     &#{-menu} {
-      
+
       &#{__list} {
 
         li {
@@ -252,7 +250,7 @@ html {
           a {
             background-color: $bianco;
             color: $blu;
-            
+
             &:hover {
               background-color: $grigio;
               color: $blu !important;
@@ -265,19 +263,19 @@ html {
         }
       }
     }
-  
+
     &#{-sitename} {
-  
+
       &#{__link} {
-    
-        background-image: url('/themes/corporate/img/logo-admin.png') !important;
+        display: block !important;
+        background-image: url('/resources/themes/stack/img/') !important;
         margin: .7em 16px 0;
         min-width: 20px !important;
       }
     }
 
     .chosen-results {
-      
+
       li.result-selected {
 
         &,
@@ -296,7 +294,7 @@ html {
       a {
         color: $grigio !important;
       }
-    
+
       a.active {
         border-bottom: 1px solid $bianco !important;
       }
@@ -319,9 +317,9 @@ html {
     }
 
     .switch-states {
-      
+
       .switch {
-        
+
         a {
 
           &.active {
@@ -335,13 +333,13 @@ html {
 
       td {
         border-bottom: 1px solid $grigio !important;
-        border-top: 1px solid $grigio !important;  
+        border-top: 1px solid $grigio !important;
       }
 
       tr {
 
         &.active {
-          border-top: 1px solid $blu-1;  
+          border-top: 1px solid $blu-1;
         }
       }
     }
@@ -354,10 +352,20 @@ html {
     }
   }
 
-  .ss-loading-screen::before {
-    background-image: url('/themes/corporate/img/logo.svg');
-    height: auto;
-    width: 223px;
+  .ss-loading-screen {
+
+    &::before {
+      background-image: url('/resources/themes/stack/img/');
+      content: '';
+      height: auto;
+      padding: 0 0 14em;
+      width: 223px;
+    }
+
+    &#{__logo} {
+      display: none;
+    }
   }
 }
+
 // Fine SCSS

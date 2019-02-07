@@ -6,8 +6,6 @@
  * @todo Add radial gradient to default delete button state
  * @todo Create SASS mixin-function to simply swap the from/to, to to/from colours in grsdient mixins?
  */
-@import "mixins";
-
 
 // Extends basic table styles, requires .table .table-hover
 .grid-field__row--drillable {
@@ -79,6 +77,7 @@
       }
 
       button.action_gridfield_relationadd {
+        display: flex;
         margin-left: 0; // Webkit needs this
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
@@ -98,6 +97,11 @@
       margin-bottom: 0;
       margin-right: 0;
       display: inline-block;
+    }
+
+    .action-menu__toggle {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
     }
   }
 
@@ -184,10 +188,6 @@
           }
         }
 
-        button.gridfield-button-delete span.btn-icon-decline {
-          left: 2px;
-        }
-
         a.view-link {
           display: inline-block;
         }
@@ -209,6 +209,10 @@
 
           span {
             @include hide-text-overflow; // Add ellipses to overflowing text
+          }
+
+          span.non-sortable {
+            line-height: 14px; // Specify a line-height for misaligned non-sortable GridField table headers
           }
 
           &.col-listChildrenLink {
@@ -366,6 +370,38 @@
   }
 }
 
+.grid-field__search-holder {
+  // Match gridfield full-width style
+  margin-left: -$panel-padding-x;
+  margin-right: -$panel-padding-x;
+
+  // If the gridfield is at the top of the form fill top gap
+  .grid-field:first-child & {
+    margin-top: -$panel-padding-y;
+  }
+
+  // Make the tab menu bottom border and the top of the search bar one line
+  .tab-pane .grid-field:first-child & .search-box__content-field {
+    margin-top: -1px;
+    border-top-style: solid;
+  }
+
+  // Remove extra spacing when the search field is visible
+  .show-filter & + .ss-gridfield-buttonrow {
+    margin-top: 0;
+  }
+
+  // Remove double border in model admin context
+  .ModelAdmin & .search-box__content-field {
+    border-left-style: none;
+  }
+
+  // Class for entwine hide/show
+  &--hidden {
+    display: none;
+  }
+}
+
 .grid-field {
   // If gridfield isn't first thing on page
   .field + & {
@@ -381,5 +417,10 @@
     .grid-print-button:first-child {
       margin-left: -5px;
     }
+  }
+
+  .ss-gridfield-item.loading {
+    position: relative;
+    padding: $grid-gutter-width;
   }
 }
