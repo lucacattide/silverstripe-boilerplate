@@ -5,4 +5,4 @@ Name: mytheme
 SilverStripe\View\SSViewer:
   themes:
     - stack
-    - $default
+    - '$default'

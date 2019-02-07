@@ -1,6 +1,0 @@
-el:
-  SilverStripe\ErrorPage\ErrorPage:
-    CODE: 'Κωδικός σφάλματος'
-    CODE_404: '404 - Δεν βρέθηκε'
-    DEFAULTERRORPAGETITLE: 'Η σελίδα δεν βρέθηκε'
-    DEFAULTSERVERERRORPAGETITLE: 'Σφάλμα διακομιστή'

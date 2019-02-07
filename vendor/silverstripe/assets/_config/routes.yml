@@ -1,6 +1,0 @@
----
-Name: assetsroutes
----
-SilverStripe\Control\Director:
-  rules:
-    'assets': SilverStripe\Assets\Storage\ProtectedFileController

@@ -1,7 +1,0 @@
-hu:
-  SilverStripe\AssetAdmin\Controller\AssetAdmin:
-    MENUTITLE: Állományok
-    BACKLINKCOUNT: 'Felhasználva:'
-    PAGES: oldal(ak)
-    SIZE: Méret
-    TYPE: Típus

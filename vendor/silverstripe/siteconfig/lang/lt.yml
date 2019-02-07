@@ -1,6 +1,0 @@
-lt:
-  SilverStripe\SiteConfig\SiteConfig:
-    PLURALNAME: 'Svetainės nustatymai'
-    SINGULARNAME: 'Svetainės nustatymai'
-  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
-    MENUTITLE: Nustatymai

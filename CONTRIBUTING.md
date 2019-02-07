@@ -2,74 +2,85 @@
 
 ## Repository
 
+### Master
+
 - .gitignore
-    * __/config/:__ files di configurazione deploy manager (_Capistrano_);
-    * __/js/*:__ files di sviluppo Front-End (_JavaScript_);
-    * __/lib/:__ registri operativi deploy manager (_Capistrano_);
-	* __/log/:__ files di configurazione deploy manager (_Capistrano_);
-    * __/node_modules/:__ pacchetti Full-Stack Front-End (_NodeJS_);
-    * __/resources/:__ risorse Framework (_SilverStripe_);
-    * __/sass/:__ files di sviluppo Front-End (_SASS_);
-    * __/silverstripe-cache/:__ files di cache Framework (_SilverStripe_);
-    * __/vendor/:__ librerie di terze parti Framework (_SilverStripe_);
-    * __/\_.browserslistrc/:__ file di configurazione _NodeJS_;
-    * __/.:__ files di sistema e di configurazione vari;
-    * __/!.htaccess:__ file di configurazione Host;
-    * __/.json:__ files di configurazione vari Full-Stack Front-End;
-    * __/Capfile:__ file di configurazione deploy manager (_Capistrano_);
-    * __/composer.lock:__ file di configurazione dependency manager (_Composer_);
-    * __/config.rb:__ file di configurazione Framework Front-End (_Compass_);
-    * __/Gemfile:__ file di configurazione _Ruby_;
-    * __/Gemfile.lock:__ file di configurazione _Ruby_;
-	* __/gulpfile.js:__ file di configurazione task-runner Front-End (_Gulp_);
-    * __/postcss.config.js:__ file di configurazione plugin bundler moduli (_Webpack_);
-	* __/webpack.*.js__: file di configurazione bundler moduli (_Webpack_);
-	
+  - **/config/:** files di configurazione deploy manager (_Capistrano_);
+  - **/lib/:** registri operativi deploy manager (_Capistrano_); \* **/log/:** files di configurazione deploy manager (_Capistrano_);
+  - **/silverstripe-cache/:** files di cache Framework (_SilverStripe_);
+  - **/themes/simple/:** tema demo Framework (_SilverStripe_);
+  - **/themes/stack/js/\*\*/\*:** files di sviluppo Front-End (_JavaScript_);
+  - **!/themes/stack/js/dist/:** files di sviluppo Front-End (Produzione - _JavaScript_);
+  - **!/themes/stack/js/lib/:** librerie Front-End (_JavaScript_);
+  - **/themes/stack/node_modules/:** pacchetti Full-stack Front-End (_NodeJS_);
+  - **/themes/stack/sass/:** files di sviluppo Front-End (_SASS_);
+  - **/themes/stack/\_.browserlistrc/:** file di configurazione _NodeJS_;
+  - **!/themes/stack/.gitignore/:** file di configurazione Repository (_Git_);
+  - **/themes/stack/.\*:** files di sistema e configurazione vari;
+  - **/themes/stack/config.rb:** file di configurazione Framework Front-End (_Compass_);
+  - **/themes/stack/gulpfile.js:** file di configurazione task-runner Front-End (_Gulp_);
+  - **/themes/stack/\*.json:** files di configurazione vari Full-stack Front-End;
+  - **/themes/stack/package-lock.json:** file di configurazione dependency manager Front-End (_NodeJS_);
+  - **/themes/stack/postcss.config.js:** file di configurazione plugin bundler moduli (_Webpack_);
+  - **/themes/stack/webpack.\*.js**: file di configurazione bundler moduli (_Webpack_);
+  - **/vendor/:** librerie di terze parti Framework (_SilverStripe_);
+  - **/Capfile:** file di configurazione deploy manager (_Capistrano_);
+  - **/Gemfile:** file di configurazione _Ruby_;
+  - **/.DS_Store:** file di indicizzazione _Mac OS X_;
+  - **/.\_\*:** files di sistema e configurazione vari;
+  - **/!.env:** file di configurazione ambiente Framework Back-End (_SilverStripe_);
+  - **/!.gitignore:** file di configurazione Repository (_GIT_);
+  - **/!.htaccess:** file di configurazione Host;
+  - **/.\*:** files di sistema e configurazione vari;
 
 Es.
 
 ```
 	# Generale
 	/config/
-    /js/*
-    !/js/*/
     /lib/
     /log/
-    /node_modules/
-    /resources/
-    /sass/
     /silverstripe-cache/
-    /vendor/
-    /_.browserlistrc
-    /.*
-    !/.htaccess
-    /*.json
+    /themes/simple/
+    /themes/stack/js/**/*
+    !/themes/stack/js/dist/
+    !/themes/stack/js/lib/
+    /themes/stack/node_modules/
+    /themes/stack/sass/
+    /themes/stack/_.browserlistrc
+    !/themes/stack/.gitignore
+    /themes/stack/.*
+    /themes/stack/config.rb
+    /themes/stack/gulpfile.js
+    /themes/stack/*.json
+    /themes/stack/package-lock.json
+    /themes/stack/postcss.config.js
+    /themes/stack/webpack.*.js
     /Capfile
-    /composer.lock
-    /config.rb
     /Gemfile
-    /Gemfile.lock
-    /gulpfile.js
-    /postcss.config.js
-    /webpack.*.js
+    .DS_Store
+    ._*
+    !.env
+    !.gitignore
+    !.htaccess
+    .*
 ```
-
 
 ## Branches
 
-- __develop__ (Sviluppo);
-- __staging__ (Beta);
-- __master__ (Produzione - _Default_);
-
+- **develop** (Sviluppo);
+- **staging** (Beta);
+- **master** (Produzione - _Default_);
 
 ## Commits
 
-- __< Etichetta/Titolo >__
-    * -__< Descrizione >__;
+- **< Etichetta/Titolo >**
 
-- __Etichetta__: label identificativa oggetto dell'implementazione (se prevista);
-- __Titolo__: breve nomenclatura distintiva dell'oggetto dell'implementazione
-- __Descrizione__: breve nota illustrativa dell'implementazione effettuata;
+  - -**< Descrizione >**;
+
+- **Etichetta**: label identificativa oggetto dell'implementazione (se prevista);
+- **Titolo**: breve nomenclatura distintiva dell'oggetto dell'implementazione
+- **Descrizione**: breve nota illustrativa dell'implementazione effettuata;
 
 Es.
 
@@ -79,12 +90,10 @@ Es.
 	- Aggiornate icone;
 ```
 
-
 ## Merges
 
-- __staging__: merging da __develop__;
-- __master__: merging da __staging__;
-
+- **staging**: merging da **develop**;
+- **master**: merging da **staging**;
 
 ## Deployment
 
@@ -92,25 +101,23 @@ Es.
 
 #### CLI
 
-- __Beta__
-    * ```cap staging deploy```
-- __Produzione__
-	* ```cap production deploy```
-
+- **Beta**
+  - `cap staging deploy`
+- **Produzione** \* `cap production deploy`
 
 ## Host
 
 ### Directories essenziali ^!
 
-- __.ssh__
-- __releases__
-- __repo__
-- __shared__
-- __current__
+- **.ssh**
+- **releases**
+- **repo**
+- **shared**
+- **current**
 
 ### Files essenziali^!
 
-- __.ftpquota__
-- __revisions.log__
+- **.ftpquota**
+- **revisions.log**
 
-^! __Non eliminare__
+^! **Non eliminare**

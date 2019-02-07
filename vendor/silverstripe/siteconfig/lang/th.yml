@@ -1,4 +1,0 @@
-th:
-  SilverStripe\SiteConfig\SiteConfig:
-    PLURALNAME: กำหนดค่าเว็บไซต์
-    SINGULARNAME: กำหนดค่าเว็บไซต์

@@ -1,8 +1,0 @@
-gl_ES:
-  SilverStripe\AssetAdmin\Controller\AssetAdmin:
-    MENUTITLE: Ficheiros
-    SIZE: 'Tamaño ficheiro'
-    TYPE: 'Tipo ficheiro'
-  SilverStripe\AssetAdmin\Forms\UploadField:
-    EDITINFO: 'Editar este ficheiro'
-    FIELDNOTSET: 'Ficheiro de información non atopado'

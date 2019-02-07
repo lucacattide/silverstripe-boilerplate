@@ -1,6 +1,0 @@
-bg:
-  SilverStripe\SiteConfig\SiteConfig:
-    PLURALNAME: 'Конфигурации на сайта'
-    SINGULARNAME: 'Конфигурация на сайта'
-  SilverStripe\SiteConfig\SiteConfigLeftAndMain:
-    MENUTITLE: Настройки

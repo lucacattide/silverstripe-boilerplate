@@ -1,3 +1,0 @@
-el:
-  SilverStripe\Admin\CMSBatchAction:
-    PUBLISH_PAGES: Δημοσίευση
