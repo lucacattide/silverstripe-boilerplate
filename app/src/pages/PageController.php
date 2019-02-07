@@ -1,6 +1,7 @@
 <?php
 // Definizione Namespace
 use SilverStripe\CMS\Controllers\ContentController;
+use SilverStripe\Control\HTTP;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\Director;
