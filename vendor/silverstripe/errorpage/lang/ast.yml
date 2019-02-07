@@ -1,4 +1,0 @@
-ast:
-  SilverStripe\ErrorPage\ErrorPage:
-    DEFAULTERRORPAGETITLE: 'Páxina non alcontrada'
-    DEFAULTSERVERERRORPAGETITLE: 'Error del servidor'

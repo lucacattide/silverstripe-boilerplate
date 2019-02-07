@@ -1,7 +1,0 @@
-bg:
-  SilverStripe\Reports\ReportAdmin:
-    MENUTITLE: Отчети
-    ReportTitle: Заглавие
-  SilverStripe\Reports\SideReport:
-    OtherGroupTitle: Други
-    REPEMPTY: 'Отчетът за {title} е празен.'

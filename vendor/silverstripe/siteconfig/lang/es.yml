@@ -1,4 +1,0 @@
-es:
-  SilverStripe\SiteConfig\SiteConfig:
-    PLURALNAME: 'Configuraciones del sitio'
-    SINGULARNAME: 'Configuración del sitio'

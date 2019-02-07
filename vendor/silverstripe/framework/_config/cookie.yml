@@ -1,5 +1,0 @@
----
-Name: cookie
----
-SilverStripe\Core\Injector\Injector:
-  SilverStripe\Control\Cookie_Backend: SilverStripe\Control\CookieJar
