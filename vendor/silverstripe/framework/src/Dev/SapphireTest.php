@@ -416,7 +416,7 @@ class SapphireTest extends PHPUnit_Framework_TestCase implements TestOnly
     }
 
     /**
-     * @deprecated 4.0..5.0
+     * @deprecated 4.0.0:5.0.0
      * @return FixtureFactory|false
      */
     public function getFixtureFactory()
@@ -429,7 +429,7 @@ class SapphireTest extends PHPUnit_Framework_TestCase implements TestOnly
 
     /**
      * Sets a new fixture factory
-     * @deprecated 4.0..5.0
+     * @deprecated 4.0.0:5.0.0
      * @param FixtureFactory $factory
      * @return $this
      */
@@ -504,7 +504,7 @@ class SapphireTest extends PHPUnit_Framework_TestCase implements TestOnly
      * Load a YAML fixture file into the database.
      * Once loaded, you can use idFromFixture() and objFromFixture() to get items from the fixture.
      * Doesn't clear existing fixtures.
-     * @deprecated 4.0...5.0
+     * @deprecated 4.0.0:5.0.0
      *
      * @param string $fixtureFile The location of the .yml fixture file, relative to the site base dir
      */
@@ -983,6 +983,7 @@ class SapphireTest extends PHPUnit_Framework_TestCase implements TestOnly
         // Test application
         $kernel = new TestKernel(BASE_PATH);
         $app = new HTTPApplication($kernel);
+        $flush = array_key_exists('flush', $request->getVars());
 
         // Custom application
         $app->execute($request, function (HTTPRequest $request) {
@@ -998,7 +999,7 @@ class SapphireTest extends PHPUnit_Framework_TestCase implements TestOnly
             $controller->setRequest($request);
             $controller->pushCurrent();
             $controller->doInit();
-        }, true);
+        }, $flush);
 
         // Register state
         static::$state = SapphireTestState::singleton();

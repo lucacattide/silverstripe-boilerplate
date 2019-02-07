@@ -11,6 +11,8 @@ use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\Queries\SQLUpdate;
+use SilverStripe\ORM\SS_List;
+use SilverStripe\ORM\Tests\MySQLDatabaseTest\Data;
 
 /**
  * Provides owns / owned_by and recursive publishing API for all objects.
@@ -138,6 +140,28 @@ class RecursivePublishable extends DataExtension
     }
 
     /**
+     * Returns true if the record has any owned relationships that exist
+     * @return bool
+     */
+    public function hasOwned()
+    {
+        if (!$this->owner->isInDB()) {
+            return false;
+        }
+
+        $ownedRelationships = $this->owner->config()->get('owns') ?: [];
+        foreach ($ownedRelationships as $relationship) {
+            /* @var DataObject|SS_List $result */
+            $result = $this->owner->{$relationship}();
+            if ($result->exists()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Find objects which own this object.
      * Note that objects will only be searched in the same stage as the given record.
      *
@@ -175,18 +199,20 @@ class RecursivePublishable extends DataExtension
         $owner = $this->owner;
         $owners = $owner->findRelatedObjects('owned_by', false);
 
-        // Second pass: Find owners via reverse lookup list
-        foreach ($lookup as $ownedClass => $classLookups) {
-            // Skip owners of other objects
-            if (!is_a($this->owner, $ownedClass)) {
-                continue;
-            }
-            foreach ($classLookups as $classLookup) {
-                // Merge new owners into this object's owners
-                $ownerClass = $classLookup['class'];
-                $ownerRelation = $classLookup['relation'];
-                $result = $this->owner->inferReciprocalComponent($ownerClass, $ownerRelation);
-                $owner->mergeRelatedObjects($owners, $result);
+        // Second pass: Find owners via reverse lookup list if possible
+        if ($owner->isInDB()) {
+            foreach ($lookup as $ownedClass => $classLookups) {
+                // Skip owners of other objects
+                if (!is_a($owner, $ownedClass)) {
+                    continue;
+                }
+                foreach ($classLookups as $classLookup) {
+                    // Merge new owners into this object's owners
+                    $ownerClass = $classLookup['class'];
+                    $ownerRelation = $classLookup['relation'];
+                    $result = $owner->inferReciprocalComponent($ownerClass, $ownerRelation);
+                    $owner->mergeRelatedObjects($owners, $result);
+                }
             }
         }
 

@@ -48,26 +48,30 @@
     }
   },
   "devDependencies": {
-    "@silverstripe/eslint-config": "^0.0.4",
-    "@silverstripe/webpack-config": "^0.7.0",
+    "@silverstripe/eslint-config": "0.0.5",
+    "@silverstripe/webpack-config": "^0.14.0",
     "babel-jest": "^19.0.0",
-    "jest-cli": "^19.0.2"
+    "expose-loader": "^0.7.5",
+    "jest-cli": "^19.0.2",
+    "sass-loader": "^7.0.3"
   },
   "dependencies": {
     "@storybook/addon-actions": "^3.2.16",
     "@storybook/react": "^3.2.16",
     "apollo-link-batch-http": "^1.2.1",
     "babel-polyfill": "6.7.4",
-    "bootstrap": "4.0.0",
+    "bootstrap": "4.1.2",
     "classnames": "^2.2.5",
     "deep-freeze-strict": "^1.1.1",
     "dropzone": "https://registry.npmjs.org/dropzone/-/dropzone-4.3.0.tgz",
+    "extract-text-webpack-plugin": "^3.0.2",
     "graphql": "^0.13.2",
     "graphql-fragments": "^0.1.0",
     "graphql-tag": "^2.8.0",
     "griddle-react": "^0.7.0",
     "jquery": "^3.1.1",
     "modernizr": "^3.5.0",
+    "prop-types": "^15.6.2",
     "qs": "^6.2.1",
     "react": "15.3.1",
     "react-addons-css-transition-group": "15.3.1",
@@ -84,7 +88,8 @@
     "redux": "^3.3.1",
     "redux-form": "^6.0.2",
     "redux-logger": "^2.4.0",
-    "redux-thunk": "^1.0.3"
+    "redux-thunk": "^1.0.3",
+    "webpack-sources": "^1.1.0"
   },
   "babel": {
     "presets": [

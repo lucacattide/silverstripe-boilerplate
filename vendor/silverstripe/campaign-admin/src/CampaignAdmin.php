@@ -428,8 +428,10 @@ class CampaignAdmin extends LeftAndMain implements PermissionProvider
     public function readCampaign(HTTPRequest $request)
     {
         $response = new HTTPResponse();
+        $accepts = $request->getAcceptMimetypes();
 
-        if ($request->getHeader('Accept') == 'text/json') {
+        //accept 'text/json' for legacy reasons
+        if (in_array('application/json', $accepts) || in_array('text/json', $accepts)) {
             $response->addHeader('Content-Type', 'application/json');
             if (!$request->param('Name')) {
                 return (new HTTPResponse(null, 400));

@@ -47,7 +47,7 @@ after "deploy:symlink:release", "deploy:symlink:release_public_html"
 namespace :deploy do
 	# Linking/DB Dumping/Permessi
 	namespace :symlink do
-	  desc "Symlink release to current - assets and project permissions changing"
+	  desc "Symlink release to current - assets / DB dumping and project permissions changing"
 
 	  task :release_public_html do
 			on release_roles :all do
@@ -60,6 +60,12 @@ namespace :deploy do
 
 				# Ridefinisci il symlink
 				execute :rm, "-rf", public_html_path, "&&", :ln, "-s", current_path, public_html_path
+				# Crea symlink degli assets
+				execute :rm, "-rf", "#{public_html_path}/public/assets", "&&", :ln, "-s", "#{capistrano_path}/shared/assets #{public_html_path}/public"
+				# Crea symlink delle risorse
+				execute :rm, "-rf", "#{public_html_path}/public/resources", "&&", :ln, "-s", "#{capistrano_path}/shared/resources #{public_html_path}/public"
+				# Crea symlink delle dipendenze
+				execute :rm, "-rf", "#{public_html_path}/vendor", "&&", :ln, "-s", "#{capistrano_path}/shared/vendor #{public_html_path}"
 
 				within current_path do
 					# Controllo Path
@@ -70,11 +76,6 @@ namespace :deploy do
 						execute :mkdir, "-p", dump_path, "&&", :mysqldump, "-u", db_user, "-p#{db_password}", db, ">", dump_path + "/.sql"
 					end
 
-					# Copia i sorgenti ottimizzati nelle path di destinazione e rimuove le cartelle native
-					execute :cp, "-rf", "#{public_html_path}/dist/*.php", public_html_path
-					execute :cp, "-rf", "#{public_html_path}/php/dist/php/*.php", "#{public_html_path}/php"
-					execute :rm, "-rf", "#{public_html_path}/dist"
-					execute :rm, "-rf", "#{public_html_path}/php/dist"
 					# Modifica permessi
 					execute :find, ". -type d -exec chmod 755 '{}' ';'"
 					execute :find, ". -type f -exec chmod 644 '{}' ';'"

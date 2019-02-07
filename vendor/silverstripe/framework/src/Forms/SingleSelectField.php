@@ -124,15 +124,17 @@ abstract class SingleSelectField extends SelectField
     {
         // Check if valid value is given
         $selected = $this->Value();
+        $validValues = $this->getValidValues();
+
         if (strlen($selected)) {
             // Use selection rules to check which are valid
-            foreach ($this->getValidValues() as $formValue) {
+            foreach ($validValues as $formValue) {
                 if ($this->isSelectedValue($formValue, $selected)) {
                     return true;
                 }
             }
         } else {
-            if ($this->getHasEmptyDefault()) {
+            if ($this->getHasEmptyDefault() || !$validValues || in_array('', $validValues)) {
                 // Check empty value
                 return true;
             }
@@ -158,6 +160,19 @@ abstract class SingleSelectField extends SelectField
         if ($field instanceof SingleSelectField && $this->getHasEmptyDefault()) {
             $field->setEmptyString($this->getEmptyString());
         }
+        return $field;
+    }
+
+    /**
+     * @return SingleLookupField
+     */
+    public function performReadonlyTransformation()
+    {
+        /** @var SingleLookupField $field */
+        $field = $this->castedCopy(SingleLookupField::class);
+        $field->setSource($this->getSource());
+        $field->setReadonly(true);
+
         return $field;
     }
 }

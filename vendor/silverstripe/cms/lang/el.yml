@@ -49,6 +49,7 @@ el:
     DEFAULTCONTACTTITLE: Επικοινωνία
     DEFAULTHOMETITLE: Αρχική
     DependtPageColumnLinkType: 'Τύπος συνδέσμου'
+    DependtPageColumnURL: 'Διεύθυνση URL'
     EDITHEADER: 'Ποιος μπορεί να επεξεργαστεί αυτή τη σελίδα;'
     EDITORGROUPS: 'Ομάδες Συντακτών'
     Editors: 'Ομάδες Συντακτών'

@@ -1,6 +1,7 @@
 # SilverStripe ErrorPage Module
 
 [![Build Status](https://api.travis-ci.org/silverstripe/silverstripe-errorpage.svg?branch=master)](https://travis-ci.org/silverstripe/silverstripe-errorpage)
+[![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 [![Latest Stable Version](https://poser.pugx.org/silverstripe/errorpage/version.svg)](http://www.silverstripe.org/stable-download/)
 [![Latest Unstable Version](https://poser.pugx.org/silverstripe/errorpage/v/unstable.svg)](https://packagist.org/packages/silverstripe/errorpage)
 [![Total Downloads](https://poser.pugx.org/silverstripe/errorpage/downloads.svg)](https://packagist.org/packages/silverstripe/errorpage)

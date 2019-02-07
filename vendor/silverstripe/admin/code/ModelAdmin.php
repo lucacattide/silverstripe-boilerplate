@@ -6,7 +6,9 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Convert;
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\BulkLoader;
+use SilverStripe\Dev\Deprecation;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DatetimeField;
 use SilverStripe\Forms\FieldList;
@@ -19,6 +21,7 @@ use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use SilverStripe\Forms\GridField\GridFieldImportButton;
+use SilverStripe\Forms\GridField\GridFieldPaginator;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
 use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\LiteralField;
@@ -26,20 +29,16 @@ use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\ArrayLib;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\ORM\Search\SearchContext;
 use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Security\Security;
 use SilverStripe\View\ArrayData;
 
 /**
- * Generates a three-pane UI for editing model classes, with an
- * automatically generated search panel, tabular results and edit forms.
+ * Generates a three-pane UI for editing model classes, tabular results and edit forms.
  *
  * Relies on data such as {@link DataObject::$db} and {@link DataObject::getCMSFields()}
  * to scaffold interfaces "out of the box", while at the same time providing
  * flexibility to customize the default output.
- *
- * @uses SearchContext
  */
 abstract class ModelAdmin extends LeftAndMain
 {
@@ -85,7 +84,7 @@ abstract class ModelAdmin extends LeftAndMain
 
     private static $allowed_actions = array(
         'ImportForm',
-        'SearchForm',
+        'SearchForm'
     );
 
     private static $url_handlers = array(
@@ -105,7 +104,7 @@ abstract class ModelAdmin extends LeftAndMain
     public $showImportForm = true;
 
     /**
-     * Change this variable if you don't want the search form to appear.
+     * Change this variable if you don't want the gridfield search to appear.
      * This variable can be a boolean or an array.
      * If array, you can list className you want the form to appear on. i.e. array('myClassOne','myClassTwo')
      */
@@ -190,9 +189,30 @@ abstract class ModelAdmin extends LeftAndMain
             $list,
             $fieldConfig = GridFieldConfig_RecordEditor::create($this->config()->get('page_length'))
                 ->addComponent($exportButton)
-                ->removeComponentsByType(GridFieldFilterHeader::class)
                 ->addComponents(new GridFieldPrintButton('buttons-before-left'))
         );
+
+        // Remove default and add our own filter header with extension points
+        // to retain API until deprecation in 5.0
+        $listField->getConfig()->removeComponentsByType(GridFieldFilterHeader::class);
+        $listField->getConfig()->addComponent(new GridFieldFilterHeader(
+            false,
+            function ($context) {
+                 $this->extend('updateSearchContext', $context);
+            },
+            function ($form) {
+                $this->extend('updateSearchForm', $form);
+            }
+        ));
+        // GridFieldPaginator has to be added after filter header for it to function correctly
+        $listField->getConfig()->removeComponentsByType(GridFieldPaginator::class);
+        $listField->getConfig()->addComponent(Injector::inst()->get(GridFieldPaginator::class));
+
+        if (!$this->showSearchForm ||
+            (is_array($this->showSearchForm) && !in_array($this->modelClass, $this->showSearchForm))
+        ) {
+            $listField->getConfig()->removeComponentsByType(GridFieldFilterHeader::class);
+        }
 
         // Validation
         if (singleton($this->modelClass)->hasMethod('getCMSValidator')) {
@@ -239,21 +259,21 @@ abstract class ModelAdmin extends LeftAndMain
     }
 
     /**
+     * @deprecated 5.0
      * @return \SilverStripe\ORM\Search\SearchContext
      */
     public function getSearchContext()
     {
-        $context = DataObject::singleton($this->modelClass)->getDefaultSearchContext();
+        Deprecation::notice('5.0', 'Will be removed in favor of GridFieldFilterHeader in 5.0');
 
-        // Namespace fields, for easier detection if a search is present
-        foreach ($context->getFields() as $field) {
-            $field->setName(sprintf('q[%s]', $field->getName()));
-        }
-        foreach ($context->getFilters() as $filter) {
-            $filter->setFullName(sprintf('q[%s]', $filter->getFullName()));
-        }
+        $gridField = $this->getEditForm()->fields()
+            ->fieldByName($this->sanitiseClassName($this->modelClass));
 
-        $this->extend('updateSearchContext', $context);
+        $filterHeader = $gridField->getConfig()
+            ->getComponentByType(GridFieldFilterHeader::class);
+
+        $context = $filterHeader
+            ->getSearchContext($gridField);
 
         return $context;
     }
@@ -261,52 +281,45 @@ abstract class ModelAdmin extends LeftAndMain
     /**
      * Gets a list of fields that have been searched
      *
-     * @return SilverStripe\ORM\ArrayList
+     * @deprecated 5.0
+     * @return ArrayList
      */
     public function SearchSummary()
     {
+        Deprecation::notice('5.0', 'Will be removed in favor of GridFieldFilterHeader in 5.0');
+
         $context = $this->getSearchContext();
-        $params = $this->getRequest()->requestVar('q') ?: [];
-        $context->setSearchParams($params);
 
         return $context->getSummary();
     }
 
     /**
-     * @return \SilverStripe\Forms\Form|bool
+     * Returns the search form
+     *
+     * @deprecated 5.0
+     * @return Form|bool
      */
     public function SearchForm()
     {
-        if (!$this->showSearchForm ||
-            (is_array($this->showSearchForm) && !in_array($this->modelClass, $this->showSearchForm))
+        Deprecation::notice('5.0', 'Will be removed in favor of GridFieldFilterHeader  in 5.0');
+
+        if (!$this->showSearchForm
+            || (is_array($this->showSearchForm) && !in_array($this->modelClass, $this->showSearchForm))
         ) {
             return false;
         }
-        $context = $this->getSearchContext();
-        /** @skipUpgrade */
-        $form = new Form(
-            $this,
-            "SearchForm",
-            $context->getSearchFields(),
-            new FieldList(
-                FormAction::create('search', _t(__CLASS__ . '.APPLY_FILTER', 'Apply Filter'))
-                    ->setUseButtonTag(true)->addExtraClass('btn-primary'),
-                FormAction::create('clearsearch', _t(__CLASS__ . '.RESET', 'Reset'))
-                    ->setAttribute('type', 'reset')
-                    ->setUseButtonTag(true)->addExtraClass('btn-secondary')
-            ),
-            new RequiredFields()
-        );
-        $form->setFormMethod('get');
-        $form->setFormAction($this->Link($this->sanitiseClassName($this->modelClass)));
-        $form->addExtraClass('cms-search-form');
-        $form->disableSecurityToken();
-        $form->loadDataFrom($this->getRequest()->getVars());
 
-        $this->extend('updateSearchForm', $form);
+        $gridField = $this->getEditForm()->fields()
+        ->fieldByName($this->sanitiseClassName($this->modelClass));
+
+        $filterHeader = $gridField->getConfig()
+            ->getComponentByType(GridFieldFilterHeader::class);
+
+        $form = $filterHeader->getSearchForm($gridField);
 
         return $form;
     }
+
 
     /**
      * You can override how ModelAdmin returns DataObjects by either overloading this method, or defining an extension
@@ -323,28 +336,11 @@ abstract class ModelAdmin extends LeftAndMain
      * }
      * </code>
      *
-     * If you want to use the built-in search form that ModelAdmin provides, you should also make amends to the DataList
-     * returned by this method, rather than creating a new DataList.
-     *
      * @return \SilverStripe\ORM\DataList
      */
     public function getList()
     {
-        $context = $this->getSearchContext();
-        $params = $this->getRequest()->requestVar('q');
-
-        if (is_array($params)) {
-            $params = ArrayLib::array_map_recursive('trim', $params);
-
-            // Parse all DateFields to handle user input non ISO 8601 dates
-            foreach ($context->getFields() as $field) {
-                if ($field instanceof DatetimeField && !empty($params[$field->getName()])) {
-                    $params[$field->getName()] = date('Y-m-d', strtotime($params[$field->getName()]));
-                }
-            }
-        }
-
-        $list = $context->getResults($params);
+        $list = DataObject::singleton($this->modelClass)->get();
 
         $this->extend('updateList', $list);
 

@@ -40,7 +40,7 @@ class PhpArrayAdapter implements AdapterInterface, PruneableInterface, Resettabl
     {
         $this->file = $file;
         $this->pool = $fallbackPool;
-        $this->zendDetectUnicode = ini_get('zend.detect_unicode');
+        $this->zendDetectUnicode = filter_var(ini_get('zend.detect_unicode'), FILTER_VALIDATE_BOOLEAN);
         $this->createCacheItem = \Closure::bind(
             function ($key, $value, $isHit) {
                 $item = new CacheItem();
@@ -68,7 +68,7 @@ class PhpArrayAdapter implements AdapterInterface, PruneableInterface, Resettabl
     public static function create($file, CacheItemPoolInterface $fallbackPool)
     {
         // Shared memory is available in PHP 7.0+ with OPCache enabled and in HHVM
-        if ((\PHP_VERSION_ID >= 70000 && ini_get('opcache.enable')) || \defined('HHVM_VERSION')) {
+        if ((\PHP_VERSION_ID >= 70000 && filter_var(ini_get('opcache.enable'), FILTER_VALIDATE_BOOLEAN)) || \defined('HHVM_VERSION')) {
             if (!$fallbackPool instanceof AdapterInterface) {
                 $fallbackPool = new ProxyAdapter($fallbackPool);
             }
@@ -120,7 +120,7 @@ class PhpArrayAdapter implements AdapterInterface, PruneableInterface, Resettabl
     /**
      * {@inheritdoc}
      */
-    public function getItems(array $keys = array())
+    public function getItems(array $keys = [])
     {
         foreach ($keys as $key) {
             if (!\is_string($key)) {
@@ -170,7 +170,7 @@ class PhpArrayAdapter implements AdapterInterface, PruneableInterface, Resettabl
     public function deleteItems(array $keys)
     {
         $deleted = true;
-        $fallbackKeys = array();
+        $fallbackKeys = [];
 
         foreach ($keys as $key) {
             if (!\is_string($key)) {
@@ -232,7 +232,7 @@ class PhpArrayAdapter implements AdapterInterface, PruneableInterface, Resettabl
     private function generateItems(array $keys)
     {
         $f = $this->createCacheItem;
-        $fallbackKeys = array();
+        $fallbackKeys = [];
 
         foreach ($keys as $key) {
             if (isset($this->values[$key])) {
@@ -272,10 +272,10 @@ class PhpArrayAdapter implements AdapterInterface, PruneableInterface, Resettabl
     {
         $e = new \ReflectionException("Class $class does not exist");
         $trace = $e->getTrace();
-        $autoloadFrame = array(
+        $autoloadFrame = [
             'function' => 'spl_autoload_call',
-            'args' => array($class),
-        );
+            'args' => [$class],
+        ];
         $i = 1 + array_search($autoloadFrame, $trace, true);
 
         if (isset($trace[$i]['function']) && !isset($trace[$i]['class'])) {

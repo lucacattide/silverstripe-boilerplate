@@ -1,5 +1,7 @@
 ## SilverStripe CMS Recipe
 
+[![Build Status](https://travis-ci.org/silverstripe/recipe-cms.svg?branch=4)](https://travis-ci.org/silverstripe/recipe-cms)
+
 Base page and asset content-editing recipe for a SilverStripe ([http://silverstripe.org](http://silverstripe.org))
 installation. This includes the modules:
 
@@ -14,6 +16,7 @@ Provided by [silverstripe/recipe-cms]:
  * [admin](http://github.com/silverstripe/silverstripe-admin)
  * [asset-admin](http://github.com/silverstripe/silverstripe-asset-admin)
  * [campaign-admin](http://github.com/silverstripe/silverstripe-campaign-admin)
+ * [versioned-admin](http://github.com/silverstripe/silverstripe-versioned-admin)
  * [cms](http://github.com/silverstripe/silverstripe-cms)
  * [errorpage](http://github.com/silverstripe/silverstripe-errorpage)
  * [reports](http://github.com/silverstripe/silverstripe-reports)

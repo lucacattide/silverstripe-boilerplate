@@ -59,7 +59,7 @@ class Filesystem
             }
 
             // Stream context created to allow files overwrite when using FTP stream wrapper - disabled by default
-            if (false === $target = @fopen($targetFile, 'w', null, stream_context_create(array('ftp' => array('overwrite' => true))))) {
+            if (false === $target = @fopen($targetFile, 'w', null, stream_context_create(['ftp' => ['overwrite' => true]]))) {
                 throw new IOException(sprintf('Failed to copy "%s" to "%s" because target file could not be opened for writing.', $originFile, $targetFile), 0, null, $originFile);
             }
 
@@ -165,7 +165,7 @@ class Filesystem
         if ($files instanceof \Traversable) {
             $files = iterator_to_array($files, false);
         } elseif (!\is_array($files)) {
-            $files = array($files);
+            $files = [$files];
         }
         $files = array_reverse($files);
         foreach ($files as $file) {
@@ -282,7 +282,7 @@ class Filesystem
         if (true !== @rename($origin, $target)) {
             if (is_dir($origin)) {
                 // See https://bugs.php.net/bug.php?id=54097 & http://php.net/manual/en/function.rename.php#113943
-                $this->mirror($origin, $target, null, array('override' => $overwrite, 'delete' => $overwrite));
+                $this->mirror($origin, $target, null, ['override' => $overwrite, 'delete' => $overwrite]);
                 $this->remove($origin);
 
                 return;
@@ -476,7 +476,7 @@ class Filesystem
         $endPathArr = explode('/', trim($endPath, '/'));
 
         $normalizePathArray = function ($pathSegments) {
-            $result = array();
+            $result = [];
 
             foreach ($pathSegments as $segment) {
                 if ('..' === $segment) {
@@ -535,7 +535,7 @@ class Filesystem
      *
      * @throws IOException When file type is unknown
      */
-    public function mirror($originDir, $targetDir, \Traversable $iterator = null, $options = array())
+    public function mirror($originDir, $targetDir, \Traversable $iterator = null, $options = [])
     {
         $targetDir = rtrim($targetDir, '/\\');
         $originDir = rtrim($originDir, '/\\');
@@ -569,6 +569,10 @@ class Filesystem
         }
 
         foreach ($iterator as $file) {
+            if (false === strpos($file->getPath(), $originDir)) {
+                throw new IOException(sprintf('Unable to mirror "%s" directory. If the origin directory is relative, try using "realpath" before calling the mirror method.', $originDir), 0, null, $originDir);
+            }
+
             $target = $targetDir.substr($file->getPathname(), $originDirLen);
 
             if ($copyOnWindows) {
@@ -723,17 +727,17 @@ class Filesystem
 
     private function toIterable($files): iterable
     {
-        return \is_array($files) || $files instanceof \Traversable ? $files : array($files);
+        return \is_array($files) || $files instanceof \Traversable ? $files : [$files];
     }
 
     /**
-     * Gets a 2-tuple of scheme (may be null) and hierarchical part of a filename (e.g. file:///tmp -> array(file, tmp)).
+     * Gets a 2-tuple of scheme (may be null) and hierarchical part of a filename (e.g. file:///tmp -> [file, tmp]).
      */
     private function getSchemeAndHierarchy(string $filename): array
     {
         $components = explode('://', $filename, 2);
 
-        return 2 === \count($components) ? array($components[0], $components[1]) : array(null, $components[0]);
+        return 2 === \count($components) ? [$components[0], $components[1]] : [null, $components[0]];
     }
 
     private static function box($func)
@@ -741,7 +745,7 @@ class Filesystem
         self::$lastError = null;
         \set_error_handler(__CLASS__.'::handleError');
         try {
-            $result = \call_user_func_array($func, \array_slice(\func_get_args(), 1));
+            $result = $func(...\array_slice(\func_get_args(), 1));
             \restore_error_handler();
 
             return $result;

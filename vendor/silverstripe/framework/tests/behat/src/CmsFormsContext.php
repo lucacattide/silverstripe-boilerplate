@@ -75,6 +75,10 @@ class CmsFormsContext implements Context
             $inputField->getAttribute('id'),
             addcslashes($value, "'")
         ));
+        $this->getSession()->evaluateScript(sprintf(
+            "jQuery('#%s').entwine('ss').getEditor().save()",
+            $inputField->getAttribute('id')
+        ));
     }
 
     /**
@@ -239,7 +243,14 @@ JS;
         $session = $this->getSession();
         $element = $session->getPage()->find('xpath', $xpath);
         if (null === $element) {
-            throw new \InvalidArgumentException(sprintf('Could not find element with xpath %s', $xpath));
+            // If it can't find the exact name, find one that starts with the phrase
+            // Helpful for "Insert link" which has a conditional label for keyboard shortcut
+            $xpath = "//*[starts-with(@aria-label, '" . $button . "')]";
+            $element = $session->getPage()->find('xpath', $xpath);
+
+            if (null === $element) {
+                throw new \InvalidArgumentException(sprintf('Could not find element with xpath %s', $xpath));
+            };
         }
 
         $element->click();
@@ -303,9 +314,36 @@ JS;
     {
         $locator = $this->fixStepArgument($locator);
         $page = $this->getSession()->getPage();
+        
+        // Searching by name is usually good...
         $element = $page->find('css', 'textarea.htmleditor[name=\'' . $locator . '\']');
+        
+        if ($element === null) {
+            $element = $this->findInputByLabelContent($locator);
+        }
+        
         assertNotNull($element, sprintf('HTML field "%s" not found', $locator));
         return $element;
+    }
+
+    protected function findInputByLabelContent($locator)
+    {
+        $page = $this->getSession()->getPage();
+        $label = $page->findAll('xpath', sprintf('//label[contains(text(), \'%s\')]', $locator));
+
+        if (empty($label)) {
+            return null;
+        }
+
+        assertCount(1, $label, sprintf(
+            'Found more than one element containing the phrase "%s".',
+            $locator
+        ));
+
+        $label = array_shift($label);
+
+        $fieldId = $label->getAttribute('for');
+        return $page->find('css', '#' . $fieldId);
     }
 
     /**

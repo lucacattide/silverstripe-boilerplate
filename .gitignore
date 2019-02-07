@@ -4,5 +4,8 @@
 /silverstripe-cache/
 /themes/simple/
 /themes/stack/node_modules/
+/vendor/
 /.editorconfig
+/.env
 /.vscode
+/public/assets/.htaccess

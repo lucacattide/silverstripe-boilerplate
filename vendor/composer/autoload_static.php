@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa
+class ComposerStaticInit8e3f44ec2151127c0014ff5781f44408
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -13,8 +13,9 @@ class ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '795b01cf23ed94cdbfa9afcee6217952' => __DIR__ . '/..' . '/silverstripe/framework/src/includes/constants.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'c594688b3441835d5575f3085da4a242' => __DIR__ . '/..' . '/webonyx/graphql-php/src/deprecated.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     );
 
@@ -44,6 +45,8 @@ class ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa
             'SilverStripe\\View\\' => 18,
             'SilverStripe\\Versioned\\Tests\\' => 29,
             'SilverStripe\\Versioned\\' => 23,
+            'SilverStripe\\VersionedAdmin\\Tests\\' => 34,
+            'SilverStripe\\VersionedAdmin\\' => 28,
             'SilverStripe\\VendorPlugin\\Tests\\' => 32,
             'SilverStripe\\VendorPlugin\\' => 26,
             'SilverStripe\\SiteConfig\\Tests\\' => 30,
@@ -201,6 +204,14 @@ class ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa
         'SilverStripe\\Versioned\\' => 
         array (
             0 => __DIR__ . '/..' . '/silverstripe/versioned/src',
+        ),
+        'SilverStripe\\VersionedAdmin\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/versioned-admin/tests',
+        ),
+        'SilverStripe\\VersionedAdmin\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/silverstripe/versioned-admin/src',
         ),
         'SilverStripe\\VendorPlugin\\Tests\\' => 
         array (
@@ -925,10 +936,10 @@ class ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitec24e7aab799cb1c7054cd1abdd877aa::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8e3f44ec2151127c0014ff5781f44408::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8e3f44ec2151127c0014ff5781f44408::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit8e3f44ec2151127c0014ff5781f44408::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit8e3f44ec2151127c0014ff5781f44408::$classMap;
 
         }, null, ClassLoader::class);
     }
