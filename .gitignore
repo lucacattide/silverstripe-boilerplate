@@ -1,10 +1,10 @@
 # Repository - Configurazione
 
-/log/
-/silverstripe-cache/
-/themes/simple/
-/themes/stack/node_modules/
-/vendor/
+/log
+/silverstripe-cache
+/themes/simple
+/themes/stack/node_modules
+/vendor
 /.editorconfig
 /.env
 /.vscode

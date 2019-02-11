@@ -5,6 +5,7 @@
 const gulp = require('gulp');
 const htmlmin = require('gulp-htmlmin');
 const size = require('gulp-size');
+const {phpMinify} = require('@cedx/gulp-php-minify');
 
 // Tasks
 // HTML
