@@ -68,9 +68,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # Content Security Policy
 Header set Content-Security-Policy-Report-Only "default-src 'none'; script-src 'self' storage.googleapis.com code.jquery.com cdnjs.cloudflare.com www.googletagmanager.com tagmanager.google.com www.google-analytics.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' fonts.googleapis.com tagmanager.google.com cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' www.google-analytics.com stats.g.doubleclick.net ssl.gstatic.com data: 'unsafe-inline'; connect-src 'self' www.google.com www.googletagmanager.com www.google-analytics.com stats.g.doubleclick.net cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' fonts.googleapis.com data:; form-action 'self'; manifest-src 'self'; report-uri /csp_report.php;"
 
-# Compression
+# Server compression
 FileETag MTime Size
-# Pages
+# Pages compression
 AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript
 # Level - 9 on dual core/7 on shared hosting
 DeflateCompressionLevel 7
