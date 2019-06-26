@@ -10,3 +10,4 @@
 /.sass-cache
 /.env
 /.vscode
+.DS_Store
