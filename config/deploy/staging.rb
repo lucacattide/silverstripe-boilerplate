@@ -40,12 +40,12 @@ set :public_html_path, '/home/bhp2/'
 set :dump_path, '/home/bhp2//_db'
 set :capistrano_path, '/home/bhp2/'
 
-# Definizione Timing Esecuzione
+# Execution timing definition
 after "deploy:symlink:release", "deploy:symlink:release_public_html"
 
 # Deploy
 namespace :deploy do
-	# Linking/DB Dumping/Permessi
+	# Linking/DB Dumping/Permissions
 	namespace :symlink do
 	  desc "Symlink release to current - assets / DB dumping and project permissions changing"
 
@@ -58,25 +58,21 @@ namespace :deploy do
 				db_user = ''
 				db_password = ''
 
-				# Ridefinisci il symlink
+				# Redefine the symlink
 				execute :rm, "-rf", public_html_path, "&&", :ln, "-s", current_path, public_html_path
-				# Crea symlink degli assets
+				# Create assets symlink
 				execute :rm, "-rf", "#{public_html_path}/public/assets", "&&", :ln, "-s", "#{capistrano_path}/shared/assets #{public_html_path}/public"
-				# Crea symlink delle risorse
-				execute :rm, "-rf", "#{public_html_path}/public/resources", "&&", :ln, "-s", "#{capistrano_path}/shared/resources #{public_html_path}/public"
-				# Crea symlink delle dipendenze
-				execute :rm, "-rf", "#{public_html_path}/vendor", "&&", :ln, "-s", "#{capistrano_path}/shared/vendor #{public_html_path}"
 
 				within current_path do
-					# Controllo Path
-					# Se esiste elimina/copia
+					# Path check
+					# If exists delete/copy
 					if Dir.exist?(dump_path)
 						execute :rm, "-rf", dump_path + "/*", "&&", :mysqldump, "-u", db_user, "-p#{db_password}", db, ">", dump_path + "/.sql"
-					else #altrimenti crea/copia
+					else # Else create/copy
 						execute :mkdir, "-p", dump_path, "&&", :mysqldump, "-u", db_user, "-p#{db_password}", db, ">", dump_path + "/.sql"
 					end
 
-					# Modifica permessi
+					# Modify permissions
 					execute :find, ". -type d -exec chmod 755 '{}' ';'"
 					execute :find, ". -type f -exec chmod 644 '{}' ';'"
 				end

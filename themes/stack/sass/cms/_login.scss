@@ -1,4 +1,4 @@
-// Inizio SCSS
+// SASS Start
 // Login
 .login-cms {
 
@@ -18,14 +18,14 @@
   }
 
   &#{__container} {
-  
+
     @extend %massimo;
 
     flex-flow: row wrap;
     margin: 0 auto;
     width: 100%;
 
-    &#{__articolo} {
+    .container__article {
 
       @include flex(1);
 
@@ -49,15 +49,15 @@
       #MemberLoginForm_LoginForm #ForgotPassword a,
       #MemberLoginForm_LoginForm label,
       p,
-      &#{__titolo} {
+      .article__title {
         color: $blu;
       }
 
       #LostPasswordForm_lostPasswordForm,
       #MemberLoginForm_LoginForm,
       p,
-      &#{__titolo} {
-       
+      .article__title {
+
         @extend %centro;
 
         margin: 0 0 2em;
@@ -71,7 +71,7 @@
 
         #LostPasswordForm_lostPasswordForm_action_forgotPassword,
         #MemberLoginForm_LoginForm_action_doLogin,
-        #MemberLoginForm_LoginForm_Remember_Holder label, 
+        #MemberLoginForm_LoginForm_Remember_Holder label,
         #MemberLoginForm_LoginForm_Remember {
 
           &:hover {
@@ -155,15 +155,14 @@
         }
       }
 
-      &#{__titolo} {
+      .article__title {
 
         @extend %font-bold;
         @extend %maiuscolo;
-  
+
         font-size: $font-size-cta;
       }
     }
   }
 }
-// Fine SCSS
-  
+// SASS End

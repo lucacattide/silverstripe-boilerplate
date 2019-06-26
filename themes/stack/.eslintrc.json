@@ -1,6 +1,11 @@
 {
-  "extends": ["eslint:recommended", "google"],
+  "extends": ["eslint:recommended", "google", "plugin:jest/recommended"],
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "plugins": ["jest"],
+  "env": {
+    "jest/globals": true
   }
 }

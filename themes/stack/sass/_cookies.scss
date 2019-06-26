@@ -1,41 +1,41 @@
-// Inizio SCSS
+// SCSS Start
 // Cookies
 .cookies {
   align-items: center;
   /* background-color: $blu-1; */
   bottom: auto;
   left: 0;
-  overflow: hidden;
   padding: 1em 16px;
+  overflow: hidden;
   position: fixed;
   right: 0;
   top: 0;
   z-index: 9999;
 
-  &.aperto {
+  &.opened {
     bottom: 0 !important;
   }
 
-  &.chiuso {
+  &.closed {
     align-items: flex-start !important;
     background-color: transparent !important;
     bottom: 8em !important;
     max-width: 50%;
     padding: 0 !important;
     top: auto !important;
-  
+
     &.mobile {
       bottom: 0 !important;
     }
-  
+
     @media ($media-smartphone) {
       bottom: 6.2em !important;
     }
-  
+
     @media ($media-tablet) {
       bottom: 5.7em !important;
     }
-  
+
     @media ($media-desktop) {
       bottom: 3.7em !important;
     }
@@ -43,35 +43,35 @@
 
   &,
   &#{__container},
-  &#{__corpo__chiudi},
-  &#{__corpo__link},
-  &#{__form__etichetta__checkbox} {
+  .body__close,
+  .body__link,
+  .label__checkbox {
     transition: all .3s ease-in-out;
   }
 
-  &#{__corpo},
-  &#{__corpo__chiudi},
-  &#{__corpo__link},
-  &#{__form__etichetta} {
+  .body,
+  .body__close,
+  .body__link,
+  .form__label {
     /* color: $bianco; */
   }
 
-  &#{__corpo},
-  &#{__corpo__chiudi},
-  &#{__form__etichetta} {
+  .body,
+  .body__close,
+  .form__label {
 
     /* @extend %font-light; */
   }
 
-  &#{__corpo},
+  .body,
   &#{__cta},
-  &#{__form__etichetta} {
+  .form__label {
     /* font-size: $font-size-footer; */
   }
 
   &,
   &#{__form} {
-  
+
     @include display-flex;
     @include flex-direction(column);
   }
@@ -80,49 +80,49 @@
     padding: 0 0 1em;
     width: 100%;
 
-    &.aperto {
+    &.opened {
       height: 100%;
       text-align: center !important;
     }
   }
 
-  &#{__corpo} {
+  &#{__body} {
 
-    @extend %centro;
+    @extend %center;
 
     /* line-height: $interlinea-footer; */
     margin: 0 auto 2em;
     width: 88%;
 
-    &#{__chiudi},
-    &#{__link} {
+    .body__close,
+    .body__link {
 
       &:hover {
         opacity: .7;
       }
     }
 
-    &#{__chiudi} {
+    .body__close {
       /* font-size: $font-size-menu; */
       position: absolute;
-  
+
       &:hover {
         cursor: pointer;
       }
     }
 
-    &#{__chiudi--avviso} {
+    .body__close--notification {
       right: 16px;
       top: 16px;
     }
 
-    &#{__chiudi--impostazioni} {
+    .body__close--settings {
       right: 0;
       top: 0;
     }
 
-    &#{__link} {
-    
+    .body__link {
+
       /* @extend %font-bold; */
     }
   }
@@ -135,7 +135,7 @@
     color: $blu;*/
     padding: .5em 16px;
 
-    &.aperto {
+    &.opened {
       margin: 2em 16px;
 
       @media ($media-smartphone) {
@@ -165,7 +165,7 @@
       max-width: 24%;
     }
 
-    &#{__etichetta} {
+    &#{__label} {
       margin: 0 0 1em;
       position: relative;
       text-indent: 32px;
@@ -175,17 +175,17 @@
       }
 
       &,
-      &#{__checkbox} {
+      .label__checkbox {
         cursor: pointer;
       }
 
-      &#{__campo},
-      &#{__checkbox},
-      &#{__checkbox}::after {
+      .label__field,
+      .label__checkbox,
+      .label__checkbox::after {
         position: absolute;
       }
 
-      &#{__campo} {
+      .label__field {
         appearance: none;
         border: 0;
         margin: 0;
@@ -213,11 +213,11 @@
         } */
       }
 
-      &#{__campo}:checked + &#{__checkbox} {
+      .label__field:checked + .label__checkbox {
         /* background-color: $celeste; */
       }
 
-      &#{__checkbox} {
+      .label__checkbox {
         /* background-color: $bianco; */
         height: 12px;
         left: 0;
@@ -226,12 +226,12 @@
       }
     }
 
-    &#{__legenda} {
+    &#{__legend} {
       display: none;
     }
   }
 
-  &#{--impostazioni} {
+  &#{--settings} {
     overflow-x: hidden;
     overflow-y: auto;
 
@@ -249,4 +249,5 @@
     }
   }
 }
-// Fine SCSS
+
+// SCSS End

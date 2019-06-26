@@ -1,11 +1,12 @@
-# Repository - Configurazione
-
+# Repository - Configuration
 /log
+/public/assets/.htaccess
 /silverstripe-cache
 /themes/simple
+/themes/stack/js/frontend/lib/workbox/*
 /themes/stack/node_modules
 /vendor
 /.editorconfig
+/.sass-cache
 /.env
 /.vscode
-/public/assets/.htaccess

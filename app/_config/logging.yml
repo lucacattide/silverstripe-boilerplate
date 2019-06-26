@@ -1,5 +1,7 @@
 ---
-Name: lessons-all-logging
+Name: custom-logging
+Except:
+  environment: dev
 ---
 SilverStripe\Core\Injector\Injector:
   Psr\Log\LoggerInterface:

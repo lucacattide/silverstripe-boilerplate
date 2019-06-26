@@ -1,0 +1,2 @@
+// Mutation Resolvers
+module.exports = {};

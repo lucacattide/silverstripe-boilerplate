@@ -1,4 +1,4 @@
-<!--Inizio Footer-->
-<footer class="footer" role="contentinfo">
+<%--Footer Start--%>
+<footer class="footer">
 </footer>
-<!--Fine Footer-->
+<%--Footer End--%>

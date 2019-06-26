@@ -1,8 +1,16 @@
+---
 Name: myproject
 ---
 SilverStripe\Core\Manifest\ModuleManifest:
-  project: mysite
-# Localizzazione
+  project: app
+# Extensions
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - SiteConfigExtension
+# Email
+SilverStripe\Control\Email\Email:
+  - admin_email: l.cattide@email.it
+# Localization
 SilverStripe\i18n\i18n:
   default_locale: 'it_IT'
   common_locales:
@@ -14,13 +22,15 @@ SilverStripe\Admin\LeftAndMain:
   application_name: 'My Site'
   application_link: 'http://'
   extra_requirements_css:
-    - themes/stack/css/dist/admin.css
-# Immagini
+    # TODO: In production must be changed to /themes/stack/css/dist/admin.css
+    - 'themes/stack/css/admin.css'
+# Images
 SilverStripe\Core\Injector\Injector:
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 75
-# Sicurezza
+# Security
+# TODO: Uncomment from staging
 # Cookies
 #SilverStripe\Control\Session:
 #  cookie_secure: true

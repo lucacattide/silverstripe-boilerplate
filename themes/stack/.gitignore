@@ -1,5 +1,3 @@
-# Repository - Configurazione
-
-/node_modules/
-/.editorconfig
-/.vscode
+# Repository - Configuration
+/js/frontend/lib/workbox/*
+/node_modules

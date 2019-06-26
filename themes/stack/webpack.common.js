@@ -1,15 +1,16 @@
-// Webpack - Configurazione Globale
+// Webpack - Global Configuration
 'use strict';
 
-// Dichiarazione Costanti
+// Module Imports
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {
+  CleanWebpackPlugin,
+} = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-// Esportazione modulo
+// Module Exports
 module.exports = {
   devtool: process.env.NODE_ENV !== 'production' ? 'cheap-module-eval-source-map' : false,
   module: {
@@ -72,38 +73,22 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'babel-loader',
     },
-    // Modernizr
-    {
-      test: /\.modernizrrc.js$/,
-      use: ['webpack-modernizr-loader'],
-    },
     ],
-  },
-  resolve: {
-    alias: {
-      modernizr$: path.resolve(__dirname, './.modernizrrc.js'),
-    },
   },
   plugins: [
     // Manifest
     new ManifestPlugin(),
-    // Ottimizzazione
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorPluginOptions: {
-        preset: ['default', {
-          discardComments: {
-            removeAll: true,
-          },
-        }],
-      },
+    // Cleanings
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        './html/dist',
+        './php/dist',
+        './dist',
+      ],
     }),
-    // Pulizia
-    new CleanWebpackPlugin([
-      './html/dist',
-      './php/dist',
-      './dist',
-    ]),
   ],
+  externals: {
+    // jQuery
+    jquery: 'jQuery',
+  },
 };

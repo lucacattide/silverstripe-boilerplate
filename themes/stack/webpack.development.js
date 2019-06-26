@@ -1,20 +1,20 @@
-// Webpack - Configurazione (Sviluppo)
+// Webpack - Global Configuration (Development)
 'use strict';
 
-// Dichiarazione Costanti
+// Module Imports
 const path = require('path');
 const webpack = require('webpack');
 const WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer')
-  .WebpackBundleSizeAnalyzerPlugin;
+    .WebpackBundleSizeAnalyzerPlugin;
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
-// Esportazione modulo
+// Module Exports
 module.exports = {
   mode: 'development',
   module: {
     rules: [{
-      // Immagini
-      test: /\.(png|svg|jpg|gif)$/,
+      // Images
+      test: /\.(png|svg|jpg|jpeg|gif)$/,
       include: path.resolve(__dirname, './img'),
       use: [{
         loader: 'file-loader',
@@ -25,7 +25,7 @@ module.exports = {
     }],
   },
   plugins: [
-    // Definizione Ambiente
+    // Environment
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('development'),
