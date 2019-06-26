@@ -1,4 +1,4 @@
-<!--Inizio Header-->
+<%--Header Start--%>
 <header class="header">
 </header>
-<!--Fine Header-->
+<%--Header End--%>

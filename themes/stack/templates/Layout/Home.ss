@@ -1,2 +1,0 @@
-<!--Inizio Home-->
-<!--Fine Summary-->

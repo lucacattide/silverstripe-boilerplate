@@ -1,0 +1,9 @@
+# DB Schema
+# Queries
+type Query {}
+
+# Mutations
+type Mutations {}
+
+# Subscriptions
+type Subscription {}

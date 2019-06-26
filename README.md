@@ -1,7 +1,14 @@
-# [Boilerplate] SilverStripe
+# [Boilerplate] Silverstripe
 
-[![GitHub release](https://img.shields.io/badge/Release-2.7-lightgrey.svg)](https://github.com/lucacattide/silverstripe-boilerplate/releases/tag/2.7)
-[![GitHub contributors](https://img.shields.io/badge/Contributors-1-lightgrey.svg)](https://github.com/lucacattide/silverstripe-boilerplate/graphs/contributors)
+![GitHub repo size](https://img.shields.io/github/repo-size/lucacattide/silverstripe-boilerplate.svg?style=for-the-badge)
+[![GitHub release](https://img.shields.io/badge/Release-3.0.0-lightgrey.svg?style=for-the-badge)](https://github.com/lucacattide/silverstripe-boilerplate/releases/tag/3.0.0)
+![Github All Releases downloads](https://img.shields.io/github/downloads/lucacattide/silverstripe-boilerplate/total.svg?style=for-the-badge)
+[![GitHub contributors](https://img.shields.io/badge/Contributors-1-lightgrey.svg?style=for-the-badge)](https://github.com/lucacattide/silverstripe-boilerplate/graphs/contributors)
+![GitHub issues](https://img.shields.io/github/issues/lucacattide/silverstripe-boilerplate.svg?style=for-the-badge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/lucacattide/silverstripe-boilerplate.svg?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/lucacattide/silverstripe-boilerplate.svg?style=for-the-badge)
+[![GitHub Followers](https://img.shields.io/github/followers/lucacattide.svg?style=for-the-badge)](https://github.com/lucacattide)
+[![Stack Exchange reputation](https://img.shields.io/stackexchange/stackoverflow/r/7554217.svg?style=for-the-badge)](https://stackoverflow.com/users/7554217/luca-cattide)
 
 ## Team
 
@@ -13,87 +20,86 @@
 
 ## 1) FAQ
 
-Boilerplate SilverStripe.
+SilverStripe boilerplate.
 
-## 2) Limitazioni di Responsabilità
+## 2) Disclaimer
 
-- L'Utente mantiene la piena titolarità dei materiali da lui forniti (con "materiali" s'intende, a titolo d'esempio non esaustivo: testi, loghi, marchi, immagini, audiovisivi, documenti, grafici, schemi, progetti, ecc.), siano essi anche sensibili o personali, assumendo ogni responsabilità in ordine al loro contenuto ed alla loro gestione, con espresso esonero di NOME da ogni responsabilità ed onere di accertamento e/o controllo a riguardo;
+- The User retains full ownership of the materials supplied by him (with "materials" means, by way of non-exhaustive example: texts, logos, trademarks, images, audiovisuals, documents, graphics, diagrams, projects, etc.), whether they are also sensitive or personal, assuming all responsibility for their content and their management, with express exemption from NAME from any responsibility and burden of verification and/or control in this regard;
 
-- NOME perciò, pur adoperandosi affinché ciò non avvenga, non può essere ritenuta responsabile in alcun caso per l'uso di dati, consegnati e/o richiesti dall'Utente, che fossero, all'insaputa di NOME stessa, coperti da diritto d'autore;
+- NAME therefore, while endeavoring to prevent this from happening, cannot be held responsible in any case for the use of data, delivered and/or requested by the User, which were, without the knowledge of NAME, covered by copyright;
 
-- L'Utente utilizza i servizi a proprio rischio, NOME non è responsabile nei confronti di alcuna parte per controversie legali/civili o amministrative, danni indiretti, specifici, incidentali, punitivi, cauzionali o consequenziali (a titolo esemplificativo ma non esclusivo: danni in caso d'impossibilità di utilizzo od accesso ai servizi, perdita o corruzione di dati, di profitti, di clientela, danni d'immagine, interruzioni dell'attività o simili), causati dall'utilizzo o dall'impossibilità di utilizzare i servizi e basati su qualsiasi ipotesi di responsabilità inclusa la violazione di contratto, la negligenza o altro, anche nel caso in cui NOME sia stata avvisata della possibilità di tali danni e nel caso in cui una clausola prevista dal presente contratto non abbia posto rimedio;
+- The User uses the services at his own risk, NAME is not liable to any party for legal/civil or administrative disputes, indirect, specific, incidental, punitive, cautionary or consequential damages (by way of example but not exclusive: damages in case of inability to use or access to services, loss or corruption of data, profits, customers, image damage, business interruptions or similar), caused by the use or inability to use the services and based on any liability hypothesis including breach of contract, negligence or otherwise, even if NAME has been advised about the possibility of such damages and in case that a clause envisaged by this contract has not been remedied;
 
-- NOME non può essere ritenuta responsabile per brevi malfunzionamenti dei servizi, causati da problemi tecnici su macchinari,servers, routers, linee telefoniche, reti telematiche, di sua proprietà o di soggetti selezionati per la fornitura dei servizi;
+- NAME cannot be held liable for brief malfunctions of the services, caused by technical problems on machinery, servers, routers, telephone lines, computer networks, owned by itself or by subjects selected for the services provision;
 
-- Non sono attribuibili a NOME malfunzionamenti dei servizi, perdite di dati, diffusione accidentale dei dati personali o sensibili, e qualsiasi altro tipo di danno verificatosi a seguito di attacchi da parte di pirati informatici (hackers, crackers, ecc.), malwares (virus, trojan, worms, ecc.) o altro;
+- Service malfunctions, data loss, accidental disclosure of personal or sensitive data and any other type of damage caused by hacking attacks (hackers, crackers, etc.), malwares (viruses, trojan, worms, etc.) or other;
 
-- NOME non può essere ritenuta responsabile per disservizi, interruzione dei servizi e/o danni imputabili a causa di forza maggiore quali incidenti, incendi, esplosioni, scioperi, serrate, terremoti, disastri, alluvioni, sommosse e altri eventi di difficile o impossibile previsione che impedissero, in tutto od in parte, di adempiere nei tempi o nei modi concordati ai termini di contratto;
+- NAME cannot be held responsible for unavailability, disruptions of services and/or damages due to force majeure such as accidents, fires, explosions, strikes, lockouts, earthquakes, disasters, floods, riots and other events that are difficult or impossible to prevent, wholly or in part, to fulfill the terms or the terms agreed in the terms of the contract;
 
-- NOME non può essere ritenuta responsabile per il malfunzionamento dei servizi a causa di non conformità e/o obsolescenza degli apparecchi dei quali l'Utente o terze parti sono dotati;
+- NAME cannot be held responsible for the malfunctioning of the services due to non-compliance and/or obsolescence of the equipped User or third parties devices;
 
-- NOME non può garantire all'Utente introiti sicuri derivanti dallo sfruttamento dei servizi;
+- NAME cannot guarantee to the User secure revenues deriving from the exploitation of the services;
 
-## 3) Informativa sul trattamento dei Dati Personali
+## 3) Privacy Policy
 
-NOME, ai sensi dell'Art. 13 del DLgs. 196/2003 - Codice Privacy, nella sua qualità di titolare del trattamento, vi informa che i dati che vi riguardano verranno utilizzati per l'esecuzione del rapporto contrattuale che vi lega, nonché per la prestazione di servizi direttamente strumentali a detto rapporto. I dati verranno trattati con mezzi elettronici e cartacei, secondo modalità strettamente strumentali al perseguimento della finalità indicata, così come dalle indicazioni espresse nel DLgs. 679/16 - GDPR. Il conferimento dei vostri, è necessario per l'esecuzione del rapporto contrattuale con voi in essere. Le informazioni che vi riguardano potranno essere utilizzate dai dipendenti e consulenti di NOME designati incaricati del trattamento ovvero da soggetti terzi che ricoprono la qualifica di responsabili esterni, per il compimento delle operazioni connesse alla predetta finalità. Salvo quanto sopra indicato, e per ciò che consegue nel paragrafo 4), la comunicazione dei vostri dati a terzi potrà essere effettuata esclusivamente per l'adempimento di obblighi di legge o per finalità contabili, nonché per dar corso al rapporto contrattuale in essere. Fatta esclusione delle indicazioni contenute nel sopracitato paragrafo, i vostri dati non saranno diffusi, né trasferiti all'estero. Titolare del trattamento è NOME, con sede INDIRIZZO. L'elenco aggiornato dei responsabili e degli incaricati è disponibile presso NOME ed è consultabile con richiesta da effettuarsi tramite E-Mail all'indirizzo E-MAIL o tramite qualsivoglia canale indicato al paragrafo 4). Per avere piena chiarezza sulle operazioni di cui vi abbiamo riferito e per esercitare i diritti di accesso, rettifica, opposizione al trattamento e gli altri diritti di cui all'Art. 7 del DLgs. 196/2003 (Testo Unico – Codice Privacy) ci si potrà rivolgere al responsabile per la gestione delle istanze degli interessati con lettera da inviarsi via E-Mail all'indirizzo E-MAIL o come indicato al paragrafo 4).
+NAME, pursuant to Art. 13 of the Italian Legislative Decree N. 196/2003 - Privacy Code, in its capacity as data controller, informs you that the data concerning you will be used for execution of the contractual relationship that binds you, as well as for the provision of services directly instrumental to this relationship. The data will be processed by electronic and paper means, according to strictly instrumental methods to the pursuit of the indicated purpose, as well as indicated in the Italian Legislative Decree N. 679/16 - GDPR. The conferment of yours, is necessary for the execution of the contractual relationship with you in place. The information concerning you may be used by employees and consultants of NAME designated in charge of processing or by third parties who hold the qualification of external managers for completion of the operations connected to the aforementioned purpose. Except as indicated above, and for what follows in the paragraph 4), the communication of your data to third parties may only be carried out for the fulfillment of legal obligations or for accounting purposes, as well as to implement the existing contractual relationship. Except for the indications contained in the aforementioned paragraph, your data will not be disclosed or transferred abroad. The data controller is NAME, with headquarters in Via dei Boschetti 6, 20122 Milan, Italy. The list updated by the managers and the employees is available at NAME and is available for consultation to be made by E-Mail at the address E-MAIL or through any channel indicated in the paragraph 4). To have full clarity about the operations we referred to you and to exercise the rights of access, rectification, opposition to the treatment and the other rights referred to in Art. 7 of the Italian Legislative Decree. 196/2003 (Consolidated Law - Privacy Code) we can contact the manager for the management of the requests of the interested parties by letter sent by e-mail to the address E-MAIL or as indicated in the paragraph 4).
 
-NOME, utilizzando la tecnologia dei cookies a scopo tecnico ed informativo, presenta l'elenco delle funzionalità pubblicitarie di terze parti coinvolte nel paragrafo 5). I dati – di natura sensibile – che autorizzano l'identificazione dell'utenza, sulla base della fruizione dei servizi presenti sul sito URL – i quali potrebbero essere raccolti previo consenso esplicito, assieme ai dati - di natura non sensibile - che ricalcano esclusivamente l'interazione e l'esperienza di utilizzo dell'utenza in rapporto al sito web in oggetto - come indicato - sono sottoposti ad elaborazione secondo le vigenti norme e disposizioni dettate dalla sopracitata informativa. Ciò al fine di consentire il corretto funzionamento dei servizi coinvolti. Oltre che determinare il volume e la qualità di traffico generati dall'attività di visualizzazione e consultazione dei contenuti inerenti il sito web, in conformità a quanto descritto dalle direttive Google (http://tinyurl.com/lal99wg). Le informazioni acquisite, saranno archiviate per un arco temporale strettamente dipendente dai parametri e dalle impostazioni dettate e previste da tali tecnologie. Queste ultime, coerenti con le linee guida giuridiche locali, internazionali e delle terze parti coinvolte. NOME dichiara inoltre di non acquisire, senza esplicito consenso, informazioni personali a fine di integrare le stesse con dati impersonali raccolti tramite un prodotto od una funzione pubblicitaria di terze parti. L'utilizzo di NOME intende implicitamente accettate le condizioni previste dalla normativa Europea sui cookies e quindi considera approvato il consenso dall'utenza. E' possibile disattivare tali tecnologie di raccolta dati attraverso le impostazioni sugli annunci di Google - oltre le indicazioni presenti nella relativa sezione - o qualsiasi altro mezzo disponibile, in linea con la funzionalità di disattivazione per i consumatori prevista dalle norme NAI. Qualora le funzionalità descritte siano soggette a disattivazione – tutte od in parte, alcuni dei servizi forniti da NOME potrebbero risultare inutilizzabili.
+NAME, using the cookies technology for technical and informational purposes, presents the list of third-party advertising features involved in paragraph 5). The data - of a sensitive nature - that authorize the users identification, based on the use of the services on the URL site - which could be collected subject to explicit consent, together with the data - of a non-sensitive nature - that follow only the interaction and the user experience in relation to the website in question - as indicated - are subject to processing according to the current rules and provisions dictated by the aforementioned disclosure. This is to allow the services involved to function properly. In addition to determining the volume and quality of traffic generated by the activity of displaying and consulting the website contents, in accordance with what is described by the Google guidelines (http://tinyurl.com/lal99wg). The information acquired will be stored for a period of time strictly dependent on the parameters and settings dictated and envisaged by these technologies. The latter, consistent with the local, international and third party legal guidelines involved. NAME also declares to not acquire, without explicit consent, personal information in order to integrate them with impersonal data collected through a third-party product or advertising function. The use of NAME implicitly intends to accept the conditions set by the European legislation on cookies and therefore considers the consent of the user approved. It's possible to deactivate these data collection technologies through the settings on Google ads - in addition to the indications in the relevant section - or any other available means, in line with the deactivation feature for consumers provided for by the NAI regulations. If the described features are subject to deactivation - all or part of it, some of the services provided by NAME may be unusable.
 
-## 4) Regolamento generale sulla protezione dei Dati
+## 4) GDPR
 
-NOME, ai sensi del DLgs. 679/2016 - Regolamento europeo in materia di protezione dei dati personali, nella sua qualità di titolare del trattamento, vi informa che i dati che vi riguardano saranno in possesso del responsabile del trattamento - NOME - presso NOME, con sede INDIRIZZO. I dati saranno archiviati in formato cartaceo ed elettronico, per l'intera durata del rapporto e/o salvo diversamente indicato dalle disposizioni della documentazione contrattuale in essere - ivi compresa la fruizione dei servizi inerenti il sito web. Nella loro versione digitale, verrà garantita la tutela dei medesimi per mezzo di procedure di crittografia ed anonimazione dei soggetti identificati. Nonchè di sistemi atti alla protezione preventiva da attacchi informatici di diversa natura - quali hacking, cracking, virus, malwares, vari ed eventuali. In caso di violazione dei dati, verrà esposta segnalazione ufficiale alle autorità competenti in materia, di cui riceverete notifica entro e non oltre le successive 72 ore dalla verifica da parte del responsabile del trattamento. I vostri dati, saranno indirettamente trasmessi ai soggetti di terze parti titolari degli strumenti e delle tecnologie presenti su URL. Queste garantiscono il corretto funzionamento della piattaforma, nonchè della fruibilità della stessa da parte dell'utenza. L'elenco dei soggetti coinvolti, così come le modalità di invio dei dati verso i medesimi, sono indicati al paragrafo 5). NOME, in conformità alla suddetta regolamentazione ed al DLgs. 196/03 - Codice Privacy, garantisce il vostro diritto di accesso, rettifica, ed opposizione al trattamento dei dati raccolti, previa constatazione di titolarità da parte del richiedente tramite richiesta indirizzata al responsabile del trattamento. Tale richiesta dovrà essere coadiuvata da documento d'identità in corso di validità, da presentare in autonomia attraverso gli appositi servizi predisposti dalla piattaforma - qualora consentito - o secondo le modalità espresse al paragrafo 3). In caso di comunicazione dei dati da parte di soggetti minori di anni 16, NOME si opporrà all'elaborazione e/o all'archiviazione di questi - in qualsiasi forma - escludendo il responsabile al trattamento ed ogni persona fisica e giuridica ad esso correlata, da ogni obbligo e responsabilità nei confronti dei soggetti coinvolti, qualora la trasmissione dei suddetti non avvenga in presenza di consenso certificato da parte di tutore legale. Per ogni altra questione in materia, così come dei punti inerenti la normativa, vi rimandiamo alla consultazione del testo integrale (https://tinyurl.com/y9z38rnb).
+NAME, pursuant to Italian Legislative Decree 679/2016 - European regulation on personal data protection, in its capacity as processing owner, informs you that the data concerning you will be held by the data controller - NAME - at NAME, with headquarters in ADDRESS. The data will be archived in paper and electronic format, for the entire relationship duration and/or unless otherwise indicated by the provisions of existing contractual documentation - including the use of website services. In their digital version, their protection will be guaranteed by procedures of cryptography and anonymisation of the identified subjects. As well as systems suitable for preventive protection against IT attacks of different nature - such as hacking, cracking, viruses, malwares, various and possibly. In case of data breach, official notification will be presented to the competent authorities on the subject, and you will be notified by and no later than 72 hours after verification by the data controller. Your data will be indirectly transmitted to third-party subjects who own the tools and technologies available on URL. These guarantee the correct platform operations, as well as its usability by the users. The list of subjects involved, as well as how to send them the data, are indicated in the paragraph 5). NAME, in compliance with the aforementioned regulation and to the Italian Legislative Decree 196/03 - Privacy Code, guarantees your right of access, rectification, and opposition to the data processing, after ownership verification by the applicant through request addressed to the manager of treatment. This request must be supported by a valid identity document, to be presented in autonomy through the special services provided by the platform - if allowed - or according to the methods expressed in the paragraph 3). In case of data communication by subjects less than years 16, NAME it will oppose the processing and / or archiving of these - in any form - excluding the person responsible for the processing and any related physical and legal person, from any obligation and responsibility in the against the subjects involved, if the transmission of the aforementioned does not take place in the presence of certified consent by part of legal tutor. For any other matter on the subject, as well as the points concerning the legislation, we refer you to the full text consultation (https://tinyurl.com/y9z38rnb).
 
 ## 5) Cookies
 
-Questo applicativo utilizza i cookies e/o identificatori anonimi per gestire varie funzioni, di cui:
+This site uses Cookies and / or anonymous identifiers for managing various functions, such as:
 
-1. Identificatori tecnici - finalizzati al coordinamento funzionale del sistema
-   - Navigazione \* Informative: pubblicizzazione selettiva di bollettini tecnici e di natura legale – Cookies;
-   - Autenticazione \* Amministrazione Sito: regolazione degli accessi alla piattaforma CMS per le operazioni di monitoraggio, aggiornamento e manutenzione della risorsa;
-   - Comunicazione
-     - Notifiche: avvisi e bollettini tecnici destinati all'amministrazione ed all'utenza - sulla natura tecnica della comunicazione in oggetto del modulo - attraverso identificazione sensibile dei soggetti responsabili;
-2. Piattaforme di terze parti - di proprietà di soggetti esterni alla titolarità del Sito
-   - Raccolta dati sul traffico:
-     - Google^!: collezionamento anonimo destinato all'analisi ed alla pubblicazione dei contenuti, per la comprensione dell'andamento del Sito;
+1. Technical identifiers - designed to coordinate functional system
+   - Navigation \* Notifications: selective Bulletin Advertising Technical &amp; Legal Issues - Cookies;
+   - Communication
+     - Notifications: notices and technical bulletins for administration and users - about the nature of communication in form subject - through sensitive identification of the responsible subjects;
+2. Third-party platforms - property of external subjects to the website owner
+   - Traffic Data Collection:
+     - Google^!: anonymous collection for analysis and content publishing, for understanding the progress of the Site;
 
-Utilizzando il nostro sito web, accettate il fatto che possiamo caricare questo tipo di cookies nel vostro dispositivo.
+By using our website, you accept the fact that we can upload this type of cookies to your device.
 
-Per informazioni consultate la Direttiva Europea (http://tinyurl.com/qayqqhk). In alternativa, vi rimandiamo alla guida internazionale (http://tinyurl.com/bpreycw) per approfondire gli aspetti tecnici degli strumenti in uso. Ulteriori dettagli sulle modalità di raccolta ed impiego dei dati, sono contenuti nell'informativa presente al paragrafo 3).
+For information please consult the European Directive (http://tinyurl.com/qayqqhk). Alternatively, we refer you to the internationa guide (http://tinyurl.com/bpreycw) to deepen the technical aspects of the instruments in use. Further details on methods of data collection and its use, are contained in the information provided in the paragraph 4).
 
-<sup>**!**</sup> Qualora desideriate impedire l'utilizzo dei vostri dati a fini pubblicitari, scaricate il componente aggiuntivo (http://tinyurl.com/lr9zzeb) del browser per la disattivazione dei sistemi di terze parti coinvolti. Oppure visitate il sito web della Digital Advertising Alliance (http://www.aboutads.info/) per istruzioni specifiche.
+<sup>**!**</sup> If you wish to prevent the use of your data for advertising purposes, please download the browser add-on (http://tinyurl.com/lr9zzeb) for the deactivation of the third-party systems involved. Or visit the Digital Advertising Alliance website (http://www.aboutads.info/) for specific instructions.
 
-## 6) Note Legali
+## 6) Legal
 
-1. Contatti
-   - Tel. TELEFONO;
+1. Contacts
+   - Tel. PHONE;
    - E-Mail: E-MAIL;
-   - Sito Web: URL;
+   - Website: URL;
 
-- Registrazioni
-  - © NOME 2019. Tutti i Diritti riservati.
+- Registrations
+  - © NAME 2019. All Rights reserved.
 
-## 7) Licenze
+## 7) Licenses
 
-- Nomi, marchi, loghi, foto, immagini e sorgenti sono tutelati dalle vigenti norme sul diritto d'autore, sono di proprietà dei legittimi intestatari;
+- Names, trademarks, logos, photos, images and sources are protected by current copyright laws, property of the legitimate owners;
 
-- Foto, immagini, sorgenti e softwares di terze parti appartengono ai legittimi proprietari;
+- Photos, images, sources and softwares of third parties belong to the legitimate owners;
 
-- Softwares di terze parti sono coperti da rispettiva Licenza di Utilizzo;
+- Third-party softwares are covered by respective EULA;
 
-- Contenuti esclusivamente proprietari di NOME, sono coperti da Licenza Creative Commons - Attribuzione - Non opere derivate 3.0 Italia [CC BY-ND 3.0 IT (http://tinyurl.com/k5thym8)];
+- Only proprietary content of NAME, are covered by Creative Commons License - Attribution - No Derivative Works 3.0 Italy [CC BY-ND 3.0 IT (http://tinyurl.com/k5thym8)];
 
-Tramite questa licenza NOME assegna all'utente un diritto non esclusivo all’utilizzo dell'opera.
-L'utente è autorizzato a:
+Through this license, NAME assigns to user a non-exclusive right to use the work.
+The user is authorized to:
 
-- Fruire dell'opera fino alla scadenza dei termini e/o delle condizioni previste;
-- Permettere la fruizione dell'opera a terze parti nei limiti di quanto la normale fruizione permette (ad esclusione di accesso a sorgenti o altro – qualora non consentito);
+- Use the work until the deadline and / or conditions have expired;
+- Allow the use of the work by third parties within the limits of what normal use allows (with the exception of access to sources or other - if not allowed);
 
-L'utente non è autorizzato a:
+The user is not authorized to:
 
-- Utilizzare l'opera per l’erogazione diretta di servizi a pagamento a favore di terze parti, salvo che non espressamente previsto in questa licenza;
-- Modificare l'opera in alcuna parte, nessuna esclusa – qualora non consentito;
-- Accedere agli eventuali sorgenti con qualsiasi scopo (ivi compreso appropriamento, copia, riutilizzo o altro – qualora non consentito);
-- Trasmettere o fornire accesso agli eventuali sorgenti a terze parti – qualora non consentito;
-- Assegnare in sub-licenza, affittare, vendere, locare, distribuire o trasferire in altra maniera l'opera o parte di essa – qualora non consentito;
+- Use the work for the direct provision of paid services to third parties, except as expressly provided in this license;
+- Modify the work in any part, none excluded - if not permitted;
+- Access any sources for any purpose (including appropriation, copying, re-use or otherwise - if not permitted);
+- Transmit or provide access to any sources to third parties - if not permitted;
+- Sub-license, rent, sell, rent, distribute or otherwise transfer the work or part of it - if not permitted;
 
-Eventuali opere di terze parti utilizzate mantengono la propria licenza.
+Any third-party works used retain their license.

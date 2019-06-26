@@ -1,5 +1,10 @@
-/log/
-/node_modules/
+# Repository - Configuration
+/log
+/node_modules
 /resources/
+/themes/stack/js/frontend/lib/workbox/*
+/themes/stack/node_modules
 /.editorconfig
-.vscode
+/.sass-cache
+/.vscode
+.DS_Store

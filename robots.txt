@@ -1,5 +1,5 @@
 User-agent: *
-#Sitemap: https://<dominio>/sitemap.xml
+#Sitemap: https://<domain>/sitemap.xml
 Allow: /assets/
 Allow: /app/
 Allow: /public/
@@ -7,19 +7,12 @@ Allow: /themes/stack/css/
 Allow: /themes/stack/fonts/
 Allow: /themes/stack/html/
 Allow: /themes/stack/img/
-Allow: /themes/stack/js/dist/
-Allow: /themes/stack/js/lib/
+Allow: /themes/stack/js/
 Allow: /themes/stack/templates/
 Allow: /themes/stack/.htaccess
-Allow: /themes/stack/bundle.js
-Allow: /themes/stack/home.js
 Allow: /.htaccess
 Allow: /favicon.png
 Allow: /index.php
-Disallow: /.git/
-Disallow: /config/
-Disallow: /lib/
-Disallow: /log/
 Disallow: /.gitignore
 Disallow: /*.md
 Disallow: /LICENSE

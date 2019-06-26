@@ -1,7 +1,6 @@
 ---
 Name: mytheme
 ---
-# Tema
 SilverStripe\View\SSViewer:
   themes:
     - stack

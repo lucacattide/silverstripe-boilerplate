@@ -1,0 +1,2 @@
+// Subscription Resolvers
+module.exports = {};

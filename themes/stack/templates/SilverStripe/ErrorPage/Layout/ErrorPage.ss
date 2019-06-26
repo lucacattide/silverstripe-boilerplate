@@ -1,14 +1,14 @@
-<!--Inizio Errore-->
-<section class="errore">
-  <h6>Errore</h6>
-  <div class="errore__container">
-    <article class="errore__container__articolo">
-      <h6>Messaggio di Errore</h6>
-      <aside class="errore__container__articolo__logo">
+<%--Error Start--%>
+<section class="error">
+  <h6>Error</h6>
+  <div class="error__container">
+    <article class="container__article">
+      <h6>Error message</h6>
+      <aside class="article__logo">
         <h6>Logo</h6>
       </aside>
-      <p class="errore__container__articolo__corpo">$Content</p>
+      <p class="article__body">$Content</p>
     </article>
   </div>
 </section>
-<!--Fine Errore-->
+<%--Error End--%>
