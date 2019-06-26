@@ -1,6 +1,6 @@
 // Inizio SCSS
 .summary {
-  
+
   @include display-flex;
   @include flex-direction(column);
 
@@ -8,42 +8,42 @@
   padding: 4em 0;
 
   &#{__container} {
-  
-    @extend %massimo;
+
+    @extend %maximum;
     @include flex(1);
 
     margin: 0 auto;
     width: 100%;
 
-    &#{__articolo} {
+    .container__article {
       margin: 0 0 2em;
 
       &:last-child {
         margin: 0;
       }
 
-      &#{__corpo},
-      &#{__voci},
-      &#{__titolo},
-      &#{__sottotitolo} {
-        color: $blu;
+      .article__body,
+      .article__list,
+      .article__title,
+      .article__subtitle {
+        /* color: $blu; */
         margin: 0 0 2em;
       }
 
-      &#{__corpo},
-      &#{__voci} {
+      .article__body,
+      .article__list {
 
-        @extend %font-light;
+        /* @extend %font-light; */
 
-        font-size: $font-size-corpo-2;
-        line-height: $interlinea-corpo;
+        /* font-size: $font-size-body-2;
+        line-height: $interlinea-body; */
 
-        &#{__link},
-        &#{__elemento__link} {
+        .list__link,
+        .element__link {
 
-          @extend %font-bold;
+          /* @extend %font-bold; */
 
-          color: $blu-1;
+          /* color: $blu-1; */
           transition: all .3s ease-in-out;
 
           &:hover {
@@ -52,18 +52,18 @@
         }
       }
 
-      &#{__titolo},
-      &#{__sottotitolo} {
+      .article__title,
+      .article__subtitle {
 
-        @extend %font-bold;
+       /*  @extend %font-bold;
 
-        font-size: $font-size-cta;
+        font-size: $font-size-cta; */
       }
 
-      &#{__voci} {
+      .article__list {
         padding: 0 0 0 32px;
 
-        &#{__elemento},
+        .list__element,
         ul li {
           list-style: square;
         }

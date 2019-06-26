@@ -1,6 +1,6 @@
-// Inizio SCSS
-// Errore
-.errore {
+// SASS Start
+// Error
+.error {
 
   @include justify-content(center);
 
@@ -16,11 +16,11 @@
     align-items: center;
   }
 
-  &#{__container__articolo} {
+  .container__article {
 
-    @extend %centro;
+    @extend %center;
 
-    &#{__corpo},
+    .article__body,
     p {
 
       /* @extend %font-light; */
@@ -33,19 +33,19 @@
 
       @media ($media-tablet) {
         /* font-size: $font-size-menu;
-        line-height: $font-size-corpo-3; */
+        line-height: $font-size-body-3; */
       }
 
       @media ($media-desktop) {
-        /* font-size: $font-size-corpo;
+        /* font-size: $font-size-body;
         line-height: $font-size-titolo-1; */
         padding: 0;
       }
     }
 
-    &#{__logo} {
+    .article__logo {
 
-      @extend %sfondo;
+      @extend %background;
 
       background-image: url('/themes/stack/img/logo.svg');
       height: auto;
@@ -60,4 +60,4 @@
   }
 }
 
-// Fine SCSS
+// SASS End

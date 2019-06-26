@@ -4,9 +4,9 @@ lock "3.11"
 set :application, ""
 set :repo_url, ""
 set :git
-# Evita il clone ad ogni deploy (sostituisce con pull)
+# Avoids cloning on every deploy
 set :deploy_via, :remote_cache
-# Esclude la cache per ogni release
+# Excludes cache on every release
 set :copy_exclude, [ '.git' ]
 set :keep_releases, 3
 

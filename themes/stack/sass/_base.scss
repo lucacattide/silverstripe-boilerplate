@@ -1,17 +1,18 @@
-// IMG PATH: /themes/<nometema>/img/<nomefile>
-// Inizio SASS
-// Inizio Importazioni
+// IMG PATH: /img/<filename>
+// SASS Start
+// Imports Start
 @import 'compass/css3';
 @import 'compass/typography/links/link-colors';
 
-// Dichiarazione Variabili
-// Colori
+// Imports End
+// Variables Start
+// Colors
 // Fonts
-// Fonts - Dimensioni
+// Fonts - Dimensions
 $font-size-desktop: 14px;
 $font-size-mobile: 12px;
 $font-size-rem: 62.5%;
-// Risoluzioni
+// Resolutions
 $desktop: 992px;
 $desktop-hd: 1200px;
 $tablet: 768px;
@@ -21,21 +22,27 @@ $media-desktop: 'min-width: #{$desktop}';
 $media-desktop-hd: 'min-width: #{$desktop-hd}';
 $media-tablet: 'min-width: #{$tablet}';
 $media-smartphone: 'min-width: #{$smartphone}';
+$media-local: 'display-mode: standalone';
 
-// Classi
+// Classes
 %cover,
-%sfondo,
+%background,
 %sprites {
 
-  @extend %background;
+  @extend %background-base;
 }
 
 %background {
+  background-position: 0 0;
+  background-size: 100%;
+}
+
+%background-base {
   background-attachment: scroll;
   background-repeat: no-repeat;
 }
 
-%centro {
+%center {
   text-align: center;
 }
 
@@ -44,36 +51,22 @@ $media-smartphone: 'min-width: #{$smartphone}';
   background-size: cover;
 }
 
-%immagine {
-	height: auto;
-	width: 100%;
+%image {
+  height: auto;
+  width: 100%;
 }
 
-%maiuscolo {
+%uppercase {
   text-transform: uppercase;
 }
 
-%sfondo {
-  background-position: 0 0;
-  background-size: 100%;
-}
-
-// Generale
+// General
 // Links
 a {
   text-decoration: none !important;
 }
 
-a:active
-a:focus {
-
-}
-
-// Pulsanti
-input[type='submit'] {
-  appearance: none !important;
-  border-radius: 0 !important;
-}
+a:active a:focus {}
 
 // Outline
 a:focus,
@@ -82,43 +75,43 @@ input:focus,
   outline: none !important;
 }
 
+// Buttons
+input[type='submit'] {
+  appearance: none !important;
+  border-radius: 0 !important;
+}
+
 // Layout
-.bloccato {
-	overflow: hidden !important;
+.blocked {
+  overflow: hidden !important;
 }
 
 .clear {
   clear: both;
 }
 
-// Interazione
-.disabilita {
+// Interaction
+.disable {
   user-select: none;
 }
 
-.disattiva {
+.deactivate {
   pointer-events: none;
 }
 
 // SEO
 mark {
-	background-color: transparent !important;
-	padding: 0 !important;
+  background-color: transparent !important;
+  padding: 0 !important;
 }
 
-// Visibilità
-.nascondi {
+// Visibility
+.hidden {
   display: none !important;
 }
 
-// Container
-.no-padding {
-  padding: 0;
-}
-
-// Visibilità
-.occulta {
-	opacity: 0 !important;
+.occult {
+  opacity: 0 !important;
 }
 
 // HTML
@@ -149,22 +142,23 @@ html {
     // Container
     .container {
 
-        @include display-flex;
-        @include flex-direction(column);
+      @include display-flex;
+      @include flex-direction(column);
 
-        height: auto;
-        min-height: 100vh;
+      height: auto;
+      min-height: 100vh;
 
-        &#{__wrapper} {
-          -webkit-box-flex: 1 0 0;
-          -ms-flex: 1 0 0;
-          flex: 1 0 0;
-        }
+      &#{__wrapper} {
+        -webkit-box-flex: 1 0 0;
+        -ms-flex: 1 0 0;
+        flex: 1 0 0;
       }
+    }
 
     h6 {
       display: none;
     }
   }
 }
+
 // Fine SCSS
