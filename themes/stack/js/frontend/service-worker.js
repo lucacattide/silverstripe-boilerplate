@@ -195,7 +195,8 @@ if (workbox) {
   });
   self.addEventListener('activate', function(e) {
     var cacheWhiteList = [
-      'service-assets',
+      // TODO: Uncomment only if runtime caching is enabled
+      //'service-assets',
       'resources',
       'google-fonts-stylesheets',
       'google-fonts-webfonts',
@@ -214,6 +215,8 @@ if (workbox) {
           return caches.delete(key);
         }
       }));
+    }).then(function() {
+      self.clients.claim();
     }));
   });
   self.addEventListener('fetch', function(e) {
@@ -240,8 +243,8 @@ if (workbox) {
         });
     }));
   });
-  self.addEventListener('message', function(event) {
-    if (event.data && event.data.type === 'SKIP_WAITING') {
+  self.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'SKIP_WAITING') {
       self.skipWaiting();
     }
   });
