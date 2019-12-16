@@ -9,26 +9,34 @@ import {
 
 // Service Worker Check
 if ('serviceWorker' in navigator) {
-  var wb = new Workbox('/js/frontend/service-worker-dev.js');
+  var wb = new Workbox('/service-worker.js');
 
-  $(wb).on('waiting', function() {
+  wb.addEventListener('waiting', function() {
     var prompt = createUIPrompt({
-      //TODO: Popup accept/reject implementation
       onAccept: async function() {
-        $(wb).on('controlling', function() {
+        wb.addEventListener('controlling', function() {
           window.location.reload();
         });
 
         wb.messageSW({
           type: 'SKIP_WAITING'
         });
-      },
-      onReject: function() {
-        prompt.dismiss();
       }
     })
   });
 
   wb.register();
+}
+
+/**
+ * @description Refresh UI prompt getter
+ * @author Luca Cattide
+ * @date 2019-10-28
+ * @param {object} options Prompt options
+ */
+function createUIPrompt(options) {
+  if (confirm('New version available. Do you want to update?')) {
+    options.onAccept();
+  }
 }
 // Module End

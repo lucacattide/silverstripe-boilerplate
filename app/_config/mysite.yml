@@ -9,7 +9,7 @@ SilverStripe\SiteConfig\SiteConfig:
     - SiteConfigExtension
 # Email
 SilverStripe\Control\Email\Email:
-  - admin_email: l.cattide@email.it
+  - admin_email: info@lucacattide.dev
 # Localization
 SilverStripe\i18n\i18n:
   default_locale: 'it_IT'
