@@ -30,6 +30,7 @@
 /Gemfile
 /Gemfile.lock
 !/.env.dist
+!/.github
 !/.gitignore
 !/.htaccess
 /.*
