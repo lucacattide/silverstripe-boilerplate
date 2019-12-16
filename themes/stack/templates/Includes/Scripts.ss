@@ -6,14 +6,11 @@
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 crossorigin="anonymous"></script>
 <% if $ClassName == "HomePage" %>
-  <%--TODO: JS prefix in production must be changed to "$ThemeDir/js/frontend/dist/"--%>
-  <script async defer src="$ThemeDir/js/frontend/home.js"></script>
+  <script async defer src="$ThemeDir/js/frontend/dist/home.js"></script>
 <% else_if $ClassName == "PrivacyPage" %>
-  <%--TODO: JS prefix in production must be changed to "$ThemeDir/js/frontend/dist/"--%>
-  <script async defer src="$ThemeDir/js/frontend/privacy.js"></script>
+  <script async defer src="$ThemeDir/js/frontend/dist/privacy.js"></script>
 <% else_if $ClassName == "Security" %>
-  <%--TODO: JS prefix in production must be changed to "$ThemeDir/js/frontend/dist/"--%>
-  <script async defer src="$ThemeDir/js/frontend/cms.js"></script>
+  <script async defer src="$ThemeDir/js/frontend/dist/cms.js"></script>
 <% end_if %>
 <%--Rich Snippets Start--%>
 <script type="application/ld+json">

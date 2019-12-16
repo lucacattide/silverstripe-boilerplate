@@ -12,15 +12,13 @@ import setBackToTop from './back-to-top.js';
 // Service Worker
 if ('serviceWorker' in navigator) {
   $(window).on('load', () => {
-    // TODO: In production must be set to /js/dist/service-worker-prod.js
-    navigator.serviceWorker.register('/js/service-worker-dev.js')
-    // TODO: Remove in production
-        .then((registration) => {
-          console.log(`Service Worker registered! Scope: ${registration.scope}`);
-        })
-        .catch((err) => {
-          console.log(`Service Worker registration failed: ${err}`);
-        });
+    navigator.serviceWorker.register('/js/dist/service-worker-dev.js')
+      .then((registration) => {
+        console.log(`Service Worker registered! Scope: ${registration.scope}`);
+      })
+      .catch((err) => {
+        console.log(`Service Worker registration failed: ${err}`);
+      });
   });
 }
 

@@ -75,7 +75,6 @@ class PageController extends ContentController
         }
 
         Email::create()
-            // TODO: In production this must be set to proper email
             ->setTo(SiteConfig::current_site_config()->NotificationTo)
             ->setSubject('Cookie Policy - Accettazione')
             ->setBody('Accettazione Cookie Policy:<br /><br />' .

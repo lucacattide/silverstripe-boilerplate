@@ -19,8 +19,7 @@ if (workbox) {
 
     // Debug mode
     workbox.setConfig({
-      // TODO: In production must be set to false
-      debug: true
+      debug: false
     });
     // Cache names
     workbox.core.setCacheNameDetails({
