@@ -3,5 +3,10 @@
     "targets": {
       "node": "current"
     }
-  }]
+  }],
+  "plugins": [
+    ["transform-remove-console", {
+      "exclude": ["error", "warn"]
+    }]
+  ]
 }
