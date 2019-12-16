@@ -9,7 +9,7 @@ SilverStripe\SiteConfig\SiteConfig:
     - SiteConfigExtension
 # Email
 SilverStripe\Control\Email\Email:
-  - admin_email: l.cattide@email.it
+  - admin_email: info@lucacattide.dev
 # Localization
 SilverStripe\i18n\i18n:
   default_locale: 'it_IT'
@@ -22,24 +22,22 @@ SilverStripe\Admin\LeftAndMain:
   application_name: 'My Site'
   application_link: 'http://'
   extra_requirements_css:
-    # TODO: In production must be changed to /themes/stack/css/dist/admin.css
-    - 'themes/stack/css/admin.css'
+    - 'themes/stack/css/dist/admin.css'
 # Images
 SilverStripe\Core\Injector\Injector:
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 75
 # Security
-# TODO: Uncomment from staging
 # Cookies
-#SilverStripe\Control\Session:
-#  cookie_secure: true
-#---
-#Name: secure-alc
-#Except:
-#  environment: dev
-#---
-#SilverStripe\Core\Injector\Injector:
-#  SilverStripe\Security\MemberAuthenticator\CookieAuthenticationHandler:
-#    properties:
-#      TokenCookieSecure: true
+SilverStripe\Control\Session:
+  cookie_secure: true
+---
+Name: secure-alc
+Except:
+  environment: dev
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\Security\MemberAuthenticator\CookieAuthenticationHandler:
+    properties:
+      TokenCookieSecure: true

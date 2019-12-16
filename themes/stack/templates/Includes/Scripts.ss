@@ -6,61 +6,60 @@
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 crossorigin="anonymous"></script>
 <% if $ClassName == "HomePage" %>
-  <%--TODO: JS prefix in production must be changed to "$ThemeDir/js/frontend/dist/"--%>
-  <script async defer src="$ThemeDir/js/frontend/home.js"></script>
+  <script async defer src="$ThemeDir/js/frontend/dist/home.js"></script>
 <% else_if $ClassName == "PrivacyPage" %>
-  <%--TODO: JS prefix in production must be changed to "$ThemeDir/js/frontend/dist/"--%>
-  <script async defer src="$ThemeDir/js/frontend/privacy.js"></script>
+  <script async defer src="$ThemeDir/js/frontend/dist/privacy.js"></script>
 <% else_if $ClassName == "Security" %>
-  <%--TODO: JS prefix in production must be changed to "$ThemeDir/js/frontend/dist/"--%>
-  <script async defer src="$ThemeDir/js/frontend/cms.js"></script>
+  <script async defer src="$ThemeDir/js/frontend/dist/cms.js"></script>
 <% end_if %>
 <%--Rich Snippets Start--%>
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
-  "@type": "Organization",
-  "url": "http://",
-  "logo": "http:///themes/stack/img/logo.png",
-  "contactPoint": [{
-    "@type": "ContactPoint",
-    "telephone": "+39-02-35-99-7654",
-    "contactType": "customer support",
-    "areaServed": [
-      "IT"
-    ],
-    "availableLanguage": {
-      "@type": "Language",
-      "name": ["Italian"]
-    }
-  }],
-  "name": ""
-}, {
-  "@context": "http://schema.org",
-  "@type": "",
-  "name": "",
-  "url": "http://",
-  "image": "http:///themes/stack/img/logo.png",
-  "@id": "http://",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "",
-    "addressLocality": "",
-    "addressRegion": "",
-    "postalCode": "",
-    "addressCountry": "IT"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": ,
-    "longitude":
-  },
-  "telephone": "+39-"
-}, {
-  "@context": "http://schema.org",
-  "@type": "WebSite",
-  "name": "",
-  "url": "http://"
+  "@graph": [{
+    "@type": "Organization",
+    "url": "http://",
+    "logo": "http:///themes/stack/img/logo.png",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+39-02-35-99-7654",
+      "contactType": "customer support",
+      "areaServed": [
+        "IT"
+      ],
+      "availableLanguage": {
+        "@type": "Language",
+        "name": ["Italian"]
+      }
+    }],
+    "name": ""
+  }, {
+    "@context": "http://schema.org",
+    "@type": "",
+    "name": "",
+    "url": "http://",
+    "image": "http:///themes/stack/img/logo.png",
+    "@id": "http://",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "",
+      "addressLocality": "",
+      "addressRegion": "",
+      "postalCode": "",
+      "addressCountry": "IT"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": ,
+      "longitude":
+    },
+    "telephone": "+39-"
+  }, {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "",
+    "url": "http://"
+  }]
 }
 </script>
 <%--Rich Snippets End--%>

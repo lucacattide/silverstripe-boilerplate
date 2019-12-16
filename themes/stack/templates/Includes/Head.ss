@@ -26,37 +26,27 @@
   <link rel="preload" href="$ThemeDir/manifest.json" as="script">
   <link rel="preload" href="//code.jquery.com/jquery-3.4.1.min.js" as="script">
   <% if $ClassName == "HomePage" %>
-    <%--TODO: CSS prefix in production must be changed to "$ThemeDir/css/dist/"--%>
-    <link rel="preload" href="$ThemeDir/home.css" as="style">
-    <%--TODO: JS prefix in production must be changed to "$ThemeDir/js/frontend/dist/"--%>
-    <link rel="preload" href="$ThemeDir/js/frontend/home.js" as="script">
+    <link rel="preload" href="$ThemeDir/css/dist/home.css" as="style">
+    <link rel="preload" href="$ThemeDir/js/frontend/dist/home.js" as="script">
   <% else_if $ClassName == "PrivacyPage" %>
-    <%--TODO: CSS prefix in production must be changed to "$ThemeDir/css/dist/"--%>
-    <link rel="preload" href="$ThemeDir/css/privacy.css" as="style">
-    <%--TODO: JS prefix in production must be changed to "$ThemeDir/js/frontend/dist/"--%>
-    <link rel="preload" href="$ThemeDir/js/frontend/privacy.js" as="script">
+    <link rel="preload" href="$ThemeDir/css/dist/privacy.css" as="style">
+    <link rel="preload" href="$ThemeDir/js/frontend/dist/privacy.js" as="script">
   <% else_if $ClassName == "Security" %>
-    <%--TODO: CSS prefix in production must be changed to "$ThemeDir/css/dist/"--%>
-    <link rel="preload" href="$ThemeDir/css/cms.css" as="style">
-    <%--TODO: JS prefix in production must be changed to "$ThemeDir/js/frontend/dist/"--%>
-    <link rel="preload" href="$ThemeDir/js/frontend/cms.js" as="script">
+    <link rel="preload" href="$ThemeDir/css/dist/cms.css" as="style">
+    <link rel="preload" href="$ThemeDir/js/frontend/dist/cms.js" as="script">
   <% end_if %>
   <link rel="preload" href="$ThemeDir/js/frontend/refresh.js" as="script">
   <link rel="preload" href="$ThemeDir/js/frontend/install.js" as="script">
   <%--Preload End--%>
   <%--Inizio Importazione Stili--%>
   <% if $ClassName == "HomePage" %>
-    <%--TODO: CSS prefix in production must be changed to "$ThemeDir/css/dist/"--%>
-    <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/home.css">
+    <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/dist/home.css">
   <% else_if $ClassName == "PrivacyPage" %>
-    <%--TODO: CSS prefix in production must be changed to "$ThemeDir/css/dist/"--%>
-    <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/privacy.css">
+    <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/dist/privacy.css">
   <% else_if $ClassName == "Security" %>
-    <%--TODO: CSS prefix in production must be changed to "$ThemeDir/css/dist/"--%>
-    <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/cms.css">
+    <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/dist/cms.css">
   <% else %>
-    <%--TODO: CSS prefix in production must be changed to "$ThemeDir/css/dist/"--%>
-    <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/main.css">
+    <link rel="stylesheet dns-prefetch" href="$ThemeDir/css/dist/main.css">
   <% end_if %>
   <%--Fine Importazione Stili--%>
   <link rel="icon dns-prefetch" type="image/png" href="/favicon.png" />

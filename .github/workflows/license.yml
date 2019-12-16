@@ -1,0 +1,10 @@
+name: License validation flow
+on: push
+jobs:
+  automation:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Validate license
+      uses: datreeio/validate-license-action@master
+      with:
+        args: Apache-2.0

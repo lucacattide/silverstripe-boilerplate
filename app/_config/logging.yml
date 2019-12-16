@@ -16,9 +16,9 @@ SilverStripe\Core\Injector\Injector:
   MailHandler:
       class: Monolog\Handler\NativeMailerHandler
       constructor:
-        - l.cattide@email.it
+        - info@lucacattide.dev
         - There was an error on your site
-        - l.cattide@email.it
+        - info@lucacattide.dev
         - error
       properties:
         ContentType: text/html

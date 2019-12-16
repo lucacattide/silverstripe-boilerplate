@@ -22,10 +22,10 @@
     <p class="container__body">
       I Cookies tecnici sono richiesti per fornire le funzionalità base del sito web.<br />
 			Per visualizzare l'elenco aggiornato e la procedura per la loro disattivazione, <a class="body__link" href="privacy#cookies" title="Cookie Policy"
-				tabindex="300" target="new" tabindex="103">consulta l'apposita pagina</a>.<br /><br />
+				tabindex="300" target="new" tabindex="103" rel="noopener">consulta l'apposita pagina</a>.<br /><br />
 			I Cookies di terze parti vengono utilizzati per le funzionalità accessorie del sito web, come l'analisi di traffico, la visualizzazione di elementi multimediali/interattivi o altro.<br />
 			Modalità di elaborazione ed invio dei dati, così come le informazioni sui soggetti coinvolti, sono disponibili nel <a class="body__link " href="privacy#gdpr" title="Regolamentazione generale sulla protezione dei dati"
-				tabindex="104" target="new">paragrafo dedicato</a> e nei rispettivi links di seguito.<br />
+				tabindex="104" target="new" rel="noopener">paragrafo dedicato</a> e nei rispettivi links di seguito.<br />
 			Puoi attivare o disattivare i Cookies di terze parti, selezionando la voce corrispondente dalla lista e salvando le tue preferenze cliccando su "Salva".<br />
 			Per la disattivazione totale di questi Cookies, clicca su "Opt-Out"*.<br /><br />
 			* Qualora le funzionalità descritte siano soggette a disattivazione – tutte od in parte, alcuni dei servizi forniti da stack potrebbero risultare inutilizzabili.
