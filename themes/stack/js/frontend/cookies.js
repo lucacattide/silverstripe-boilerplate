@@ -7,10 +7,21 @@
  */
 function ck(n, v) {
   const s = new Date();
+  let path = '';
+
+  /**
+   * Google Check
+   * It disables secure flag on it due to Tag Manager incompatibility
+   */
+  if (n === 'google_stack') {
+    path = '; path=/';
+  } else {
+    path = '; path=/; secure';
+  }
 
   s.setDate(s.getDate() + 30);
   document.cookie = n + '=' + escape(v) + '; expires=' + s.toGMTString() +
-    '; path=/;secure';
+  path;
 }
 
 /**

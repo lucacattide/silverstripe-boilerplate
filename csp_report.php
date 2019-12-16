@@ -1,6 +1,6 @@
 <?php
   // TODO: Replace email
-  define('EMAIL', 'l.cattide@email.it');
+  define('EMAIL', 'info@lucacattide.dev');
   define('SUBJECT', 'CSP violation');
 
   http_response_code(204);

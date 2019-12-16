@@ -6,51 +6,49 @@ let deferredInstallPrompt = null;
 let installButton = document.getElementById('');
 
 installButton.addEventListener('click', installPWA);
-
 window.addEventListener('beforeinstallprompt', saveBeforeInstallPromptEvent);
-
-// TODO: Remove in production
 window.addEventListener('appinstalled', logAppInstalled);
 
 /**
- * Event handler for beforeinstallprompt event.
+ * @description  * Event handler for beforeinstallprompt event.
  * Saves the event & shows install button.
- *
- * @param {Event} evt
+ * @author Luca Cattide
+ * @date 2019-12-16
+ * @param {Event} e Event
  */
-function saveBeforeInstallPromptEvent(evt) {
-  deferredInstallPrompt = evt;
+function saveBeforeInstallPromptEvent(e) {
+  deferredInstallPrompt = e;
 
   installButton.removeAttribute('hidden');
 }
 
 /**
- * Event handler for butInstall - Does the PWA installation.
- *
- * @param {Event} evt
+ * @description Event handler for butInstall - Does the PWA installation.
+ * @author Luca Cattide
+ * @date 2019-12-16
+ * @param {Event} e Event
  */
-function installPWA(evt) {
+function installPWA(e) {
+  e.srcElement.setAttribute('hidden', true);
   deferredInstallPrompt.prompt();
-  evt.srcElement.setAttribute('hidden', true);
-  deferredInstallPrompt.userChoice
-      .then(function(choice) {
-      // TODO: Remove in production
-        if (choice.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt', choice);
-        } else {
-          console.log('User dismissed the A2HS prompt', choice);
-        }
+  deferredInstallPrompt.userChoice.then(function(choice) {
+    if (choice.outcome === 'accepted') {
+      console.log('User accepted the A2HS prompt', choice);
+    } else {
+      console.log('User dismissed the A2HS prompt', choice);
+    }
 
-        deferredInstallPrompt = null;
-      });
+    deferredInstallPrompt = null;
+  });
 }
 
 /**
- * Event handler for appinstalled event.
+ * @description Event handler for appinstalled event.
  * Log the installation to analytics or save the event somehow.
- *
- * @param {Event} evt
+ * @author Luca Cattide
+ * @date 2019-12-16
+ * @param {Event} e Event
  */
-function logAppInstalled(evt) {
-  console.log('Weather App was installed.', evt);
+function logAppInstalled(e) {
+  // TODO: Some implementation
 }
