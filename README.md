@@ -1,7 +1,6 @@
 # [Boilerplate] Silverstripe
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/lucacattide/silverstripe-boilerplate.svg?style=for-the-badge)
-[![GitHub release](https://img.shields.io/badge/Release-3.0.0-lightgrey.svg?style=for-the-badge)](https://github.com/lucacattide/silverstripe-boilerplate/releases/tag/3.0.0)
 ![Github All Releases downloads](https://img.shields.io/github/downloads/lucacattide/silverstripe-boilerplate/total.svg?style=for-the-badge)
 [![GitHub contributors](https://img.shields.io/badge/Contributors-1-lightgrey.svg?style=for-the-badge)](https://github.com/lucacattide/silverstripe-boilerplate/graphs/contributors)
 ![GitHub issues](https://img.shields.io/github/issues/lucacattide/silverstripe-boilerplate.svg?style=for-the-badge)
@@ -42,7 +41,7 @@ SilverStripe boilerplate.
 
 ## 3) Privacy Policy
 
-NAME, pursuant to Art. 13 of the Italian Legislative Decree N. 196/2003 - Privacy Code, in its capacity as data controller, informs you that the data concerning you will be used for execution of the contractual relationship that binds you, as well as for the provision of services directly instrumental to this relationship. The data will be processed by electronic and paper means, according to strictly instrumental methods to the pursuit of the indicated purpose, as well as indicated in the Italian Legislative Decree N. 679/16 - GDPR. The conferment of yours, is necessary for the execution of the contractual relationship with you in place. The information concerning you may be used by employees and consultants of NAME designated in charge of processing or by third parties who hold the qualification of external managers for completion of the operations connected to the aforementioned purpose. Except as indicated above, and for what follows in the paragraph 4), the communication of your data to third parties may only be carried out for the fulfillment of legal obligations or for accounting purposes, as well as to implement the existing contractual relationship. Except for the indications contained in the aforementioned paragraph, your data will not be disclosed or transferred abroad. The data controller is NAME, with headquarters in Viale Fulvio Testi 74, 20125 Milan, Italy. The list updated by the managers and the employees is available at NAME and is available for consultation to be made by E-Mail at the address E-MAIL or through any channel indicated in the paragraph 4). To have full clarity about the operations we referred to you and to exercise the rights of access, rectification, opposition to the treatment and the other rights referred to in Art. 7 of the Italian Legislative Decree. 196/2003 (Consolidated Law - Privacy Code) we can contact the manager for the management of the requests of the interested parties by letter sent by e-mail to the address E-MAIL or as indicated in the paragraph 4).
+NAME, pursuant to Art. 13 of the Italian Legislative Decree N. 196/2003 - Privacy Code, in its capacity as data controller, informs you that the data concerning you will be used for execution of the contractual relationship that binds you, as well as for the provision of services directly instrumental to this relationship. The data will be processed by electronic and paper means, according to strictly instrumental methods to the pursuit of the indicated purpose, as well as indicated in the Italian Legislative Decree N. 679/16 - GDPR. The conferment of yours, is necessary for the execution of the contractual relationship with you in place. The information concerning you may be used by employees and consultants of NAME designated in charge of processing or by third parties who hold the qualification of external managers for completion of the operations connected to the aforementioned purpose. Except as indicated above, and for what follows in the paragraph 4), the communication of your data to third parties may only be carried out for the fulfillment of legal obligations or for accounting purposes, as well as to implement the existing contractual relationship. Except for the indications contained in the aforementioned paragraph, your data will not be disclosed or transferred abroad. The data controller is NAME, with headquarters in ADDRESS. The list updated by the managers and the employees is available at NAME and is available for consultation to be made by E-Mail at the address E-MAIL or through any channel indicated in the paragraph 4). To have full clarity about the operations we referred to you and to exercise the rights of access, rectification, opposition to the treatment and the other rights referred to in Art. 7 of the Italian Legislative Decree. 196/2003 (Consolidated Law - Privacy Code) we can contact the manager for the management of the requests of the interested parties by letter sent by e-mail to the address E-MAIL or as indicated in the paragraph 4).
 
 NAME, using the cookies technology for technical and informational purposes, presents the list of third-party advertising features involved in paragraph 5). The data - of a sensitive nature - that authorize the users identification, based on the use of the services on the URL site - which could be collected subject to explicit consent, together with the data - of a non-sensitive nature - that follow only the interaction and the user experience in relation to the website in question - as indicated - are subject to processing according to the current rules and provisions dictated by the aforementioned disclosure. This is to allow the services involved to function properly. In addition to determining the volume and quality of traffic generated by the activity of displaying and consulting the website contents, in accordance with what is described by the Google guidelines (http://tinyurl.com/lal99wg). The information acquired will be stored for a period of time strictly dependent on the parameters and settings dictated and envisaged by these technologies. The latter, consistent with the local, international and third party legal guidelines involved. NAME also declares to not acquire, without explicit consent, personal information in order to integrate them with impersonal data collected through a third-party product or advertising function. The use of NAME implicitly intends to accept the conditions set by the European legislation on cookies and therefore considers the consent of the user approved. It's possible to deactivate these data collection technologies through the settings on Google ads - in addition to the indications in the relevant section - or any other available means, in line with the deactivation feature for consumers provided for by the NAI regulations. If the described features are subject to deactivation - all or part of it, some of the services provided by NAME may be unusable.
 
@@ -76,7 +75,7 @@ For information please consult the European Directive (http://tinyurl.com/qayqqh
    - Website: URL;
 
 - Registrations
-  - © NAME 2019. All Rights reserved.
+  - © NAME 2020. All Rights reserved.
 
 ## 7) Licenses
 
@@ -87,19 +86,3 @@ For information please consult the European Directive (http://tinyurl.com/qayqqh
 - Third-party softwares are covered by respective EULA;
 
 - Only proprietary content of NAME, are covered by Creative Commons License - Attribution - No Derivative Works 3.0 Italy [CC BY-ND 3.0 IT (http://tinyurl.com/k5thym8)];
-
-Through this license, NAME assigns to user a non-exclusive right to use the work.
-The user is authorized to:
-
-- Use the work until the deadline and / or conditions have expired;
-- Allow the use of the work by third parties within the limits of what normal use allows (with the exception of access to sources or other - if not allowed);
-
-The user is not authorized to:
-
-- Use the work for the direct provision of paid services to third parties, except as expressly provided in this license;
-- Modify the work in any part, none excluded - if not permitted;
-- Access any sources for any purpose (including appropriation, copying, re-use or otherwise - if not permitted);
-- Transmit or provide access to any sources to third parties - if not permitted;
-- Sub-license, rent, sell, rent, distribute or otherwise transfer the work or part of it - if not permitted;
-
-Any third-party works used retain their license.
