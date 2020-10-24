@@ -164,17 +164,7 @@ Please read about its specifications before commit on any branch.
 
 ### Commits
 
-- __< Label/Title >: < Description >__;
-
-- __Label__: Implementation subject identification label (if expected);
-- __Title__: Short unique naming of the implementation subject
-- __Description__: Short descriptive note of the implementation done;
-
-I.e.
-
-```
-	Update: Icons updated;
-```
+Official Udacity Git commit message style guide is used. Please consult the docs (http://udacity.github.io/git-styleguide/) for details.
 
 
 ### Merges
